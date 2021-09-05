@@ -6,10 +6,10 @@ import Lobby from './components/lobby/Lobby';
 import Settings from './components/settings/Settings';
 import Welcome from './components/welcome/Welcome';
 
-
 function App() {
   return (
     <div className="App">
+
       <h1>HI!</h1>
       <Switch>
         <Route exact path="/" render={() => <Welcome />}></Route>
