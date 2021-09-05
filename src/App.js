@@ -8,7 +8,7 @@ import Welcome from './components/welcome/Welcome';
 
 function App() {
   return (
-    <div className="App">
+    <div className="app">
 
       <h1>HI!</h1>
       <Switch>

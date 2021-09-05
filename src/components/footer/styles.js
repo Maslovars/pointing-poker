@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const StyledFooter = styled.div`
+export const StyledFooter = styled.div`
   background-color: ${ props => props.background || 'navy'};
   width: ${ props => props.width || '99vw' };
   height: ${ props => props.height || '8vh' };
@@ -11,21 +11,33 @@ const StyledFooter = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  & > a {
-    display: block;
-    height: 70%;
-    width: auto;
-    margin: 0 2%;
-    text-decoration: none;
+`
+export const StyledLink = styled.a`
+  display: block;
+  font-size: 1.5vmin;
+  color: dimgray;
+  text-decoration: none;
+  margin: 0 2%;
+  transform: rotate(-15deg);
+  &:hover {
+    color: white;
   }
 `
-const StyledImg = styled.img`
+export const MentorLink = styled(StyledLink)`
+  transform: none;
+`
+
+export const CourseLink = styled(MentorLink)`
+  height: 80%;
+`
+
+export const StyledImg = styled.img`
   background-color: white;
   height: 100%;
 `
-const StyledContainer = styled.div`
+export const StyledContainer = styled.div`
   height: 70%;
-  width: 50%;
+  width: 55%;
   border: 5px double dimgray;
   border-radius: 10px;
   display: flex;
@@ -33,21 +45,10 @@ const StyledContainer = styled.div`
   justify-content: space-around;
   position: relative;
   margin: 0 2%;
-  & a {
-    font-size: 1.5vmin;
-    color: dimgray;
-    text-decoration: none;
-  }
-  & a:hover {
-    color: white;
-  }
-  & > a {
-    transform: rotate(-15deg);
-  }
 `
-const MentorContainer = styled.div`
+export const MentorContainer = styled.div`
   height: 60%;
-  width: auto;
+  width: 25%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -57,7 +58,12 @@ const MentorContainer = styled.div`
     margin: 0;
   } 
 `
-const StyledContainerTitle = styled.p`
+export const MentorText = styled.p`
+  font-size: 2vmin;
+  margin: 0;
+`
+
+export const StyledContainerTitle = styled.p`
   display: block;
   font-size: 2vh;
   position: absolute;
@@ -67,11 +73,9 @@ const StyledContainerTitle = styled.p`
   margin: 0;
   top: -1vh;
 `
-const Year = styled.p`
+export const Year = styled.p`
   display: block;
   font-size: 3vmin;
   font-weight: bold;
   color: lightgray;
 `
-
-export { StyledFooter, StyledImg, StyledContainer, StyledContainerTitle, MentorContainer, Year };
