@@ -1,7 +1,13 @@
 import React from 'react';
+import ConnectionForm from '../connectionForm/ConnectionForm';
 
 const Welcome = () => {
-    return <div>Welcome</div>
+    return (
+        <div>
+            Welcome
+            <ConnectionForm />
+        </div>
+    )
 
 }
 
