@@ -5,11 +5,12 @@ import Game from './components/game/Game';
 import Lobby from './components/lobby/Lobby';
 import Settings from './components/settings/Settings';
 import Welcome from './components/welcome/Welcome';
+import Header from './components/header/Header';
 
 function App() {
   return (
     <div className="app">
-
+      <Header />
       <h1>HI!</h1>
       <Switch>
         <Route exact path="/" render={() => <Welcome />}></Route>
