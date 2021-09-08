@@ -22,9 +22,10 @@ function App() {
           <Route path="/settings" render={() => <Settings />} ></Route>
           <Route path="/game" render={() => <Game />} ></Route>
         </Switch>
+        <Cards mode='master' />
         <Footer />
-        <Cards />
       </div>
+      
     </Provider>
   );
 }

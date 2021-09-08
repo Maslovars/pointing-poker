@@ -5,9 +5,7 @@ export const StyledFooter = styled.div`
   background-color: ${ theme.colors.dark_blue };
   width: ${ props => props.width || '99vw' };
   height: ${ props => props.height || '8vh' };
-  position: absolute;
-  bottom: 0;
-  left: .5vw;
+  margin: 0 auto;
   color: ${ theme.colors.white };
   display: flex;
   align-items: center;
