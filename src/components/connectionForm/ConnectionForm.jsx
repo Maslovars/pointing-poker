@@ -1,6 +1,8 @@
 import { useFormik } from "formik";
 import { useState } from "react";
 import Switch from 'react-input-switch';
+import Button from "../button/Button";
+import Input from "../input/Input";
 
 const ConnectionForm = () => {
 
@@ -13,7 +15,9 @@ const ConnectionForm = () => {
             position: "",
             ava: "",
             // isObserver: "no"
-        }
+        },
+        onSubmit: values => console.log(values)
+
     })
 
     console.log();
@@ -27,17 +31,17 @@ const ConnectionForm = () => {
             </>
 
             <form onSubmit={formik.handleSubmit}>
-                <label htmlFor="firstName">Your first name:</label>
-                <input
+                <Input
+                    text="Your first name:"
                     id="firstName"
                     name="firstName"
                     type="text"
                     onChange={formik.handleChange}
                     value={formik.values.firstName}
-                />
+                    required />
 
-                <label htmlFor="lastName">Your last name (optional):</label>
-                <input
+                <Input
+                    text="Your last name (optional):"
                     id="lastName"
                     name="lastName"
                     type="text"
@@ -45,8 +49,8 @@ const ConnectionForm = () => {
                     value={formik.values.lastName}
                 />
 
-                <label htmlFor="position">Your job position (optional):</label>
-                <input
+                <Input
+                    text="Your job position (optional):"
                     id="position"
                     name="position"
                     type="text"
@@ -55,15 +59,17 @@ const ConnectionForm = () => {
                 />
 
                 <label htmlFor="ava">Image:</label>
-                <input
-                    id="ava"
-                    name="ava"
-                    type="file"
+                <div>
+                    <input
+                        id="ava"
+                        name="ava"
+                        type="file"
 
-                />
-
-                <button type="submit">Confirm</button>
-                <button>Cancel</button>
+                    />
+                    <Button text="button" />
+                </div>
+                <Button text="Confirm" height="big" type="submit" />
+                <Button color="white" text="Cancel" height="big" />
             </form>
         </div>
     )
