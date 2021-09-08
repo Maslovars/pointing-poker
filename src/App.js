@@ -10,7 +10,7 @@ import Header from './components/header/Header';
 function App() {
   return (
     <div className="app">
-      <Header />
+      <Header text='Your text could be here...'/>
       <h1>HI!</h1>
       <Switch>
         <Route exact path="/" render={() => <Welcome />}></Route>
