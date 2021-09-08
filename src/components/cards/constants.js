@@ -6,5 +6,6 @@ export const mode = {
 export const type = {
   creator: 'creator',
   rest: 'rest',
+  playCard: 'play card',
 }
 

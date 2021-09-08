@@ -4,7 +4,7 @@ import { theme } from '../../common/theme';
 
 export const StyledHeader = styled.div`
   position: relative;
-  width: 99vw;
+  width: 98vw;
   height: ${ props => props.height || '8vh'};
   background-image: url(${back});
   background-size: 100% 100%;

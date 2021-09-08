@@ -1,5 +1,16 @@
+import { type } from '../../components/cards/constants';
+
 export const initState = {
-   counter: {
-       count: 10,
-   } 
+  cards: {
+    cardsSet: [
+      {
+        type: type.playCard,
+        name: 'SP',
+        value: '12',
+      },
+      {
+        type: type.rest,
+      }
+    ]
+  }, 
 }

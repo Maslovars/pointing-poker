@@ -3,7 +3,7 @@ import { theme } from '../../common/theme';
 
 export const StyledFooter = styled.div`
   background-color: ${ theme.colors.dark_blue };
-  width: ${ props => props.width || '99vw' };
+  width: ${ props => props.width || '98vw' };
   height: ${ props => props.height || '8vh' };
   margin: 0 auto;
   color: ${ theme.colors.white };
