@@ -7,7 +7,8 @@ export const theme = {
         gray: "#C4C4C4",
         dimgray: '#696969',
         black: "#000000",
-        white: "#FFFFFF"
+        white: "#FFFFFF",
+        lightcyan: '#E0FFFF', 
     },
     transition: "0.75s"
 }
