@@ -9,7 +9,6 @@ import Welcome from './components/welcome/Welcome';
 function App() {
   return (
     <div className="app">
-
       <h1>HI!</h1>
       <Switch>
         <Route exact path="/" render={() => <Welcome />}></Route>
