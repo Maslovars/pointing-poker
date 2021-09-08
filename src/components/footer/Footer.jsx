@@ -16,7 +16,7 @@ const Footer = (props) => {
   return (
     <StyledFooter {...props}>
       <StyledContainer>
-        <StyledContainerTitle {...props}>created by</StyledContainerTitle>
+        <StyledContainerTitle>created by</StyledContainerTitle>
         <StyledLink href='https://github.com/armonlis' target='_blank' title='Siarhei Khonski github' rel='noreferrer'>Siarhei Khonski</StyledLink>
         <StyledLink href='https://github.com/Maslovars' target='_blank' title='Arseniy Maslov github' rel='noreferrer'>Arseniy Maslov</StyledLink>
         <StyledLink href='https://github.com/zalart' target='_blank' title='Artur Zaleuski github' rel='noreferrer'>Artur Zaleuski</StyledLink>

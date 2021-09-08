@@ -1,13 +1,14 @@
 import styled from 'styled-components';
+import { theme } from '../../common/theme';
 
 export const StyledFooter = styled.div`
-  background-color: ${ props => props.background || 'navy'};
+  background-color: ${ theme.colors.dark_blue };
   width: ${ props => props.width || '99vw' };
   height: ${ props => props.height || '8vh' };
   position: absolute;
   bottom: 0;
   left: .5vw;
-  color: ${props => props.color || 'white'};
+  color: ${ theme.colors.white };
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -15,12 +16,12 @@ export const StyledFooter = styled.div`
 export const StyledLink = styled.a`
   display: block;
   font-size: 1.5vmin;
-  color: dimgray;
+  color: ${ theme.colors.dimgray };
   text-decoration: none;
   margin: 0 2%;
   transform: rotate(-15deg);
   &:hover {
-    color: white;
+    color: ${ theme.colors.white };
   }
 `
 export const MentorLink = styled(StyledLink)`
@@ -32,13 +33,13 @@ export const CourseLink = styled(MentorLink)`
 `
 
 export const StyledImg = styled.img`
-  background-color: white;
+  background-color: ${ theme.colors.white};
   height: 100%;
 `
 export const StyledContainer = styled.div`
   height: 70%;
   width: 55%;
-  border: 5px double dimgray;
+  border: 5px double ${ theme.colors.dimgray};
   border-radius: 10px;
   display: flex;
   align-items: center;
@@ -67,7 +68,7 @@ export const StyledContainerTitle = styled.p`
   display: block;
   font-size: 2vh;
   position: absolute;
-  background-color: ${ props => props.background || 'navy' };
+  background-color: ${ theme.colors.dark_blue};
   min-width: 15%;
   left: 40%;
   margin: 0;
@@ -77,5 +78,5 @@ export const Year = styled.p`
   display: block;
   font-size: 3vmin;
   font-weight: bold;
-  color: lightgray;
+  color: ${ theme.colors.gray};
 `
