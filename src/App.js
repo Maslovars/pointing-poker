@@ -8,7 +8,6 @@ import Welcome from './components/welcome/Welcome';
 import Header from './components/header/Header';
 import { Provider } from 'react-redux';
 import { store } from '../src/redux/store/store';
-import { ReduxTest } from './components/reduxtest/reduxtest';
 
 function App() {
   return (
@@ -22,7 +21,6 @@ function App() {
           <Route path="/settings" render={() => <Settings />} ></Route>
           <Route path="/game" render={() => <Game />} ></Route>
         </Switch>
-        <ReduxTest />
         <Footer />
       </div>
     </Provider>
