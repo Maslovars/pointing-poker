@@ -15,16 +15,19 @@ import {
 const ConnectionForm = () => {
 
     const [value, setValue] = useState('Connect as observer');
+    const [usersData, setUsersData] = useState([]);
 
     const formik = useFormik({
         initialValues: {
             firstName: "",
             lastName: "",
             position: "",
+            room: "",
             ava: "",
             // isObserver: "no"
         },
         onSubmit: values => {
+           
             joinSocketRoom(values);
         }
 
@@ -54,7 +57,9 @@ const ConnectionForm = () => {
 
     const addSocketListeners = () => {
         //socket.on(RECEIVE_MESSAGE, handleIncomingMessage)
-        socket.on('SHOW_USERS', (data) => { console.log(data)})
+        socket.on('SHOW_USERS', (data) => { 
+            setUsersData(data);
+        })
         socket.on(USER_CONNECTED, handleUserConnect)
         socket.on(USER_DISCONNECTED, handleUserDisconnect)
       }
@@ -65,20 +70,29 @@ const ConnectionForm = () => {
         socket.off(USER_DISCONNECTED, handleUserDisconnect)
       }
 
+      const leaveRoomHandler = () => {
+        if (socket.id) {
+            socket.emit('LEAVE_ROOM', socket.id);
+            setUsersData({});
+          }
+      };
+
       useEffect(() => {
         joinSocketRoom();
         addSocketListeners();
         return () => removeSocketListeners();
       }, [])
 
-
+     
     return (
         <div>
-            <h2>Connect to lobby</h2>
-            <>
+            <h2>
+            {usersData.length > 0 ? `Connected to lobby room: ${usersData[0].room}` : `Connect to Lobby`}
+            </h2>
+            {usersData.length > 0 && usersData.map( user => <div key={user.id}>USER ID: {user.id} - Firstname: {user.firstName}</div> )}
                 {value}
                 <Switch on="Connect as player" off="Connect as observer" value={value} onChange={setValue} />
-            </>
+            
 
             <form onSubmit={formik.handleSubmit}>
                 <Input
@@ -108,6 +122,15 @@ const ConnectionForm = () => {
                     value={formik.values.position}
                 />
 
+                <Input
+                    text="Room name (temporary field for users to join room):"
+                    id="room"
+                    name="room"
+                    type="text"
+                    onChange={formik.handleChange}
+                    value={formik.values.room}
+                />
+
                 <label htmlFor="ava">Image:</label>
                 <div>
                     <input
@@ -116,11 +139,12 @@ const ConnectionForm = () => {
                         type="file"
 
                     />
-                    <Button type="button" text="Button" />
                 </div>
-                <Button text="Confirm" height="big" type="submit" />
-                <Button color="white" text="Cancel" height="big" />
+                <Button text="Enter" height="big" type="submit" />
+                <Button type="button" color="white" text="Cancel" height="big" />
+                
             </form>
+            <Button action={leaveRoomHandler} type="button" color="white" text="Leave" height="big" />
             
         </div>
     )
