@@ -1,16 +1,19 @@
-import { type } from '../../components/cards/constants';
+import { CardType } from '../../components/cards/constants';
 
 export const initState = {
   cards: {
     cardsSet: [
       {
-        type: type.playCard,
+        type: CardType.playCard,
         name: 'SP',
         value: '12',
       },
       {
-        type: type.rest,
+        type: CardType.rest,
+        name: 'take a rest',
+        value: CardType.rest, 
       }
-    ]
+    ],
+    settingsMode: false,
   }, 
 }

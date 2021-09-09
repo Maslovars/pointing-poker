@@ -6,7 +6,6 @@ import Lobby from './components/lobby/Lobby';
 import Settings from './components/settings/Settings';
 import Welcome from './components/welcome/Welcome';
 import Header from './components/header/Header';
-import Cards from './components/cards/Cards';
 import { Provider } from 'react-redux';
 import { store } from '../src/redux/store/store';
 
@@ -22,10 +21,8 @@ function App() {
           <Route path="/settings" render={() => <Settings />} ></Route>
           <Route path="/game" render={() => <Game />} ></Route>
         </Switch>
-        <Cards mode='master' />
         <Footer />
       </div>
-      
     </Provider>
   );
 }
