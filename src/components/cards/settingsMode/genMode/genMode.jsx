@@ -3,7 +3,7 @@ import { genMethod, eventTypes } from '../../constants';
 
 export function GenMode() {
   return <Wrapper>
-    <p>Enter card name (max. 12 signs):</p>
+    <p>Enter card name (max. 6 signs):</p>
     <input id={eventTypes.addCardName} type='text' placeholder='Enter name...' />
     <p>Choose method:</p>
     <select id={eventTypes.changeMethod}>

@@ -3,7 +3,7 @@ import { eventTypes, CardType } from "../../constants";
 
 export function CardMode() {
   return <Wrapper>
-      <p>Enter card name (max. 12 signs):</p>
+      <p>Enter card name (max. 6 signs):</p>
       <input id={eventTypes.addCardName} type='text' placeholder='Enter name...' />
       <p>Enter card value (max. 4 signs):</p>
       <input id={eventTypes.addCardValue} type='text' placeholder='Enter value...' />

@@ -41,13 +41,13 @@ function handler(event) {
   const type = event.target.id.replace(/[0-9]/g, '');
   if (type === eventTypes.edit) { cardEditor(id) }
   if (type === eventTypes.cancel) { cancelEdit(id) }
-  if (type === eventTypes.name) { name = event.target.value.slice(0, 12) }
+  if (type === eventTypes.name) { name = event.target.value.slice(0, 7) }
   if (type === eventTypes.value) { value = event.target.value.slice(0, 4) }
   if (type === eventTypes.accept) { acceptEdit({id, name, value}) }
   if (type === eventTypes.delete) { cardDelete(id) }
   if (type === eventTypes.newCard) { openSetting() }
   if (type === eventTypes.closeSettings) { closeSetting() }
-  if (type === eventTypes.addCardName) { name = event.target.value.slice(0, 12) }
+  if (type === eventTypes.addCardName) { name = event.target.value.slice(0, 7) }
   if (type === eventTypes.addCardValue) { value = event.target.value.slice(0, 4) }
   if (type === eventTypes.acceptSettings && !method) { addCards([{type: typeCard, name, value, addCheck}]); closeSetting() }
   if (type === eventTypes.acceptSettings && method) { newCards = cardGenerator({name, method, num});addCards(newCards); closeSetting() }
