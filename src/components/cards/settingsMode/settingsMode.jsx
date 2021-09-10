@@ -5,6 +5,7 @@ import cancel from '../../../assets/cancel-card.png';
 import { eventTypes } from '../constants';
 import { useState } from "react";
 import { CardMode } from './cardMode/CardMode';
+import { GenMode } from "./genMode/genMode";
  
 export function SettingsMode() {
   const [mode, setMode] = useState({ card: 'checked', set: '' });
@@ -19,7 +20,7 @@ export function SettingsMode() {
         </RadioBttnsContainer>
       </ChooseContainer>
       <Wiever>
-      { mode.card === 'checked' ? <CardMode /> : ''  }
+      { mode.card === 'checked' ? <CardMode /> : <GenMode /> }
       </Wiever>
       <BttnContainer>
         <StyledButton id={eventTypes.acceptSettings} type='image' src={accept} />

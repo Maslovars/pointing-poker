@@ -1,5 +1,5 @@
 import { Wrapper } from "./style";
-import { eventTypes } from "../../constants";
+import { eventTypes, CardType } from "../../constants";
 
 export function CardMode() {
   return <Wrapper>
@@ -10,9 +10,10 @@ export function CardMode() {
       <p>Or choose a standart card:</p>
       <select id={eventTypes.changeType}>
         <option></option>
-        <option>REST</option>
-        <option>QUESTION</option>
-        <option>SKIP</option>
+        <option>{CardType.rest.toUpperCase()}</option>
+        <option>{CardType.question.toUpperCase()}</option>
+        <option>{CardType.skip.toUpperCase()}</option>
+        <option>{CardType.infinity.toUpperCase()}</option>
       </select>
   </Wrapper>
 }

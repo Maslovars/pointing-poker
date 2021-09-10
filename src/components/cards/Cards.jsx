@@ -2,8 +2,9 @@ import { CardsContainer } from "./styles"
 import { Card } from './card'
 import { CardsMode, CardType, eventTypes } from './constants';
 import { connect } from 'react-redux';
-import { editCard, editCardCancel, editCardAccept, deleteCard, openCloseSettings, addNewCards } from '../../redux/actions/actions'
+import { editCard, editCardCancel, editCardAccept, deleteCard, openCloseSettings, addNewCards, selectCard } from '../../redux/actions/actions'
 import { SettingsMode } from './settingsMode/settingsMode';
+import { cardGenerator } from './settingsMode/genMode/generator';
 
 function Cards(props) {
   const { cards,
@@ -15,25 +16,29 @@ function Cards(props) {
     cardDelete,
     openSetting,
     closeSetting,
-    addCards
+    addCards,
+    selCard,
   } = props;
   let name = '';
   let value = '';
   let typeCard = CardType.playCard;
   let addCheck = false;
   let newCards = [];
+  let method = '';
+  let num = 2;
   return ( 
     <CardsContainer onClick={(event) => handler(event)} onChange={(event) => handler(event)}>
-      { cards.map((conf, index) => <Card key={index} buttonId={index} type={conf.type} name={conf.name} value={conf.value} mode={mode}/>) }
+      { cards.map((conf, index) => <Card key={index} buttonId={index} 
+        type={conf.type} name={conf.name} value={conf.value} 
+        selected={conf.selected} mode={mode}/>) }
       { mode === CardsMode.master ? <Card type={ CardType.creator } /> : ''}
       { mode === CardsMode.master &&  settingsMode === true ? <SettingsMode /> : ''} 
     </CardsContainer>
   )
 
 function handler(event) {
-  const id = event.target.id.replace(/[a-z]/ig, '');
+  const id = event.target.id.replace(/[a-z _]/ig, '');
   const type = event.target.id.replace(/[0-9]/g, '');
-  console.log('HANDLER>>>>',type, 'ID>>>>', id );
   if (type === eventTypes.edit) { cardEditor(id) }
   if (type === eventTypes.cancel) { cancelEdit(id) }
   if (type === eventTypes.name) { name = event.target.value.slice(0, 12) }
@@ -44,8 +49,12 @@ function handler(event) {
   if (type === eventTypes.closeSettings) { closeSetting() }
   if (type === eventTypes.addCardName) { name = event.target.value.slice(0, 12) }
   if (type === eventTypes.addCardValue) { value = event.target.value.slice(0, 4) }
-  if (type === eventTypes.acceptSettings) { addCards([{type: typeCard, name, value, addCheck}]); closeSetting() }
+  if (type === eventTypes.acceptSettings && !method) { addCards([{type: typeCard, name, value, addCheck}]); closeSetting() }
+  if (type === eventTypes.acceptSettings && method) { newCards = cardGenerator({name, method, num});addCards(newCards); closeSetting() }
   if (type === eventTypes.changeType) { typeCard = event.target.value.toLowerCase(); addCheck = true}
+  if (type === eventTypes.changeMethod) { method = event.target.value }
+  if (type === eventTypes.changeNum) { num = event.target.value }
+  if (type === eventTypes.selectCard) { selCard(id) }
 }
 }
 
@@ -62,6 +71,7 @@ function mapDispatchToState(dispatch) {
     openSetting: () => dispatch(openCloseSettings(true)),
     closeSetting: () => dispatch(openCloseSettings(false)),
     addCards: (data) => dispatch(addNewCards(data)),
+    selCard: (id) => dispatch(selectCard(id)),
   }
 }
 

@@ -107,3 +107,16 @@ export const DeleteButton = styled(StyledButton)`
   left: 1vh;
   bottom: 1vh;
 `
+export const Glass = styled.div`
+  width: 100%;
+  height: 100%;
+  background-color: ${ theme.colors.white };
+  opacity: 0;
+  position: absolute;
+  border-radius: 10px;
+  top: 0;
+  left: 0;
+  cursor: pointer;
+  ${ props => props.selected ? '{ cursor: default; background-color: green; opacity: .5; }' : '' };
+`
+

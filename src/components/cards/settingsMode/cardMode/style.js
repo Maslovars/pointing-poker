@@ -7,9 +7,9 @@ export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-around;
+  justify-content: top;
   & p {
-    margin: 3px;
+    margin: 5px;
     font-size: 14px;
   }
   & input {
