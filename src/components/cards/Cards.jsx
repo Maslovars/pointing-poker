@@ -2,13 +2,26 @@ import { CardsContainer } from "./styles"
 import { Card } from './card'
 import { CardsMode, CardType, eventTypes } from './constants';
 import { connect } from 'react-redux';
-import { editCard, editCardCancel, editCardAccept, deleteCard, openCloseSettings } from '../../redux/actions/actions'
+import { editCard, editCardCancel, editCardAccept, deleteCard, openCloseSettings, addNewCards } from '../../redux/actions/actions'
 import { SettingsMode } from './settingsMode/settingsMode';
 
 function Cards(props) {
-  const { cards, mode, settingsMode, cardEditor, cancelEdit, acceptEdit, cardDelete, openSetting, closeSetting } = props;
+  const { cards,
+    mode,
+    settingsMode,
+    cardEditor,
+    cancelEdit,
+    acceptEdit,
+    cardDelete,
+    openSetting,
+    closeSetting,
+    addCards
+  } = props;
   let name = '';
   let value = '';
+  let typeCard = CardType.playCard;
+  let addCheck = false;
+  let newCards = [];
   return ( 
     <CardsContainer onClick={(event) => handler(event)} onChange={(event) => handler(event)}>
       { cards.map((conf, index) => <Card key={index} buttonId={index} type={conf.type} name={conf.name} value={conf.value} mode={mode}/>) }
@@ -29,8 +42,11 @@ function handler(event) {
   if (type === eventTypes.delete) { cardDelete(id) }
   if (type === eventTypes.newCard) { openSetting() }
   if (type === eventTypes.closeSettings) { closeSetting() }
+  if (type === eventTypes.addCardName) { name = event.target.value.slice(0, 12) }
+  if (type === eventTypes.addCardValue) { value = event.target.value.slice(0, 4) }
+  if (type === eventTypes.acceptSettings) { addCards([{type: typeCard, name, value, addCheck}]); closeSetting() }
+  if (type === eventTypes.changeType) { typeCard = event.target.value.toLowerCase(); addCheck = true}
 }
-
 }
 
 function mapStatetoProps(state) {
@@ -45,6 +61,7 @@ function mapDispatchToState(dispatch) {
     cardDelete: (id) => dispatch(deleteCard(id)),
     openSetting: () => dispatch(openCloseSettings(true)),
     closeSetting: () => dispatch(openCloseSettings(false)),
+    addCards: (data) => dispatch(addNewCards(data)),
   }
 }
 

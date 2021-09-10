@@ -17,10 +17,12 @@ import cup from '../../assets/cup-card.png';
 import pencil from '../../assets/edit-card.png';
 import accept from '../../assets/accept-card.png';
 import cancel from '../../assets/cancel-card.png';
+import question from '../../assets/question-card.png';
+import skip from '../../assets/skip-card.png';
 
 export function Card(props) {
   const { name, value, type, mode, buttonId } = props;
-  if (type === CardType.creator) { return <StyledCard {...props}><CardImage id={eventTypes.newCard} src={ plus } alt=''/></StyledCard> } 
+  if (type === CardType.creator) { return <StyledCard  {...props}><CardImage pointer id={eventTypes.newCard} src={ plus } alt=''/></StyledCard> } 
   if (type === CardType.edit && mode === CardsMode.master) {
     const card = <StyledCard>
       <CardLabel>Name:
@@ -38,9 +40,11 @@ export function Card(props) {
   }
   const card = <StyledCard>
     <TopName>{name}</TopName>
-    { type === CardType.rest ? <CardImage src={ cup } alt=''/> : <Value>{value}</Value> } 
+    { type === CardType.rest ? <CardImage src={ cup } alt=''/> : 
+      type === CardType.skip ? <CardImage src={ skip } alt=''/> : 
+      type === CardType.question ? <CardImage src={ question } alt=''/> : <Value>{value}</Value> }   
     <BottomName>{name}</BottomName>
-    { mode && mode === CardsMode.master && type !== CardType.rest ? <CardButton id={buttonId + eventTypes.edit} type='image' src={pencil} /> : ''}
+    { mode && mode === CardsMode.master && !CardType.hasOwnProperty(type) ? <CardButton id={buttonId + eventTypes.edit} type='image' src={pencil} /> : ''}
     { mode && mode === CardsMode.master ? <DeleteButton classNmae='delBttn' id={buttonId + eventTypes.delete} type='image' src={cancel} /> : ''}
   </StyledCard>;
   return card;

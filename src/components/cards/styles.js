@@ -20,7 +20,7 @@ export const StyledCard = styled.div`
   flex-direction: column;
   background-color: ${ theme.colors.lightcyan };
   filter: drop-shadow(5px 5px ${ theme.colors.dimgray });
-  margin: 0 1vw;
+  margin: 1vh 1vw;
   position: relative;
   ${ props => props.type === CardType.creator || CardType.rest ? 'justify-content: space-around' : 'justify-content: space-between' };
   ${ props => props.type === CardType.creator ? `{ opacity: 50%; &:hover { opacity: 1 }; }` : '' };
@@ -28,7 +28,7 @@ export const StyledCard = styled.div`
 export const CardImage = styled.img`
   align-self: center;
   width: 50%;
-  cursor: pointer;
+  ${ props => props.pointer ? `{ cursor: pointer }` : '' };
 `
 
 export const Name = styled.p`

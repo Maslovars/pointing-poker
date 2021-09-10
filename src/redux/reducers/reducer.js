@@ -1,12 +1,13 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { initState } from '../config/initState';
-import { CardType } from '../../components/cards/constants'
+import { CardType, defaultNames } from '../../components/cards/constants'
 import {
   editCard,
   editCardCancel,
   editCardAccept,
   deleteCard,
   openCloseSettings,
+  addNewCards,
 } from '../actions/actions.js'
 
 export const appState = createReducer(initState, builder =>
@@ -37,6 +38,15 @@ export const appState = createReducer(initState, builder =>
     .addCase(openCloseSettings, (state, action) => {
       const newState = state;
       newState.cards.settingsMode = action.payload;
+      return newState;
+    })
+    .addCase(addNewCards, (state, action) => {
+      const newState = state;
+      const array = action.payload;
+      if (array.length === 1 && array[0].addCheck === true) {
+        if (array[0].name === '') {array[0].name = defaultNames[array[0].type]}
+      }
+      newState.cards.cardsSet.unshift(...array);
       return newState;
     })
     .addDefaultCase(() => {})   
