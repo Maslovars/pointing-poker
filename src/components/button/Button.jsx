@@ -1,10 +1,10 @@
 import { StyledButton } from "./style";
 
 
-const Button = ({ action, color, height, width, text }) => {
+const Button = ({ onClick, color, height, width, text }) => {
     return (
         <StyledButton
-            onClick={action}
+            onClick={onClick}
             color={color}
             width={width}
             height={height}
