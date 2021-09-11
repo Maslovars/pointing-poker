@@ -15,12 +15,16 @@ export const appState = createReducer(initState, builder =>
   builder
     .addCase(editCard, (state, action) => {
       const newState = state;
-      newState.cards.cardsSet[action.payload].type = CardType.edit;
+      if (!newState.cards.cardEditMode) {
+        newState.cards.cardsSet[action.payload].type = CardType.edit;
+        newState.cards.cardEditMode = true;
+      } else { return }
       return newState;
     })
     .addCase(editCardCancel, (state, action) => {
       const newState = state;
       newState.cards.cardsSet[action.payload].type = CardType.playCard;
+      newState.cards.cardEditMode = false;
       return newState;
     })
     .addCase(editCardAccept, (state, action) => {
@@ -28,6 +32,7 @@ export const appState = createReducer(initState, builder =>
       newState.cards.cardsSet[action.payload.id].type = CardType.playCard;
       if (action.payload.name) { newState.cards.cardsSet[action.payload.id].name = action.payload.name }
       if (action.payload.value) { newState.cards.cardsSet[action.payload.id].value = action.payload.value }
+      newState.cards.cardEditMode = false;
       return newState;
     })
     .addCase(deleteCard, (state, action) => {

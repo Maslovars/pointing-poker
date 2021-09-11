@@ -10,6 +10,7 @@ export const initState = {
         selected: false, 
       }
     ],
+    cardEditMode: false,
     value: '',
     settingsMode: false,
   }, 

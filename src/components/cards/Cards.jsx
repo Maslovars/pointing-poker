@@ -26,6 +26,7 @@ function Cards(props) {
   let newCards = [];
   let method = '';
   let num = 2;
+  
   return ( 
     <CardsContainer onClick={(event) => handler(event)} onChange={(event) => handler(event)}>
       { cards.map((conf, index) => <Card key={index} buttonId={index} 
