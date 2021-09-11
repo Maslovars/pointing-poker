@@ -1,4 +1,3 @@
-import { StyledButton } from "../button/style";
 import { InputContainer, StyledInput, StyledInputGroup, StyledLabel } from "./style";
 
 
@@ -7,10 +6,11 @@ const Input = ({ id, text, endBtn, ...props }) => {
         <StyledInputGroup>
             <StyledLabel
                 htmlFor={id}
+                {...props}
             >{text}</StyledLabel>
             <InputContainer>
                 <StyledInput {...props} />
-                {endBtn && <StyledButton>{endBtn}</StyledButton>}
+                {endBtn && <>{endBtn}</>}
             </InputContainer>
         </StyledInputGroup>
     )

@@ -5,8 +5,15 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-.app {
+/* .app {
   text-align: center;
+} */
+
+.container {
+  padding: 0 15px;
+  margin: 0 auto;
+  max-width: 1000px;
+  min-width: 500px;
 }
 
 
