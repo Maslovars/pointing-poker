@@ -7,7 +7,7 @@ import {
   SET_SETTINGS_MODE,
   ADD_NEW_CARDS,
   SELECT_CARD,
-} from './constants';
+ } from './constants';
 
 export const editCard = createAction(EDIT_CARD);
 export const editCardCancel = createAction(EDIT_CARD_CANCEL);

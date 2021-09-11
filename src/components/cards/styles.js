@@ -117,6 +117,6 @@ export const Glass = styled.div`
   top: 0;
   left: 0;
   cursor: pointer;
-  ${ props => props.selected ? '{ cursor: default; background-color: green; opacity: .5; }' : '' };
+  ${ props => props.selected ? '{ background-color: green; opacity: .5; }' : '' };
 `
 

@@ -50,7 +50,7 @@ export function Card(props) {
     { mode && mode === CardsMode.master && !CardType.hasOwnProperty(type) ? <CardButton id={buttonId + eventTypes.edit} type='image' src={pencil} /> : ''}
     { mode && mode === CardsMode.master ? <DeleteButton classNmae='delBttn' id={buttonId + eventTypes.delete} type='image' src={cancel} /> : ''}
     { (!mode || mode === CardsMode.player) && !selected ? <Glass className={selected} id={buttonId + eventTypes.selectCard} /> : '' }
-    { (!mode || mode === CardsMode.player) && selected ? <Glass className={selected} selected/> : '' }
+    { (!mode || mode === CardsMode.player) && selected ? <Glass className={selected} selected id={buttonId + eventTypes.selectCard}/> : '' }
   </StyledCard>;
   return card;
 }

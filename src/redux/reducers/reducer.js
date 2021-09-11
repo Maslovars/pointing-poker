@@ -8,7 +8,7 @@ import {
   deleteCard,
   openCloseSettings,
   addNewCards,
-  selectCard
+  selectCard,
 } from '../actions/actions.js'
 
 export const appState = createReducer(initState, builder =>
@@ -61,9 +61,16 @@ export const appState = createReducer(initState, builder =>
     .addCase(selectCard, (state, action) => {
       const newState = state;
       newState.cards.cardsSet.forEach((card, index) => {
-        index === Number(action.payload) ? card.selected = true : card.selected = false;
+        if (index === Number(action.payload)) {
+          if (card.selected === true) {
+            card.selected = false;
+            newState.cards.value = '';
+          } else {
+            card.selected = true;
+            newState.cards.value = String(newState.cards.cardsSet[action.payload].value);
+          }
+        } else { card.selected = false }
       });
-      newState.cards.value = String(newState.cards.cardsSet[action.payload].value);
       return newState;
     })
     .addDefaultCase(() => {})   
