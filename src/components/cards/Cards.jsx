@@ -11,13 +11,9 @@ function Cards(props) {
     mode,
     settingsMode,
     cardEditor,
-    cancelEdit,
-    acceptEdit,
-    cardDelete,
     openSetting,
     closeSetting,
     addCards,
-    selCard,
   } = props;
   let name = '';
   let value = '';
@@ -41,11 +37,6 @@ function handler(event) {
   const id = event.target.id.replace(/[a-z _]/ig, '');
   const type = event.target.id.replace(/[0-9]/g, '');
   if (type === eventTypes.edit) { cardEditor(id) }
-  if (type === eventTypes.cancel) { cancelEdit(id) }
-  if (type === eventTypes.name) { name = event.target.value.slice(0, 7) }
-  if (type === eventTypes.value) { value = event.target.value.slice(0, 4) }
-  if (type === eventTypes.accept) { acceptEdit({id, name, value}) }
-  if (type === eventTypes.delete) { cardDelete(id) }
   if (type === eventTypes.newCard) { openSetting() }
   if (type === eventTypes.closeSettings) { closeSetting() }
   if (type === eventTypes.addCardName) { name = event.target.value.slice(0, 7) }
@@ -55,7 +46,6 @@ function handler(event) {
   if (type === eventTypes.changeType) { typeCard = event.target.value.toLowerCase(); addCheck = true}
   if (type === eventTypes.changeMethod) { method = event.target.value }
   if (type === eventTypes.changeNum) { num = event.target.value }
-  if (type === eventTypes.selectCard) { selCard(id) }
 }
 }
 

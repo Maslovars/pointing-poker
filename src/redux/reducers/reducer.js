@@ -29,6 +29,7 @@ export const appState = createReducer(initState, builder =>
     })
     .addCase(editCardAccept, (state, action) => {
       const newState = state;
+      console.log('REDUCER>>>', action.payload)
       newState.cards.cardsSet[action.payload.id].type = CardType.playCard;
       if (action.payload.name) { newState.cards.cardsSet[action.payload.id].name = action.payload.name }
       if (action.payload.value) { newState.cards.cardsSet[action.payload.id].value = action.payload.value }

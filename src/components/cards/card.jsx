@@ -21,21 +21,26 @@ import cancel from '../../assets/cancel-card.png';
 import question from '../../assets/question-card.png';
 import skip from '../../assets/skip-card.png';
 import infinity from '../../assets/infinity-card.png';
+import { useDispatch } from 'react-redux';
+import { deleteCard, selectCard, editCardCancel, editCardAccept  } from '../../redux/actions/actions';
 
 export function Card(props) {
+
+  const dispath = useDispatch();
   const { name, value, type, mode, buttonId, selected } = props;
+  const cardSample = {value: '', name: ''};
   if (type === CardType.creator) { return <StyledCard  {...props}><CardImage pointer id={eventTypes.newCard} src={ plus } alt=''/></StyledCard> } 
   if (type === CardType.edit && mode === CardsMode.master) {
     const card = <StyledCard>
       <CardLabel>Name:
-        <CardInput id={buttonId + eventTypes.name} type='text' placeholder={name} />
+        <CardInput type='text' placeholder={name} onChange={(event) => cardSample.name = event.target.value.slice(0, 6)} />
       </CardLabel> 
       <CardLabel>Value:
-        <CardInput id={buttonId + eventTypes.value} type='text' placeholder={value} />
+        <CardInput type='text' placeholder={value} onChange={(event) => cardSample.value = event.target.value.slice(0, 4)} />
       </CardLabel>
       <ButtonContainer>
-        <StyledButton id={buttonId + eventTypes.accept} type='image' src={accept} />
-        <StyledButton id={buttonId + eventTypes.cancel} type='image' src={cancel} />
+        <StyledButton id={buttonId + eventTypes.accept} type='image' src={accept} onClick={(event) => dispath(editCardAccept({ id: event.target.id.replace(/\D/g, ''), ...cardSample }))} />
+        <StyledButton id={buttonId + eventTypes.cancel} type='image' src={cancel} onClick={(event) => dispath(editCardCancel(event.target.id.replace(/\D/g, '')))} />
       </ButtonContainer>
     </StyledCard>
     return card;
@@ -48,10 +53,12 @@ export function Card(props) {
       type === CardType.question ? <CardImage src={ question } alt=''/> : <Value>{value}</Value> }   
     <BottomName>{name}</BottomName>
     { mode && mode === CardsMode.master && !CardType.hasOwnProperty(type) ? <CardButton id={buttonId + eventTypes.edit} type='image' src={pencil} /> : ''}
-    { mode && mode === CardsMode.master ? <DeleteButton classNmae='delBttn' id={buttonId + eventTypes.delete} type='image' src={cancel} /> : ''}
-    { (!mode || mode === CardsMode.player) && !selected ? <Glass className={selected} id={buttonId + eventTypes.selectCard} /> : '' }
-    { (!mode || mode === CardsMode.player) && selected ? <Glass className={selected} selected id={buttonId + eventTypes.selectCard}/> : '' }
+    { mode && mode === CardsMode.master ? <DeleteButton id={buttonId + eventTypes.delete} type='image' src={cancel} onClick={(event) => dispath(deleteCard(event.target.id.replace(/\D/g, '')))} /> : ''}
+    { (!mode || mode === CardsMode.player) && !selected ? <Glass id={buttonId + eventTypes.selectCard} onClick={(event) => dispath(selectCard(event.target.id.replace(/\D/g, '')))} /> : '' }
+    { (!mode || mode === CardsMode.player) && selected ? <Glass id={buttonId + eventTypes.selectCard} selected onClick={(event) => dispath(selectCard(event.target.id.replace(/\D/g, '')))} /> : '' }
   </StyledCard>;
   return card;
 }
+
+
 
