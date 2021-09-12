@@ -1,7 +1,7 @@
-import styled from 'styled-components';
-import { theme } from '../../../../common/theme'
+import styled from "styled-components";
+import { theme } from "../../../../common/theme";
 
-export const Wrapper = styled.div`
+const Wrapper = styled.div`
   width: 100%;
   height: 100%;
   display: flex;
@@ -13,12 +13,12 @@ export const Wrapper = styled.div`
     font-size: 14px;
   }
   & input {
-      width: 50%;
-      height: 16px;
-      text-align: right;
-      border: none;
-      outline: none;
-      border-radius: 5px;
+    width: 50%;
+    height: 16px;
+    text-align: right;
+    border: none;
+    outline: none;
+    border-radius: 5px;
   }
   & select {
     height: 16px;
@@ -26,6 +26,8 @@ export const Wrapper = styled.div`
     background-color: ${theme.colors.white};
     border: none;
     outline: none;
-    border-radius: 5px;  
+    border-radius: 5px;
   }
-`
+`;
+
+export default Wrapper;

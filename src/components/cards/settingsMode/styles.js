@@ -6,27 +6,27 @@ export const SetWraper = styled.div`
   height: 100%;
   display: flex;
   flex-direction: column;
-`
+`;
 
 export const Glass = styled.div`
   width: 100%;
   height: 100%;
-  background-color: ${ theme.colors.white };
-  opacity: .5;
+  background-color: ${theme.colors.white};
+  opacity: 0.5;
   position: absolute;
   top: 0;
   left: 0;
-`
+`;
 
 export const Settings = styled.div`
   width: 480px;
   height: 260px;
-  background-color: ${ theme.colors.lightcyan };
+  background-color: ${theme.colors.lightcyan};
   border-radius: 20px;
   position: absolute;
   align-self: center;
   top: 3vh;
-`
+`;
 
 export const BttnContainer = styled.div`
   width: 120px;
@@ -37,7 +37,7 @@ export const BttnContainer = styled.div`
   position: absolute;
   left: 180px;
   top: 210px;
-`
+`;
 export const ChooseContainer = styled.div`
   width: 400px;
   height: 50px;
@@ -54,7 +54,7 @@ export const ChooseContainer = styled.div`
     font-size: 14px;
     margin: 3px;
   }
-`
+`;
 
 export const RadioBttnsContainer = styled.div`
   width: 100%;
@@ -71,7 +71,7 @@ export const RadioBttnsContainer = styled.div`
     display: flex;
     align-items: center;
   }
-`
+`;
 export const Wiever = styled.div`
   width: 400px;
   height: 140px;
@@ -83,4 +83,4 @@ export const Wiever = styled.div`
   position: absolute;
   left: 40px;
   top: 70px;
-`
+`;

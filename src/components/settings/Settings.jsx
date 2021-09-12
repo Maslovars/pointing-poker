@@ -1,12 +1,12 @@
 import React from 'react';
-import { Cards } from '../cards/Cards.jsx';
+import Cards from '../cards/Cards.jsx';
 import { connect } from 'react-redux'
 
 const Settings = (props) => {
   const {cardsSettings, cardsValue} = props;
     return <div>
-      <Cards mode='master' settingsMode={cardsSettings}/>
-      <Cards />
+      <Cards mode='master' />
+      <Cards mode='player' />
       <div>
         <p>Cards value:</p>
         <p>{cardsValue}</p>

@@ -1,6 +1,6 @@
-import styled from 'styled-components';
-import { theme } from '../../common/theme';
-import { CardType } from './constants';
+import styled from "styled-components";
+import { theme } from "../../common/theme";
+import { CardType } from "./constants";
 
 export const CardsContainer = styled.div`
   min-height: 30vh;
@@ -11,54 +11,60 @@ export const CardsContainer = styled.div`
   justify-content: center;
   flex-wrap: wrap;
   position: relative;
-`
+`;
 export const StyledCard = styled.div`
   height: 18vh;
   width: 12vh;
   border-radius: 10px;
   display: flex;
   flex-direction: column;
-  background-color: ${ theme.colors.lightcyan };
-  filter: drop-shadow(5px 5px ${ theme.colors.dimgray });
+  background-color: ${theme.colors.lightcyan};
+  filter: drop-shadow(5px 5px ${theme.colors.dimgray});
   margin: 1vh 1vw;
   position: relative;
-  ${ props => props.type === CardType.creator || CardType.rest ? 'justify-content: space-around' : 'justify-content: space-between' };
-  ${ props => props.type === CardType.creator ? `{ opacity: 50%; &:hover { opacity: 1 }; }` : '' };
-`
+  ${(props) =>
+    props.type === CardType.creator || CardType.rest
+      ? "justify-content: space-around"
+      : "justify-content: space-between"};
+  ${(props) =>
+    props.type === CardType.creator
+      ? "{ opacity: 50%; &:hover { opacity: 1 }; }"
+      : ""};
+`;
 export const CardImage = styled.img`
   align-self: center;
   width: 50%;
-  ${ props => props.pointer ? `{ cursor: pointer }` : '' };
-`
+  ${(props) => (props.pointer ? "{ cursor: pointer }" : "")};
+`;
 
 export const Name = styled.p`
   font-size: 2vh;
   font-weight: bold;
   margin: 0;
-`
+`;
 export const TopName = styled(Name)`
   text-align: left;
   align-self: left;
   margin-left: 5%;
-`
+`;
 export const BottomName = styled(Name)`
   text-align: right;
   align-self: right;
   margin-right: 5%;
-`
+`;
 
 export const Value = styled.p`
   align-self: center;
   font-size: 5vh;
   font-weight: bold;
   margin: 0;
-`
+`;
 export const CardButton = styled.input`
   width: 3vh;
   height: 3vh;
   border: 2px solid ${theme.colors.dimgray};
-  border-radius: .5vh;
-  opacity: .5;
+  border-radius: 0.5vh;
+  opacity: 0.5;
   outline: none;
   position: absolute;
   top: 1vh;
@@ -68,13 +74,13 @@ export const CardButton = styled.input`
     border: 2px solid ${theme.colors.dimgray};
     opacity: 1;
   }
-`
+`;
 
 export const CardLabel = styled.label`
   font-size: 2vh;
   font-weight: bold;
   align-self: center;
-`
+`;
 
 export const CardInput = styled.input`
   text-align: right;
@@ -83,7 +89,7 @@ export const CardInput = styled.input`
   outline: none;
   border: none;
   border-radius: 5px;
-`
+`;
 
 export const ButtonContainer = styled.div`
   height: 30%;
@@ -92,31 +98,33 @@ export const ButtonContainer = styled.div`
   align-items: center;
   justify-content: space-between;
   align-self: center;
-`
+`;
 export const StyledButton = styled.input`
   width: 3vh;
   height: 3vh;
-  opacity: .7;
+  opacity: 0.7;
   outline: none;
   background: ${theme.colors.lightcyan};
-  &:hover { opacity: 1; }
-`
+  &:hover {
+    opacity: 1;
+  }
+`;
 
 export const DeleteButton = styled(StyledButton)`
   position: absolute;
   left: 1vh;
   bottom: 1vh;
-`
+`;
 export const Glass = styled.div`
   width: 100%;
   height: 100%;
-  background-color: ${ theme.colors.white };
+  background-color: ${theme.colors.white};
   opacity: 0;
   position: absolute;
   border-radius: 10px;
   top: 0;
   left: 0;
   cursor: pointer;
-  ${ props => props.selected ? '{ background-color: green; opacity: .5; }' : '' };
-`
-
+  ${(props) =>
+    props.selected ? "{ background-color: green; opacity: .5; }" : ""};
+`;
