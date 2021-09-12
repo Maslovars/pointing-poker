@@ -1,8 +1,24 @@
 import React from 'react';
+import Cards from '../cards/Cards.jsx';
+import { connect } from 'react-redux'
 
-const Settings = () => {
-    return <div>Settings</div>
-
+const Settings = (props) => {
+  const {cardsSettings, cardsValue} = props;
+    return <div>
+      <Cards mode='master' />
+      <Cards mode='player' />
+      <div>
+        <p>Cards value:</p>
+        <p>{cardsValue}</p>
+      </div>  
+    </div>
 }
 
-export default Settings;
+function mapStatetoProps(state) {
+  return {
+    cardsSettings: state.appState.cards.settingsMode,
+    cardsValue: state.appState.cards.value,
+  }
+}
+
+export default connect(mapStatetoProps)(Settings);

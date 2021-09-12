@@ -1,5 +1,16 @@
+import { CardType } from '../../components/cards/constants';
+
 export const initState = {
-   counter: {
-       count: 10,
-   } 
+  cards: {
+    cardsSet: [
+      {
+        type: CardType.rest,
+        name: 'take a rest',
+        value: CardType.rest,
+        selected: false, 
+      }
+    ],
+    cardEditMode: false,
+    value: '',
+  }, 
 }
