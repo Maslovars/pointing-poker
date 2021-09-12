@@ -11,16 +11,17 @@ import { store } from '../src/redux/store/store';
 
 function App() {
   return (
-    <Provider store={ store }>
+    <Provider store={store}>
       <div className="app">
-        <Header text='Your text could be here...'/>
-        <h1>HI!</h1>
-        <Switch>
-          <Route exact path="/" render={() => <Welcome />}></Route>
-          <Route path="/lobby" render={() => <Lobby />} ></Route>
-          <Route path="/settings" render={() => <Settings />} ></Route>
-          <Route path="/game" render={() => <Game />} ></Route>
-        </Switch>
+        <Header text='Your text could be here...' />
+        <div className="container">
+          <Switch>
+            <Route exact path="/" render={() => <Welcome />}></Route>
+            <Route path="/lobby" render={() => <Lobby />} ></Route>
+            <Route path="/settings" render={() => <Settings />} ></Route>
+            <Route path="/game" render={() => <Game />} ></Route>
+          </Switch>
+        </div>
         <Footer />
       </div>
     </Provider>
