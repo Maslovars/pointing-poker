@@ -22,14 +22,14 @@ import question from '../../assets/question-card.png';
 import skip from '../../assets/skip-card.png';
 import infinity from '../../assets/infinity-card.png';
 import { useDispatch } from 'react-redux';
-import { deleteCard, selectCard, editCardCancel, editCardAccept  } from '../../redux/actions/actions';
+import { deleteCard, selectCard, editCardCancel, editCardAccept, editCard  } from '../../redux/actions/actions';
 
 export function Card(props) {
 
   const dispath = useDispatch();
   const { name, value, type, mode, buttonId, selected } = props;
   const cardSample = {value: '', name: ''};
-  if (type === CardType.creator) { return <StyledCard  {...props}><CardImage pointer id={eventTypes.newCard} src={ plus } alt=''/></StyledCard> } 
+  if (type === CardType.creator) { return <StyledCard  {...props}><CardImage pointer src={ plus } alt=''/></StyledCard> } 
   if (type === CardType.edit && mode === CardsMode.master) {
     const card = <StyledCard>
       <CardLabel>Name:
@@ -52,7 +52,7 @@ export function Card(props) {
       type === CardType.infinity ? <CardImage src={ infinity } alt=''/> : 
       type === CardType.question ? <CardImage src={ question } alt=''/> : <Value>{value}</Value> }   
     <BottomName>{name}</BottomName>
-    { mode && mode === CardsMode.master && !CardType.hasOwnProperty(type) ? <CardButton id={buttonId + eventTypes.edit} type='image' src={pencil} /> : ''}
+    { mode && mode === CardsMode.master && !CardType.hasOwnProperty(type) ? <CardButton id={buttonId + eventTypes.edit} type='image' src={pencil} onClick={(event) => dispath(editCard(event.target.id.replace(/\D/g, '')))} /> : ''}
     { mode && mode === CardsMode.master ? <DeleteButton id={buttonId + eventTypes.delete} type='image' src={cancel} onClick={(event) => dispath(deleteCard(event.target.id.replace(/\D/g, '')))} /> : ''}
     { (!mode || mode === CardsMode.player) && !selected ? <Glass id={buttonId + eventTypes.selectCard} onClick={(event) => dispath(selectCard(event.target.id.replace(/\D/g, '')))} /> : '' }
     { (!mode || mode === CardsMode.player) && selected ? <Glass id={buttonId + eventTypes.selectCard} selected onClick={(event) => dispath(selectCard(event.target.id.replace(/\D/g, '')))} /> : '' }

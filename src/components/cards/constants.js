@@ -47,3 +47,4 @@ export const genMethod = {
 export const fiboNum = [0, 1, 2, 3, 5, 8, 13, 21, 34];
 
 export const power2 = [1, 2, 4, 8, 16, 32, 64, 128, 256];
+

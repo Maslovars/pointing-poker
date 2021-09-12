@@ -12,6 +12,5 @@ export const initState = {
     ],
     cardEditMode: false,
     value: '',
-    settingsMode: false,
   }, 
 }

@@ -1,18 +1,19 @@
 import { Wrapper } from '../cardMode/style';
 import { genMethod, eventTypes } from '../../constants';
 
-export function GenMode() {
+export function GenMode(props) {
+  const { handler } = props;
   return <Wrapper>
     <p>Enter card name (max. 6 signs):</p>
-    <input id={eventTypes.addCardName} type='text' placeholder='Enter name...' />
+    <input type='text' placeholder='Enter name...' onChange={(event) => handler('name', event.target.value.slice(0, 6))} />
     <p>Choose method:</p>
-    <select id={eventTypes.changeMethod}>
+    <select onChange={(event) => handler('method', event.target.value)} >
       <option></option>
       <option>{genMethod.fibo}</option>
       <option>{genMethod.two}</option>
     </select>
     <p>Choose number of cards:</p>
-    <select id={eventTypes.changeNum}>
+    <select onChange={(event) => handler('num', event.target.value)} >
       <option>2</option>
       <option>3</option>
       <option>4</option>

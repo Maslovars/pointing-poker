@@ -1,5 +1,5 @@
 import React from 'react';
-import Cards from '../cards/Cards.jsx';
+import { Cards } from '../cards/Cards.jsx';
 import { connect } from 'react-redux'
 
 const Settings = (props) => {
