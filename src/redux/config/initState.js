@@ -16,6 +16,9 @@ export const initState = {
     value: '',
   }, 
   issues: {
+    lowSet: [],
+    middleSet: [],
+    hightSet: [],
     issuesSet: []
   }
 }

@@ -13,6 +13,7 @@ export const StyledInput = styled.input`
     line-height: 28px;
     height: 47px;
     width: ${p => p.width === "big" ? "465px" : "276px"};
+    width: ${p => p.width && !p.width.replace(/\d*px/, '') && p.width};
 `;
 
 export const StyledLabel = styled.label`
@@ -21,12 +22,14 @@ export const StyledLabel = styled.label`
     padding: 7px 0;  
     font-weight: ${p => p.fontWeight === "bold" ? "bold" : "normal"};
     font-style: ${p => p.fontStyle === "italic" ? "italic" : "normal"};
+    margin-right: ${p => p.marginTitleR && !p.marginTitleR.replace(/\d*px/, '') ? p.marginTitleR : '0px'}
 `;
 
 export const StyledInputGroup = styled.div`
     display: flex;
     justify-content: flex-start;
-    flex-direction: column;
+    flex-direction: ${p => p.direction === 'row' ? 'row' : 'column'};
+    margin: ${p => p.margin && !p.margin.replace(/[(\d*px) ]/g, '') ? p.margin : '0 0'};
 `;
 
 export const InputContainer = styled.div`

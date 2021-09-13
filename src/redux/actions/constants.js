@@ -5,3 +5,4 @@ export const DELETE_CARD = 'DELETE_CARD';
 export const SET_SETTINGS_MODE = 'SET_SETTINGS_MODE';
 export const ADD_NEW_CARDS = 'ADD_NEW_CARDS';
 export const SELECT_CARD = 'SELECT_CARD';
+export const ADD_NEW_ISSUE = 'ADD_NEW_ISSUE';

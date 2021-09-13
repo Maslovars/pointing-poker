@@ -2,7 +2,8 @@
 
 import { createReducer } from '@reduxjs/toolkit';
 import { initState } from '../config/initState';
-import { CardType, defaultNames } from '../../components/cards/constants'
+import { CardType, defaultNames } from '../../components/cards/constants';
+import { priorityTypes } from '../../components/issues/constants';
 import {
   editCard,
   editCardCancel,
@@ -10,6 +11,7 @@ import {
   deleteCard,
   addNewCards,
   selectCard,
+  addNewIssue,
 } from '../actions/actions.js'
 
 export const appState = createReducer(initState, builder =>
@@ -67,6 +69,18 @@ export const appState = createReducer(initState, builder =>
           }
         } else { card.selected = false }
       });
+      return newState;
+    })
+    .addCase(addNewIssue, (state, action) => {
+      const newState = state;
+      if (action.payload.name.length > 12) { action.payload.name = `${action.payload.name.slice(0, 12)}...` }
+      switch (action.payload.priority) {
+        case priorityTypes.low: newState.issues.lowSet.push(action.payload); break;
+        case priorityTypes.middle: newState.issues.middleSet.push(action.payload); break;
+        case priorityTypes.hight: newState.issues.hightSet.push(action.payload); break;
+        defauft: return;
+      }
+      newState.issues.issuesSet = newState.issues.hightSet.concat(newState.issues.middleSet, newState.issues.lowSet);
       return newState;
     })
     .addDefaultCase(() => {})   

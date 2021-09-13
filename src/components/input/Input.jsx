@@ -4,7 +4,7 @@ import { InputContainer, StyledInput, StyledInputGroup, StyledLabel } from "./st
 
 const Input = ({ id, text, endBtn, ...props }) => {
     return (
-        <StyledInputGroup>
+        <StyledInputGroup {...props}>
             <StyledLabel
                 htmlFor={id}
                 {...props}

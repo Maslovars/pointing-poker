@@ -5,7 +5,7 @@ import Issues from '../issues/Issues';
 import { connect } from 'react-redux';
 
 const Settings = (props) => {
-  const {cardsSettings, cardsValue} = props;
+  const {cardsValue} = props;
     return <div>
       <Cards mode='master' />
       <Cards mode='player' />
@@ -19,7 +19,6 @@ const Settings = (props) => {
 
 function mapStatetoProps(state) {
   return {
-    cardsSettings: state.appState.cards.settingsMode,
     cardsValue: state.appState.cards.value,
   }
 }

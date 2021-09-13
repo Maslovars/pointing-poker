@@ -1,15 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-// import { useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Wrapper } from './style';
 import Issue from './issue/issue';
-import { modeTypes } from './constants';
+import { modeTypes, issueTypes } from './constants';
 
 export default function Issues(props) {
   const { mode } = props;
-  //const issuesArr = useSelector((state) => state.appState.issues.issuesSet)
+  const issues = useSelector(store => store.appState.issues.issuesSet);
   return <Wrapper>
-    { mode === modeTypes.master && <Issue /> }
+    { issues.map(issue => <Issue key={issue.toString()} type={mode} title={issue.name} link={issue.link} priority={issue.priority} />) }
+    { mode === modeTypes.master && <Issue type={issueTypes.creator}/> }
   </Wrapper>
 }
 
