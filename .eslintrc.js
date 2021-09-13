@@ -5,12 +5,9 @@ module.exports = {
         "node": true
     },
     "extends": [
-        "airbnb", 
-        "airbnb/hooks",
-        "prettier"
-        //"plugin:@typescript-eslint/recommended"
+        "eslint:recommended",
+        "plugin:react/recommended"
     ],
-    //"parser": "@typescript-eslint/parser",
     "parserOptions": {
         "ecmaFeatures": {
             "jsx": true
@@ -19,8 +16,7 @@ module.exports = {
         "sourceType": "module"
     },
     "plugins": [
-        "react",
-        //"@typescript-eslint"
+        "react"
     ],
     "rules": {
     }

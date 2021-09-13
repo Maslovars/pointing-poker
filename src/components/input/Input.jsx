@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { InputContainer, StyledInput, StyledInputGroup, StyledLabel } from "./style";
 
 

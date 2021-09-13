@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import { useRef } from 'react';
 import Button from '../button/Button';
 import { StyledAva, StyledDiv, StyledFileUploader, StyledPar, StyledGroup } from './style';

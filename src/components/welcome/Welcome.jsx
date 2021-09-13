@@ -1,3 +1,4 @@
+/* eslint-disable */
 import ConnectionForm from '../connectionForm/ConnectionForm';
 import logo from "../../assets/welcome-logo.png"
 import { Logo, StyledPar, StyledText, StyledWelcome, WelcomeGroup } from './styles';

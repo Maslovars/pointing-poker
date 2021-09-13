@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import { CardType } from '../../components/cards/constants';
 
 export const initState = {
@@ -13,4 +15,7 @@ export const initState = {
     cardEditMode: false,
     value: '',
   }, 
+  issues: {
+    issuesSet: []
+  }
 }

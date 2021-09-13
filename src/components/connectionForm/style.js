@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import styled from "styled-components";
 import { theme } from "../../common/theme";
 

@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import { createReducer } from '@reduxjs/toolkit';
 import { initState } from '../config/initState';
 import { CardType, defaultNames } from '../../components/cards/constants'
