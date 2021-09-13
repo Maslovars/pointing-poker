@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 export const theme = {
     colors: {
         dark_blue: "#2B3A67",

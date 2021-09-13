@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import { useFormik } from "formik";
 import { useState, useEffect } from "react";
 import Switch from 'react-input-switch';

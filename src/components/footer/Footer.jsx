@@ -1,3 +1,4 @@
+import React from 'react';
 import {
   StyledFooter,
   StyledImg,
@@ -12,9 +13,7 @@ import {
 } from "./styles";
 import logo from '../../assets/rs_school_js.svg';
 
-const Footer = (props) => {
-  return (
-    <StyledFooter {...props}>
+const Footer = () => <StyledFooter>
       <StyledContainer>
         <StyledContainerTitle>created by</StyledContainerTitle>
         <StyledLink href='https://github.com/armonlis' target='_blank' title='Siarhei Khonski github' rel='noreferrer'>Siarhei Khonski</StyledLink>
@@ -30,8 +29,6 @@ const Footer = (props) => {
         <StyledImg src={logo} alt='RSSchool logo' />
       </CourseLink>
     </StyledFooter>
-  )
-}
 
 export default Footer;
 

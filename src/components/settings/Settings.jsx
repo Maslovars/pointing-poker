@@ -1,6 +1,8 @@
+/* eslint-disable */
 import React from 'react';
 import Cards from '../cards/Cards.jsx';
-import { connect } from 'react-redux'
+import Issues from '../issues/Issues';
+import { connect } from 'react-redux';
 
 const Settings = (props) => {
   const {cardsSettings, cardsValue} = props;
@@ -10,7 +12,8 @@ const Settings = (props) => {
       <div>
         <p>Cards value:</p>
         <p>{cardsValue}</p>
-      </div>  
+      </div> 
+      <Issues mode='master' /> 
     </div>
 }
 

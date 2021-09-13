@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import { Route, Switch } from 'react-router';
 import './App.css';
 import Footer from './components/footer/Footer';
