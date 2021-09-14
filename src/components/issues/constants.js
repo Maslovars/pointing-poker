@@ -12,6 +12,7 @@ export const issueTypes = {
 export const creatorMode = {
   default: 'default',
   createIssue: 'create_new_issue',
+  edit: 'edit'
 }
 
 export const priorityTypes = {
@@ -19,3 +20,4 @@ export const priorityTypes = {
   middle: 'middle',
   hight: 'hight'
 }
+

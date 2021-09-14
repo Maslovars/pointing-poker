@@ -2,21 +2,25 @@ import React, { useState } from 'react';
 import { StyledModal, StyledHeader, StyledSelect, SelectContainer, ButtonsContainer } from './style';
 import PropTypes from 'prop-types';
 import Input from '../../input/Input';
-import { priorityTypes } from '../constants';
+import { priorityTypes, creatorMode } from '../constants';
 import Button from '../../button/Button';
 import { addNewIssue } from '../../../redux/actions/actions';
 import { useDispatch } from 'react-redux';
+import randomWords from 'random-words';
 
-export default function Modal({closeHandler}) {
-  const [ state, setState ] = useState({ name: '', link: '', priority: priorityTypes.low })
+export default function Modal({closeHandler, mode, name, link, priority, id}) {
+  let [ state, setState] = [ undefined, undefined ];
+  if (mode === creatorMode.edit) { [ state, setState ] = useState({ name: name, link, priority, oldPriority: priority, id }) }
+  else { [ state, setState ] = useState({ name: '', link: '', priority: priorityTypes.low, id: randomWords() }) }
+  //console.log('MODAL>>>', state)
   const dispatch = useDispatch();
   return <StyledModal closeHandler={closeHandler}>
     <StyledHeader>Create issue:</StyledHeader>
-    <Input id='issue-name' text='Title:' fontWeight='bold' width='300px' direction='row' marginTitleR='20px' margin='20px 0px' onChange={(event) => setState({ ...state, name: event.target.value })}/>
-    <Input id='issue-link' text='Link:' fontWeight='bold' width='300px' direction='row' marginTitleR='24px' margin='20px 0px' onChange={(event) => setState({ ...state, link: event.target.value })}/>
+    <Input id='issue-name' text='Title:' defaultValue={name} fontWeight='bold' width='300px' direction='row' marginTitleR='20px' margin='20px 0px' onChange={(event) => setState({ ...state, name: event.target.value })}/>
+    <Input id='issue-link' text='Link:' defaultValue={link} fontWeight='bold' width='300px' direction='row' marginTitleR='24px' margin='20px 0px' onChange={(event) => setState({ ...state, link: event.target.value })}/>
     <SelectContainer>
       <p>Priority:</p>
-      <StyledSelect onChange={(event) => setState({ ...state, priority: event.target.value })}>
+      <StyledSelect defaultValue={priority} onChange={(event) => setState({ ...state, priority: event.target.value })}>
         <option value={priorityTypes.low}>{priorityTypes.low.toUpperCase()}</option>
         <option value={priorityTypes.middle}>{priorityTypes.middle.toUpperCase()}</option>
         <option value={priorityTypes.hight}>{priorityTypes.hight.toUpperCase()}</option>
@@ -31,4 +35,17 @@ export default function Modal({closeHandler}) {
 
 Modal.propTypes = {
   closeHandler: PropTypes.func.isRequired,
+  mode: PropTypes.string,
+  name: PropTypes.string,
+  link: PropTypes.string,
+  priority: PropTypes.string,
+  id: PropTypes.string,
+}
+
+Modal.defaultProps = {
+  mode: '',
+  name: '',
+  link: '',
+  priority: '',
+  id: ''
 }

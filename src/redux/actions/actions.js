@@ -7,6 +7,7 @@ import {
   ADD_NEW_CARDS,
   SELECT_CARD,
   ADD_NEW_ISSUE,
+  DELETE_ISSUE,
  } from './constants';
 
 export const editCard = createAction(EDIT_CARD);
@@ -16,3 +17,4 @@ export const deleteCard = createAction(DELETE_CARD);
 export const addNewCards = createAction(ADD_NEW_CARDS);
 export const selectCard = createAction(SELECT_CARD);
 export const addNewIssue = createAction(ADD_NEW_ISSUE);
+export const deleteIssue = createAction(DELETE_ISSUE);

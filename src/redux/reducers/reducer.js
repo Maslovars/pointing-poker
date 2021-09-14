@@ -12,6 +12,7 @@ import {
   addNewCards,
   selectCard,
   addNewIssue,
+  deleteIssue
 } from '../actions/actions.js'
 
 export const appState = createReducer(initState, builder =>
@@ -73,7 +74,8 @@ export const appState = createReducer(initState, builder =>
     })
     .addCase(addNewIssue, (state, action) => {
       const newState = state;
-      if (action.payload.name.length > 12) { action.payload.name = `${action.payload.name.slice(0, 12)}...` }
+      if (action.payload.name.length > 10) { action.payload.title = `${action.payload.name.slice(0, 12)}...` }
+      else { action.payload.title = action.payload.name}
       switch (action.payload.priority) {
         case priorityTypes.low: newState.issues.lowSet.push(action.payload); break;
         case priorityTypes.middle: newState.issues.middleSet.push(action.payload); break;
@@ -81,6 +83,32 @@ export const appState = createReducer(initState, builder =>
         defauft: return;
       }
       newState.issues.issuesSet = newState.issues.hightSet.concat(newState.issues.middleSet, newState.issues.lowSet);
+      return newState;
+    })
+    .addCase(deleteIssue, (state, action) => {
+      const newState = state;
+      let index = -1;
+      if (action.payload.priority === priorityTypes.low) {
+        newState.issues.lowSet.map((issue, ind) => {if (issue.id === action.payload.issueId) { index = ind }});
+        if (index !== -1) {
+          newState.issues.lowSet.splice(index, 1);
+          newState.issues.issuesSet = newState.issues.hightSet.concat(newState.issues.middleSet, newState.issues.lowSet);
+        }
+      }
+      if (action.payload.priority === priorityTypes.middle) {
+        newState.issues.middleSet.map((issue, ind) => {if (issue.id === action.payload.issueId) { index = ind }});
+        if (index !== -1) {
+          newState.issues.middleSet.splice(index, 1);
+          newState.issues.issuesSet = newState.issues.hightSet.concat(newState.issues.middleSet, newState.issues.lowSet);
+        }
+      }
+      if (action.payload.priority === priorityTypes.hight) {
+        newState.issues.hightSet.map((issue, ind) => {if (issue.id === action.payload.issueId) { index = ind }});
+        if (index !== -1) {
+          newState.issues.hightSet.splice(index, 1);
+          newState.issues.issuesSet = newState.issues.hightSet.concat(newState.issues.middleSet, newState.issues.lowSet);
+        }
+      }
       return newState;
     })
     .addDefaultCase(() => {})   
