@@ -1,24 +1,24 @@
-import styled from 'styled-components';
-import { theme } from '../../../common/theme';
+import styled from "styled-components";
+import { theme } from "../../../common/theme";
 
 export const StyledModal = styled.div`
   width: 450px;
   height: 450px;
   position: absolute;
   top: -480px;
-  background-color: ${ theme.colors.lightcyan };
+  background-color: ${theme.colors.lightcyan};
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: top;
-`
+`;
 
 export const StyledHeader = styled.h1`
   font-size: 42px;
   margin: 0;
   margin-top: 20px;
   font-weight: bold;
-`
+`;
 
 export const SelectContainer = styled.div`
   width: 376px;
@@ -27,7 +27,7 @@ export const SelectContainer = styled.div`
   justify-content: space-between;
   font-size: 24px;
   font-weight: bold;
-`
+`;
 
 export const StyledSelect = styled.select`
   text-align: center;
@@ -42,7 +42,7 @@ export const StyledSelect = styled.select`
   background: ${theme.colors.white};
   box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
   border: 1px solid ${theme.colors.dark_blue};
-`
+`;
 
 export const ButtonsContainer = styled.div`
   margin-top: 40px;
@@ -52,4 +52,4 @@ export const ButtonsContainer = styled.div`
   justify-content: space-between;
   font-size: 24px;
   font-weight: bold;
-`
+`;
