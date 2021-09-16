@@ -7,3 +7,5 @@ export const ADD_NEW_CARDS = 'ADD_NEW_CARDS';
 export const SELECT_CARD = 'SELECT_CARD';
 export const ADD_NEW_ISSUE = 'ADD_NEW_ISSUE';
 export const DELETE_ISSUE = 'DELETE_ISSUE';
+export const REPLACE_ISSUE = 'REPLACE_ISSUE';
+export const SELECT_ISSUE = 'SELECT_ISSUE';

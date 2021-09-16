@@ -12,8 +12,11 @@ import {
   addNewCards,
   selectCard,
   addNewIssue,
-  deleteIssue
+  deleteIssue,
+  replaceIssue,
+  selectIssue,
 } from '../actions/actions.js'
+import { act } from '@testing-library/react';
 
 export const appState = createReducer(initState, builder =>
   builder
@@ -74,7 +77,7 @@ export const appState = createReducer(initState, builder =>
     })
     .addCase(addNewIssue, (state, action) => {
       const newState = state;
-      if (action.payload.name.length > 10) { action.payload.title = `${action.payload.name.slice(0, 12)}...` }
+      if (action.payload.name.length > 10) { action.payload.title = `${action.payload.name.slice(0, 10)}...` }
       else { action.payload.title = action.payload.name}
       switch (action.payload.priority) {
         case priorityTypes.low: newState.issues.lowSet.push(action.payload); break;
@@ -109,6 +112,68 @@ export const appState = createReducer(initState, builder =>
           newState.issues.issuesSet = newState.issues.hightSet.concat(newState.issues.middleSet, newState.issues.lowSet);
         }
       }
+      return newState;
+    })
+    .addCase(replaceIssue, (state, action) => {
+      const newState = state;
+      const { name, id, oldPriority, priority, link } = action.payload;
+      let title;
+      if (name.length > 10) { title = `${name.slice(0, 10)}...` }
+      else { title = name }
+      const newIssue = { name, priority, id, link, title };
+      let index = -1;
+      if (oldPriority === priorityTypes.low) {
+        newState.issues.lowSet.map((issue, ind) => {if (issue.id === id) { index = ind }});
+        if (index !== -1 && oldPriority === priority) {
+          newState.issues.lowSet.splice(index, 1, newIssue);
+          newState.issues.issuesSet = newState.issues.hightSet.concat(newState.issues.middleSet, newState.issues.lowSet);
+        } else {
+          newState.issues.lowSet.splice(index, 1);
+          switch (priority) {
+            case priorityTypes.middle: newState.issues.middleSet.push(newIssue); break;
+            case priorityTypes.hight: newState.issues.hightSet.push(newIssue); break;
+            defauft: return;
+          }
+          newState.issues.issuesSet = newState.issues.hightSet.concat(newState.issues.middleSet, newState.issues.lowSet);
+        }
+      }
+      if (oldPriority === priorityTypes.middle) {
+        newState.issues.middleSet.map((issue, ind) => {if (issue.id === id) { index = ind }});
+        if (index !== -1 && oldPriority === priority) {
+          newState.issues.middleSet.splice(index, 1, newIssue);
+          newState.issues.issuesSet = newState.issues.hightSet.concat(newState.issues.middleSet, newState.issues.lowSet);
+        } else {
+          newState.issues.middleSet.splice(index, 1);
+          switch (priority) {
+            case priorityTypes.low: newState.issues.lowSet.push(newIssue); break;
+            case priorityTypes.hight: newState.issues.hightSet.push(newIssue); break;
+            defauft: return;
+          }
+          newState.issues.issuesSet = newState.issues.hightSet.concat(newState.issues.middleSet, newState.issues.lowSet);
+        }
+      }
+      if (oldPriority === priorityTypes.hight) {
+        newState.issues.hightSet.map((issue, ind) => {if (issue.id === id) { index = ind }});
+        if (index !== -1 && oldPriority === priority) {
+          newState.issues.hightSet.splice(index, 1, newIssue);
+          newState.issues.issuesSet = newState.issues.hightSet.concat(newState.issues.middleSet, newState.issues.lowSet);
+        } else {
+          newState.issues.hightSet.splice(index, 1);
+          switch (priority) {
+            case priorityTypes.middle: newState.issues.middleSet.push(newIssue); break;
+            case priorityTypes.low: newState.issues.hightSet.push(newIssue); break;
+            defauft: return;
+          }
+          newState.issues.issuesSet = newState.issues.hightSet.concat(newState.issues.middleSet, newState.issues.lowSet);
+        }
+      }
+      return newState;
+    })
+    .addCase(selectIssue, (state, action) => {
+      const newState = state;
+      newState.issues.issuesSet.forEach(issue => {
+        if (issue.id === action.payload) { issue.selected === true ? issue.selected = false : issue.selected = true } else { issue.selected = false }
+      })
       return newState;
     })
     .addDefaultCase(() => {})   
