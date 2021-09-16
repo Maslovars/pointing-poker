@@ -11,6 +11,9 @@ export const theme = {
         black: "#000000",
         white: "#FFFFFF",
         lightcyan: '#E0FFFF',
+        dark_orange: '#FF8C00',
+        red: '#FF0000',
+        lime: '#00FF00'
     },
     transition: "0.75s"
 }
