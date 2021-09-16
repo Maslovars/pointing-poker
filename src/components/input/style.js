@@ -13,7 +13,7 @@ export const StyledInput = styled.input`
   line-height: 28px;
   height: 47px;
   width: ${(p) => (p.width === "big" ? "465px" : "276px")};
-  width: ${(p) => p.width && p.width === /\d*px/ && p.width};
+  width: ${(p) => p.width && /\d*px/.test(p.width) && p.width};
 `;
 
 export const StyledLabel = styled.label`
@@ -23,7 +23,7 @@ export const StyledLabel = styled.label`
   font-weight: ${(p) => (p.fontWeight === "bold" ? "bold" : "normal")};
   font-style: ${(p) => (p.fontStyle === "italic" ? "italic" : "normal")};
   margin-right: ${(p) =>
-    p.marginTitleR && !p.marginTitleR.replace(/\d*px/, "")
+    p.marginTitleR && /\d*px/.test(p.marginTitleR)
       ? p.marginTitleR
       : "0px"};
 `;
