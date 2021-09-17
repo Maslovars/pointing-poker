@@ -22,10 +22,10 @@ import {
 } from "./style";
 import FileUploader from "../fileUploader/FileUploader";
 
-const ConnectionForm = () => {
+const ConnectionForm = (props) => {
+  const {mode, session, handlePopup} = props;
   const [value, setValue] = useState("Connect as observer");
   const [usersData, setUsersData] = useState([]);
-
   const formik = useFormik({
     initialValues: {
       firstName: "",
@@ -36,9 +36,18 @@ const ConnectionForm = () => {
       // isObserver: false
     },
     onSubmit: (values) => {
-      joinSocketRoom(values);
+      mode = 'game' ? createNewGame(values) : joinSocketRoom(values);
     },
   });
+
+  function createNewGame(values) {
+    socket.emit('create_session', {sessionName: session, user: {
+      name: values.firstName,
+      surname: values.lastName,
+      position: values.position,
+      image: values.ava
+    }} )
+  }
 
   const handleUserConnect = (userId) => {
     //handleIncomingMessage({ message: `${userId} connected` })
@@ -91,9 +100,9 @@ const ConnectionForm = () => {
   return (
     <StyledConnectionForm>
       <StyledHeading>
-        {usersData.length > 0
-          ? `Connected to lobby room: ${usersData[0].room}`
-          : `Connect to Lobby`}
+        { mode === 'game'
+          ? `Create new room`
+          : `Connect to room`}
       </StyledHeading>
       {usersData.length > 0 &&
         usersData.map((user) => (
@@ -101,13 +110,13 @@ const ConnectionForm = () => {
             USER ID: {user.id} - Firstname: {user.firstName}
           </div>
         ))}
-      {value}
-      <Switch
+      {mode !== 'game' && value}
+      {mode !== 'game' && <Switch
         on="Connect as player"
         off="Connect as observer"
         value={value}
         onChange={setValue}
-      />
+      />}
 
       <StyledForm onSubmit={formik.handleSubmit}>
         <Input
@@ -158,7 +167,7 @@ const ConnectionForm = () => {
                 /> */}
         <StyledButtonGroup>
           <Button text="Confirm" height="big" type="submit" />
-          <Button type="button" color="white" text="Cancel" height="big" />
+          <Button type="button" color="white" text="Cancel" height="big" onClick={handlePopup}/>
         </StyledButtonGroup>
       </StyledForm>
       {/* <Button onClick={leaveRoomHandler} type="button" color="white" text="Leave" height="big" /> */}
