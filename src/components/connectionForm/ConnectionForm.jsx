@@ -31,12 +31,11 @@ const ConnectionForm = (props) => {
       firstName: "",
       lastName: "",
       position: "",
-      room: "",
       ava: "",
-      // isObserver: false
+      isObserver: false
     },
     onSubmit: (values) => {
-      mode = 'game' ? createNewGame(values) : joinSocketRoom(values);
+      mode === 'game' ? createNewGame(values) : joinSocketRoom(values);
     },
   });
 
@@ -45,57 +44,23 @@ const ConnectionForm = (props) => {
       name: values.firstName,
       surname: values.lastName,
       position: values.position,
-      image: values.ava
+      image: values.ava,
+      isObserver: values.isObserver,
     }} )
+    handlePopup();
   }
 
-  const handleUserConnect = (userId) => {
-    //handleIncomingMessage({ message: `${userId} connected` })
+  
+  function joinSocketRoom(values) {
+    socket.emit('join_game', {sessionName: session, user: {
+      name: values.firstName,
+      surname: values.lastName,
+      position: values.position,
+      image: values.ava,
+      isObserver: values.isObserver,
+    }} )
+    handlePopup();    
   };
-
-  const handleUserDisconnect = (userId) => {
-    // handleIncomingMessage({ message: `${userId} disconnected` })
-  };
-
-  const joinSocketRoom = (userData) => {
-    if (userData) {
-      socket.emit(JOIN_ROOM, {
-        room: userData.room || ROOM_ID,
-        id: socket.id,
-        //убрать id
-        firstName: userData.firstName,
-        lastName: userData.lastName,
-      });
-    }
-  };
-
-  const addSocketListeners = () => {
-    //socket.on(RECEIVE_MESSAGE, handleIncomingMessage)
-    socket.on("SHOW_USERS", (data) => {
-      setUsersData(data);
-    });
-    socket.on(USER_CONNECTED, handleUserConnect);
-    socket.on(USER_DISCONNECTED, handleUserDisconnect);
-  };
-
-  const removeSocketListeners = () => {
-    //socket.off(RECEIVE_MESSAGE, handleIncomingMessage)
-    socket.off(USER_CONNECTED, handleUserConnect);
-    socket.off(USER_DISCONNECTED, handleUserDisconnect);
-  };
-
-  const leaveRoomHandler = () => {
-    if (socket.id) {
-      socket.emit("LEAVE_ROOM", socket.id);
-      setUsersData({});
-    }
-  };
-
-  useEffect(() => {
-    joinSocketRoom();
-    addSocketListeners();
-    return () => removeSocketListeners();
-  }, []);
 
   return (
     <StyledConnectionForm>
@@ -112,6 +77,7 @@ const ConnectionForm = (props) => {
         ))}
       {mode !== 'game' && value}
       {mode !== 'game' && <Switch
+        id='isObserver'
         on="Connect as player"
         off="Connect as observer"
         value={value}

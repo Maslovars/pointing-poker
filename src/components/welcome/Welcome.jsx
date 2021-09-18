@@ -16,31 +16,40 @@ import { socket } from "../../common/utils/socket/socket";
 
 const Welcome = () => {
 
-  const inputRef = useRef('');
-  
+  const [gameName, setGameName] = useState('');
+  const [joinName, setJoinName] = useState('');
   const [isOpenPopup, setIsOpenPopup] = useState(false);
   const [isGame, setGame] = useState(false);
-  const handlePopup = () => setIsOpenPopup((prevState) => !prevState);
-  const handleGame = () => setGame(prev => !prev);
-
-  function startHandler() {
-    //socket.emit('create_session', {sessionName: inputRef.current.value, user: {name: 'John', surname: 'Connor', job: 'director'}} )
-    setGame(prev => !prev);
-  }
-
+  const handlePopup = () => setIsOpenPopup(prev => {if (prev === true) {setJoinName('')}; return !prev });
+  const handleGame = () => setGame(prev => {if (prev === true) {setGameName('')}; return !prev });
+    
   return (
     <StyledWelcome>
       <Logo src={logo} alt="welcome-logo" />
       <StyledText>Start your planning:</StyledText>
       <WelcomeGroup>
-        <input ref={inputRef} type='text' placeholder='Create new session:' />
-        <Button width="big" text="Start new game" onClick={ startHandler }/>
+        <Input
+          id="game"
+          value={gameName}
+          text="Create new game:"
+          onChange={(event) => setGameName(event.target.value)}
+          endBtn={
+            <Button
+              onClick={ handleGame }
+              text="Start new game"
+              width="big"
+            />
+          }
+        />
+        
       </WelcomeGroup>
       <StyledText>OR:</StyledText>
       <WelcomeGroup>
         <Input
           id="url"
-          text={"Connect to lobby by URL:"}
+          text={"Connect to game with it name:"}
+          value={joinName}
+          onChange={(event) => setJoinName(event.target.value)}
           endBtn={
             <Button
               onClick={() => setIsOpenPopup(!isOpenPopup)}
@@ -50,10 +59,10 @@ const Welcome = () => {
           }
         />
       </WelcomeGroup>
-      { isGame ? <Modal handlePopup={handleGame}><ConnectionForm handlePopup={handleGame} mode='game' session={inputRef.current.value} /></Modal> : '' }
+      { isGame ? <Modal handlePopup={handleGame}><ConnectionForm handlePopup={handleGame} mode='game' session={gameName} /></Modal> : '' }
       {isOpenPopup ? (
         <Modal handlePopup={handlePopup}>
-          <ConnectionForm />
+          <ConnectionForm handlePopup={handlePopup} session={joinName}/>
         </Modal>
       ) : null}
     </StyledWelcome>
