@@ -1,52 +1,52 @@
 /* eslint-disable */
-import ConnectionForm from "../connectionForm/ConnectionForm";
-import logo from "../../assets/welcome-logo.png";
-import {
-  Logo,
-  StyledPar,
-  StyledText,
-  StyledWelcome,
-  WelcomeGroup,
-} from "./styles";
-import Input from "../input/Input";
-import Button from "../button/Button";
-import { useState } from "react";
-import Modal from "../modal/Modal";
+import logo from "../../assets/welcome-logo.png"
+import { Logo, StyledPar, StyledText, StyledWelcome, WelcomeGroup } from './styles';
+import Input from '../input/Input';
+import Button from '../button/Button';
+import { useState } from 'react';
+import Modal from '../modal/Modal';
+import ConnectionFormContainer from '../connectionForm/ConnectionFormContainer';
 
 const Welcome = () => {
   const [isOpenPopup, setIsOpenPopup] = useState(false);
 
-  const handlePopup = () => setIsOpenPopup((prevState) => !prevState);
+    const [gameId, setGameId] = useState('');
 
-  return (
-    <StyledWelcome>
-      <Logo src={logo} alt="welcome-logo" />
-      <StyledText>Start your planning:</StyledText>
-      <WelcomeGroup>
-        <StyledPar>Create session:</StyledPar>
-        <Button width="big" text="Start new game" />
-      </WelcomeGroup>
-      <StyledText>OR:</StyledText>
-      <WelcomeGroup>
-        <Input
-          id="url"
-          text={"Connect to lobby by URL:"}
-          endBtn={
-            <Button
-              onClick={() => setIsOpenPopup(!isOpenPopup)}
-              text="Connect"
-              width="big"
-            />
-          }
-        />
-      </WelcomeGroup>
-      {isOpenPopup ? (
-        <Modal handlePopup={handlePopup}>
-          <ConnectionForm />
-        </Modal>
-      ) : null}
-    </StyledWelcome>
-  );
-};
+    const handlePopup = () => {
+        
+        setIsOpenPopup((prevState) => !prevState);
+        
+    }
+
+    const handleOpenConnectForm = (event) => {
+        (event.target.innerText === 'Start new game') && setGameId('');
+        handlePopup();
+    }
+
+    const handleUrlChange = (event) => {
+        setGameId(event.target.value);
+    }
+
+    return (
+        <StyledWelcome>
+            <Logo src={logo} alt="welcome-logo" />
+            <StyledText>Start your planning:</StyledText>
+            <WelcomeGroup>
+                <StyledPar>Create session:</StyledPar>
+                <Button onClick={handleOpenConnectForm} width="big" text="Start new game" />
+            </WelcomeGroup>
+            <StyledText>OR:</StyledText>
+            <WelcomeGroup>
+                <Input id="url" value={gameId} onChange={handleUrlChange} text={"Connect to lobby by URL:"} endBtn={<Button onClick={handleOpenConnectForm} text="Connect" width="big" />} />
+            </WelcomeGroup>
+            {console.log('handle popup im welcome.jsx', isOpenPopup)}
+            {isOpenPopup &&
+                <Modal handlePopup={handlePopup}> 
+                    <ConnectionFormContainer gameId={gameId.split('/')[4]} handlePopup={handlePopup}/>
+                </Modal>}
+        </StyledWelcome>
+    )
+
+}
 
 export default Welcome;
