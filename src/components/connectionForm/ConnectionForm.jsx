@@ -17,11 +17,10 @@ const ConnectionForm = ({connectLobby, disconnectLobby}) => {
             firstName: "",
             lastName: "",
             position: "",
-            ava: "",
-            isObserver: false
+            ava: ""
         },
         onSubmit: values => {
-            connectLobby(values);
+            connectLobby({...values, isObserver: value});
             
         }
 
