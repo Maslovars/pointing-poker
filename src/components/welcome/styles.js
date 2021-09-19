@@ -16,8 +16,8 @@ export const WelcomeGroup = styled.div`
 export const Logo = styled.img`
   max-width: 550px;
   margin: 0 auto;
-  padding-top: 130px;
-  padding-bottom: 40px;
+  padding-top: 10px;
+  padding-bottom: 10px;
 `;
 export const StyledPar = styled.p`
   padding-bottom: 10px;
