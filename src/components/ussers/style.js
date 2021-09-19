@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 export const UsersContainer = styled.div`
+  margin: 0;
   min-width: 480px;
   display: flex;
   align-items: center;
@@ -8,4 +9,4 @@ export const UsersContainer = styled.div`
   flex-wrap: wrap;
 `
 
-export const a = 3;
+export const plug = 'special for ESLint';

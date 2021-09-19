@@ -13,6 +13,7 @@ import {
 } from '../../common/utils/socket/constants';
 import ConnectionFormContainer from '../connectionForm/ConnectionFormContainer';
 import Modal from '../modal/Modal';
+import Users from '../ussers/Ussers';
 
 const Lobby = (props) => {
 
@@ -102,10 +103,10 @@ const Lobby = (props) => {
 
     if(gameData && gameData.users.find(user => user.userId === socket.id)) {
         return (
-        <div><div>Socket id {socket.id}</div>
-            Users online:
-{gameData.users.map(el => (<div key={el.userId}>{el.firstName} - {el.userId}</div>))}
+        <div>
+         <Users />
         </div>
+        
 
     )
     } /* else if

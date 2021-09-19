@@ -15,6 +15,7 @@ import {
   deleteIssue,
   replaceIssue,
   selectIssue,
+  updateData,
 } from '../actions/actions.js'
 import { act } from '@testing-library/react';
 
@@ -174,6 +175,12 @@ export const appState = createReducer(initState, builder =>
       newState.issues.issuesSet.forEach(issue => {
         if (issue.id === action.payload) { issue.selected === true ? issue.selected = false : issue.selected = true } else { issue.selected = false }
       })
+      return newState;
+    })
+    .addCase(updateData, (state, action) => {
+      const newState = state;
+      const { users } = action.payload;
+      newState.users = users;
       return newState;
     })
     .addDefaultCase(() => {})   
