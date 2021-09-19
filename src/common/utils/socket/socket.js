@@ -1,9 +1,9 @@
 /* eslint-disable */
 
-import { io } from 'socket.io-client';
+import { io } from "socket.io-client";
 
-  const socket = io('http://localhost:5000/', {
-  transports: ['websocket'],
+const socket = io(process.env.REACT_APP_API, {
+  transports: ["websocket"],
 });
 
-export { socket }; 
+export { socket };
