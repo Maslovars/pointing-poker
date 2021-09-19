@@ -8,8 +8,8 @@ import Modal from '../modal/Modal';
 import ConnectionFormContainer from '../connectionForm/ConnectionFormContainer';
 
 const Welcome = () => {
+  const [isOpenPopup, setIsOpenPopup] = useState(false);
 
-    const [isOpenPopup, setIsOpenPopup] = useState(false);
     const [gameId, setGameId] = useState('');
 
     const handlePopup = () => {

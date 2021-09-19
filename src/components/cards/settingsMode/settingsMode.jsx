@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
-import { useDispatch } from 'react-redux';
+import React, { useState } from "react";
+import PropTypes from "prop-types";
+import { useDispatch } from "react-redux";
 import {
   SetWraper,
   Settings,
@@ -9,25 +9,25 @@ import {
   ChooseContainer,
   RadioBttnsContainer,
   Wiever,
-} from './styles';
-import { StyledButton } from '../styles';
-import accept from '../../../assets/accept-card.png';
-import cancel from '../../../assets/cancel-card.png';
-import CardMode from './cardMode/CardMode';
-import GenMode from './genMode/genMode';
-import { addNewCards } from '../../../redux/actions/actions';
-import { CardType } from '../constants';
-import cardGenerator from './genMode/generator';
+} from "./styles";
+import { StyledButton } from "../styles";
+import accept from "../../../assets/accept-card.png";
+import cancel from "../../../assets/cancel-card.png";
+import CardMode from "./cardMode/CardMode";
+import GenMode from "./genMode/genMode";
+import { addNewCards } from "../../../redux/actions/actions";
+import { CardType } from "../constants";
+import cardGenerator from "./genMode/generator";
 
 export default function SettingsMode(props) {
   const dispatch = useDispatch();
-  const [mode, setMode] = useState({ card: 'checked', set: '' });
+  const [mode, setMode] = useState({ card: "checked", set: "" });
   const { closeHandler } = props;
   const cards = [];
   const collection = {
     type: CardType.playCard,
-    name: '',
-    value: '',
+    name: "",
+    value: "",
     addCheck: false,
     method: false,
     num: 2,
@@ -45,9 +45,7 @@ export default function SettingsMode(props) {
       const { name, method, num } = collection;
       cards.push(...cardGenerator({ name, method, num }));
     } else {
-      const {
-        name, value, type, addCheck,
-      } = collection;
+      const { name, value, type, addCheck } = collection;
       cards.push({
         name,
         value,
@@ -71,7 +69,7 @@ export default function SettingsMode(props) {
                 type="radio"
                 name="mode"
                 defaultChecked={mode.card}
-                onChange={() => setMode({ card: 'checked', set: '' })}
+                onChange={() => setMode({ card: "checked", set: "" })}
               />
               create a card
             </label>
@@ -81,14 +79,14 @@ export default function SettingsMode(props) {
                 type="radio"
                 name="mode"
                 defaultChecked={mode.set}
-                onChange={() => setMode({ card: '', set: 'checked' })}
+                onChange={() => setMode({ card: "", set: "checked" })}
               />
               create a set of cards
             </label>
           </RadioBttnsContainer>
         </ChooseContainer>
         <Wiever>
-          {mode.card === 'checked' ? (
+          {mode.card === "checked" ? (
             <CardMode handler={collector} />
           ) : (
             <GenMode handler={collector} />

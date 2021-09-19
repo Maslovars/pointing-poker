@@ -11,13 +11,17 @@ export default function CardMode(props) {
       <input
         type="text"
         placeholder="Enter name..."
-        onChange={(event) => handler("name", String(event.target.value.slice(0, 6)))}
+        onChange={(event) =>
+          handler("name", String(event.target.value.slice(0, 6)))
+        }
       />
       <p>Enter card value (max. 4 signs):</p>
       <input
         type="text"
         placeholder="Enter value..."
-        onChange={(event) => handler("value", String(event.target.value.slice(0, 4)))}
+        onChange={(event) =>
+          handler("value", String(event.target.value.slice(0, 4)))
+        }
       />
       <p>Or choose a standart card:</p>
       <select onChange={(event) => handler("type", event.target.value, true)}>

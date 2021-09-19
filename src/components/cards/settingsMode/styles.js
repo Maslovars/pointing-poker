@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import { theme } from '../../../common/theme';
+import styled from "styled-components";
+import { theme } from "../../../common/theme";
 
 export const SetWraper = styled.div`
   width: 100%;
