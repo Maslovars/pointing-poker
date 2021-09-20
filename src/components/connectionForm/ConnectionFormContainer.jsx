@@ -47,6 +47,7 @@ const ConnectionFormContainer = ({gameId, handlePopup, match}) => {
                 gameId: gameId || GAME_ID,
                 firstName: userData.firstName,
                 lastName: userData.lastName,
+                position: userData.position,
                 isObserver: false, 
                 isMaster: !gameId ? true : false,
                 position: userData.position,
@@ -57,11 +58,11 @@ const ConnectionFormContainer = ({gameId, handlePopup, match}) => {
     };
 
     const disconnectLobby = () => {
-        if (socket.id) {
+        /*if (socket.id) {
             socket.emit('LEAVE_ROOM', socket.id);
             setUsersData([]);
-        }
-        handlePopup();
+        }*/
+        //handlePopup();
 
     };
 

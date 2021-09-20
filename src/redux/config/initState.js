@@ -3,6 +3,7 @@
 import { CardType } from '../../components/cards/constants';
 
 export const initState = {
+  users: [],
   cards: {
     cardsSet: [
       {
