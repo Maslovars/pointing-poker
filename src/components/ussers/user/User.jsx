@@ -3,6 +3,7 @@ import { User, Avatar, AvatarImage, TextContainer, ImgButton } from './style';
 import { PropTypes } from 'prop-types';
 import del from '../../../assets/delete-users.png';
 import { socket } from '../../../common/utils/socket/socket';
+import {Image} from "cloudinary-react";
 import { KICK_PLAYER } from '../../../common/utils/socket/constants';
 
 export default function UserCard(props) {
@@ -17,7 +18,7 @@ export default function UserCard(props) {
 
   return <User>
     { !ava && <Avatar>{avaText}</Avatar> }
-    { ava && <AvatarImage src={ava} alt="" /> }
+    { ava && <AvatarImage><Image cloudName={process.env.REACT_APP_CLOUDINARY_CLOUD_NAME} publicId={ava} width="50" height="50" crop="fill"/></AvatarImage>}
     <TextContainer>
       <p>{name}</p>
       {surname && <p>{surname}</p>}

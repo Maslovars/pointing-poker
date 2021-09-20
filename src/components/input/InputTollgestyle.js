@@ -11,15 +11,16 @@ export const CheckBoxLabel = styled.label`
   border-radius: 24px;
   background: ${theme.colors.gray};
   cursor: pointer;
+  box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
   &::after {
     content: "";
     display: block;
     border-radius: 50%;
     width: 20px;
     height: 20px;
-    margin: 3px;
+    margin: 5px;
     background: ${theme.colors.white};
-    box-shadow: 1px 3px 3px 1px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     transition: ${theme.transition};
   }
 `;
@@ -39,6 +40,7 @@ export const CheckBox = styled.input`
       width: 20px;
       height: 20px;
       margin-left: 30px;
+      box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
       transition: ${theme.transition};
     }
   }
