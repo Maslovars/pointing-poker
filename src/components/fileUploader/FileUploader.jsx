@@ -2,7 +2,7 @@
 
 import { useRef, useState } from "react";
 import Button from "../button/Button";
-import {Image} from "cloudinary-react";
+import { Image } from "cloudinary-react";
 import {
   StyledAva,
   StyledDiv,
@@ -38,7 +38,7 @@ const FileUploader = (props) => {
 
     const formData = new FormData();
     formData.append('file', file);
-  
+
     formData.append('upload_preset', process.env.REACT_APP_CLOUDINARY_UPLOAD_PRESET)
     const response = await fetch(uploadUrl, {
       method: 'post',
@@ -53,14 +53,14 @@ const FileUploader = (props) => {
   const handleChange = (event) => {
     const fileSelected = event.target.files[0];
     // previewFile(fileSelected);
-     setFileInputState(fileSelected);
+    setFileInputState(fileSelected);
   };
 
   return (
     <StyledFileUploader>
       <StyledPar>Image:</StyledPar>
       <StyledGroup>
-        <StyledDiv style={{whiteSpace: "nowrap", overflow: "hidden"}} onClick={handleSelectFile}>{fileInputState ? fileInputState.name : "Choose file"}</StyledDiv>
+        <StyledDiv style={{ whiteSpace: "nowrap", overflow: "hidden" }} onClick={handleSelectFile}>{fileInputState ? fileInputState.name : "Choose file"}</StyledDiv>
         <input
           type="file"
           ref={hiddenFileInput}
@@ -69,12 +69,14 @@ const FileUploader = (props) => {
         />
         <Button onClick={handleSubmitFile} type="button" text="Upload" />
       </StyledGroup>
-      {props.uploadedFile ? <Image cloudName={process.env.REACT_APP_CLOUDINARY_CLOUD_NAME} publicId={props.uploadedFile} width="83" height="83" crop="scale" style={{  marginTop: 15,
-  width: 83,
-  height: 83,
-  borderRadius: "50%"}}/>
-      : <StyledAva src={ava} alt="avatar"/>}
-      
+      {props.uploadedFile ? <Image cloudName={process.env.REACT_APP_CLOUDINARY_CLOUD_NAME} publicId={props.uploadedFile} width="83" height="83" crop="scale" style={{
+        marginTop: 15,
+        width: 83,
+        height: 83,
+        borderRadius: "50%"
+      }} />
+        : <StyledAva src={ava} alt="avatar" />}
+
     </StyledFileUploader>
   );
 };
