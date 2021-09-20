@@ -56,11 +56,11 @@ const ConnectionFormContainer = ({gameId, handlePopup, match}) => {
     };
 
     const disconnectLobby = () => {
-        if (socket.id) {
+        /*if (socket.id) {
             socket.emit('LEAVE_ROOM', socket.id);
             setUsersData([]);
-        }
-        handlePopup();
+        }*/
+        //handlePopup();
 
     };
 

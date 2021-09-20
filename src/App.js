@@ -1,6 +1,6 @@
 /* eslint-disable */
 import React from 'react'
-import { Route, Switch } from "react-router";
+import { Route, Switch, Redirect } from "react-router";
 import "./App.css";
 import Footer from "./components/footer/Footer";
 import Game from "./components/game/Game";
@@ -24,6 +24,7 @@ function App() {
             <Route path="/settings" render={() => <Settings />}></Route>
             <Route path="/game" render={() => <Game />}></Route>
           </Switch>
+          <Redirect to='/' />
         </div>
         <Footer />
       </div>

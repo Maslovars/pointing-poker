@@ -10,5 +10,6 @@ export const RECEIVE_MESSAGE = "receive_message";
 export const SENT_MESSAGE = "sent_message";
 export const USER_CONNECTED = "user_connected";
 export const USER_DISCONNECTED = "user_disconnected";
-
 export const GAME_ID = randomWords({ exactly: 2, join: "-" });
+export const KICK_PLAYER = 'kick_player';
+export const LEAVE_GAME = 'leave_game';

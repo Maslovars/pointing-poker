@@ -15,10 +15,10 @@ import { updateData } from '../../redux/actions/actions';
 const Welcome = () => {
     const dispatch = useDispatch();
     useEffect(() => {
-      socket.on(LOBBY_CONNECTED, (data) => {
-      dispatch(updateData(data)); 
+      socket.once(LOBBY_CONNECTED, (data) => {
+        dispatch(updateData(data)); 
       })
-    })
+    }, [])
 
    const [isOpenPopup, setIsOpenPopup] = useState(false);
 

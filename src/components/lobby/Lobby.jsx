@@ -14,6 +14,8 @@ import {
 import ConnectionFormContainer from '../connectionForm/ConnectionFormContainer';
 import Modal from '../modal/Modal';
 import Users from '../ussers/Ussers';
+import { useDispatch } from 'react-redux';
+import { updateData } from '../../redux/actions/actions';
 
 const Lobby = (props) => {
 
@@ -21,17 +23,16 @@ const Lobby = (props) => {
     const [gameId, setGameId] = useState(props.match.params.gameId);
     const [gameData, setGameData] = useState(null);
     const [gamesList, setGamesList] = useState([]);
-
+    const dispatch = useDispatch();
 
     const addSocketListeners = () => {
 
         socket.on(GAME_DATA, (data)=> {
-            
-            
             setGameData(data);
-            
-
+            dispatch(updateData(data));
         })
+       
+       
         socket.on(GAMES_LIST, (data) => {
 
             setGamesList(data);
@@ -39,7 +40,6 @@ const Lobby = (props) => {
             )
         socket.on(LOBBY_CONNECTED, (data) => {
             setIsOpenPopup(false);
-            setGameData(data);
         })
 
         socket.on(USER_CONNECTED, handleUserConnect)
@@ -49,7 +49,8 @@ const Lobby = (props) => {
 
     const removeSocketListeners = () => {
         socket.off(GAME_DATA, (data)=> {
-             setGameData(data);
+            dispatch(updateData(data));
+            setGameData(data);
          })
          socket.off(GAMES_LIST, (data) => {
              setGamesList(data)
@@ -58,7 +59,7 @@ const Lobby = (props) => {
 
     socket.off(LOBBY_CONNECTED, (data) => {
                 setIsOpenPopup(false);
-                setGameData(data);
+                dispatch(updateData(data));
             })
         socket.off(USER_CONNECTED, handleUserConnect)
         socket.off(USER_DISCONNECTED, handleUserDisconnect)
@@ -93,15 +94,12 @@ const Lobby = (props) => {
         {console.log('handle popup im lobby.jsx', isOpenPopup)}
         getGameData(gameId);
         addSocketListeners();
-        
-
         return () => removeSocketListeners();
-        
     }, [])
     // если нет такого gameId, тогда выводим список пameId карточками
     // если gameId найден, выводим ConnectionForm в модалке
 
-    if(gameData && gameData.users.find(user => user.userId === socket.id)) {
+    if (gameData && gameData.users.find(user => user.userId === socket.id)) {
         return (
         <div>
          <Users />
@@ -109,10 +107,10 @@ const Lobby = (props) => {
         
 
     )
-    } /* else if
+    } else if
     (gamesList) {
      return  gamesList.map(game=> <div key={game}>{game}</div>)
-     } */ else {
+     } else {
         return (isOpenPopup &&
             <Modal handlePopup={handlePopup}> <ConnectionFormContainer gameId={gameId} handlePopup={handlePopup} />
             </Modal>)

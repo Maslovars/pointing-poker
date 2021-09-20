@@ -2,12 +2,18 @@ import React from 'react';
 import { User, Avatar, AvatarImage, TextContainer, ImgButton } from './style';
 import { PropTypes } from 'prop-types';
 import del from '../../../assets/delete-users.png';
+import { socket } from '../../../common/utils/socket/socket';
+import { KICK_PLAYER } from '../../../common/utils/socket/constants';
 
 export default function UserCard(props) {
-  const { name, surname, ava, position, master } = props;
+  const { name, surname, ava, position, master, id } = props;
   let avaText;
   const secondLetter = surname ? surname[0] : ''
   if (!ava) { avaText = (name[0] + secondLetter).toUpperCase() }
+
+  const clickHandler = () => {
+    socket.emit(KICK_PLAYER, id);
+  }
 
   return <User>
     { !ava && <Avatar>{avaText}</Avatar> }
@@ -17,7 +23,7 @@ export default function UserCard(props) {
       {surname && <p>{surname}</p>}
       {position && <p>{position}</p>}
     </TextContainer>
-    { !master && <ImgButton type='image' src={del} /> }
+    { !master && <ImgButton type='image' src={del} onclick={clickHandler} /> }
   </User>
 }
 
@@ -27,6 +33,7 @@ UserCard.propTypes = {
   ava: PropTypes.string,
   position: PropTypes.string,
   master: PropTypes.bool.isRequired,
+  id: PropTypes.string.isRequired,
 }
 
 UserCard.defaultProps = {

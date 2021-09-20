@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import {theme} from '../../../common/theme';
 
 export const User = styled.div`
-  width: 230px;
+  width: 220px;
   height: 70px;
   margin: 5px 5px;
   background-color: ${theme.colors.lightcyan};
