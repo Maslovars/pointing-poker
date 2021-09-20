@@ -3,7 +3,7 @@
 import ConnectionForm from "./ConnectionForm";
 import { useState, useEffect } from "react";
 import { socket } from "../../common/utils/socket/socket";
-import {useHistory, withRouter} from "react-router";
+import { useHistory, withRouter } from "react-router";
 import {
     CONNECT_LOBBY,
     LOBBY_CONNECTED,
@@ -13,10 +13,10 @@ import {
     GAME_ID
 } from '../../common/utils/socket/constants';
 
-const ConnectionFormContainer = ({gameId, handlePopup, match}) => {
+const ConnectionFormContainer = ({ gameId, handlePopup, match }) => {
 
     const history = useHistory();
-    
+
     const [usersData, setUsersData] = useState([]);
 
 
@@ -30,30 +30,30 @@ const ConnectionFormContainer = ({gameId, handlePopup, match}) => {
     }
 
     const handleLobbyRedirect = (data, gameUrl = '') => {
-        
-        
+
+
         if (match.params.gameId !== gameUrl) {
 
             gameUrl && (gameUrl = '/' + gameUrl);
             gameUrl = gameUrl.trim();
-        history.push({ pathname: `/lobby${gameUrl}`, state: data });
+            history.push({ pathname: `/lobby${gameUrl}`, state: data });
         }
-        
-        }
-    
+
+    }
+
     const connectLobby = (userData) => {
-    // connect to lobby for masters and gamers
-            socket.emit(CONNECT_LOBBY, {
-                gameId: gameId || GAME_ID,
-                firstName: userData.firstName,
-                lastName: userData.lastName,
-                isObserver: false, 
-                isMaster: !gameId ? true : false,
-                position: userData.position,
-                ava: userData.ava
-            });
-            
-           
+        // connect to lobby for masters and gamers
+        socket.emit(CONNECT_LOBBY, {
+            gameId: gameId || GAME_ID,
+            firstName: userData.firstName,
+            lastName: userData.lastName,
+            isObserver: userData.isObserver,
+            isMaster: !gameId ? true : false,
+            position: userData.position,
+            ava: userData.ava
+        });
+
+
     };
 
     const disconnectLobby = () => {

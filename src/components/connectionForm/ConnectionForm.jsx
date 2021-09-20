@@ -5,12 +5,12 @@ import { useState } from "react";
 import Switch from 'react-input-switch';
 import Button from "../button/Button";
 import Input from "../input/Input";
-import { StyledButtonGroup, StyledConnectionForm, StyledForm, StyledHeading } from "./style";
+import { StyledButtonGroup, StyledConnectionForm, StyledForm, StyledHeading, StyledFormSwitch, StyledPar } from "./style";
 import FileUploader from "../fileUploader/FileUploader";
+import InputToggle from "../input/InputToggle";
 
-const ConnectionForm = ({connectLobby, disconnectLobby}) => {
+const ConnectionForm = ({ connectLobby, disconnectLobby }) => {
 
-    const [value, setValue] = useState('Connect as observer');
     const [uploadedFile, setUploadedFile] = useState('');
 
     const formik = useFormik({
@@ -18,12 +18,14 @@ const ConnectionForm = ({connectLobby, disconnectLobby}) => {
             firstName: "",
             lastName: "",
             position: "",
-            ava: ""
+            isObserver: false
+
+
         },
         onSubmit: values => {
-            
-            connectLobby({...values, isObserver: value, ava: uploadedFile});
-            
+
+            connectLobby({ ...values, ava: uploadedFile });
+
         }
 
     })
@@ -32,9 +34,13 @@ const ConnectionForm = ({connectLobby, disconnectLobby}) => {
         <StyledConnectionForm>
             <StyledHeading> Connect to Lobby
             </StyledHeading>
-            {value}
-            <Switch on="Connect as player" off="Connect as observer" value={value} onChange={setValue} />
-
+            <StyledFormSwitch>
+                <StyledPar>Connect as<br /> observer</StyledPar>
+                <InputToggle
+                    name="isObserver"
+                    onChange={formik.handleChange}
+                    value={formik.values.isObserver} />
+            </StyledFormSwitch>
 
             <StyledForm onSubmit={formik.handleSubmit}>
                 <Input
