@@ -7,7 +7,7 @@ import { LEAVE_GAME } from '../../common/utils/socket/constants';
 import { useLocation, Redirect } from 'react-router-dom';
 
 export default function Ussers() {
-  const url = 'http://SITE_NAME' + useLocation().pathname;
+  const url = window.location.href;
   const users = useSelector((state) => state.appState.users);
   const userId = socket.id;
   const userData = users.find((user) => user.userId === userId);
@@ -16,7 +16,7 @@ export default function Ussers() {
   const leaveHandler = () => { socket.emit(LEAVE_GAME, { gameId, userId }) };
   const copyHandler = () => {const link = document.getElementById('link');
     link.select();
-    document.execCommand('copy')
+    document.execCommand('copy');
   };
   
   return <Wrapper>

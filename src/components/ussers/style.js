@@ -59,13 +59,13 @@ export const StyledInput = styled.input`
   height: 30px;
   min-width: 100px;
   width: ${props => props.width || '200px'};
-  font-size: 18px;
+  font-size: 14px;
   line-height: 30px;
   font-weight: bold;
   border: none;
   border-radius: 10px;
   outline: none;
-  ${ props => { if (props.type === 'button') { return `{ background-color: ${theme.colors.lime}; opacity: .3; cursor: pointer} &:hover { opacity: 1 };` } } }
+  ${ props => { if (props.type === 'button') { return `{ background-color: ${theme.colors.lime}; font-size: 18px; opacity: .3; cursor: pointer} &:hover { opacity: 1 };` } } }
 `;
 export const InputsContainer = styled.div`
   display: flex;
