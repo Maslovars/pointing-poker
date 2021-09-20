@@ -49,7 +49,9 @@ const ConnectionFormContainer = ({gameId, handlePopup, match}) => {
                 lastName: userData.lastName,
                 position: userData.position,
                 isObserver: false, 
-                isMaster: !gameId ? true : false
+                isMaster: !gameId ? true : false,
+                position: userData.position,
+                ava: userData.ava
             });
             
            
