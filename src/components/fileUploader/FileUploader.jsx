@@ -38,14 +38,14 @@ const FileUploader = (props) => {
 
     const formData = new FormData();
     formData.append('file', file);
-  
+
     formData.append('upload_preset', process.env.REACT_APP_CLOUDINARY_UPLOAD_PRESET)
     const response = await fetch(uploadUrl, {
       method: 'post',
       body: formData
     })
     const responseData = await response.json();
-    props.setUploadedFile(responseData.public_id);
+    props.setUploadedFile(responseData.url);
   }
 
   // Call a function (passed as a prop from the parent component)
@@ -53,14 +53,14 @@ const FileUploader = (props) => {
   const handleChange = (event) => {
     const fileSelected = event.target.files[0];
     // previewFile(fileSelected);
-     setFileInputState(fileSelected);
+    setFileInputState(fileSelected);
   };
 
   return (
     <StyledFileUploader>
       <StyledPar>Image:</StyledPar>
       <StyledGroup>
-        <StyledDiv style={{whiteSpace: "nowrap", overflow: "hidden"}} onClick={handleSelectFile}>{fileInputState ? fileInputState.name : "Choose file"}</StyledDiv>
+        <StyledDiv style={{ whiteSpace: "nowrap", overflow: "hidden" }} onClick={handleSelectFile}>{fileInputState ? fileInputState.name : "Choose file"}</StyledDiv>
         <input
           type="file"
           ref={hiddenFileInput}

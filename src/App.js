@@ -1,6 +1,6 @@
 /* eslint-disable */
-
-import { Route, Switch } from "react-router";
+import React from 'react'
+import { Route, Switch, Redirect } from "react-router";
 import "./App.css";
 import Footer from "./components/footer/Footer";
 import Game from "./components/game/Game";
@@ -12,6 +12,7 @@ import { Provider } from "react-redux";
 import { store } from "../src/redux/store/store";
 
 function App() {
+  
   return (
     <Provider store={store}>
       <div className="app">
@@ -23,6 +24,7 @@ function App() {
             <Route path="/settings" render={() => <Settings />}></Route>
             <Route path="/game" render={() => <Game />}></Route>
           </Switch>
+          <Redirect to='/' />
         </div>
         <Footer />
       </div>

@@ -11,6 +11,7 @@ export const StyledShadow = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  z-index: 1000;
 `;
 
 export const StyledPopUp = styled.div`
