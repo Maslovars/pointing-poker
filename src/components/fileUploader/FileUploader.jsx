@@ -45,7 +45,7 @@ const FileUploader = (props) => {
       body: formData
     })
     const responseData = await response.json();
-    props.setUploadedFile(responseData.public_id);
+    props.setUploadedFile(responseData.url);
   }
 
   // Call a function (passed as a prop from the parent component)

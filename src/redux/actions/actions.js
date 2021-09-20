@@ -10,6 +10,7 @@ import {
   DELETE_ISSUE,
   REPLACE_ISSUE,
   SELECT_ISSUE,
+  UPDATE_DATA,
  } from './constants';
 
 export const editCard = createAction(EDIT_CARD);
@@ -22,3 +23,4 @@ export const addNewIssue = createAction(ADD_NEW_ISSUE);
 export const deleteIssue = createAction(DELETE_ISSUE);
 export const replaceIssue = createAction(REPLACE_ISSUE);
 export const selectIssue = createAction(SELECT_ISSUE);
+export const updateData = createAction(UPDATE_DATA);
