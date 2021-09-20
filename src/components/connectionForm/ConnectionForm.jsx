@@ -11,17 +11,18 @@ import FileUploader from "../fileUploader/FileUploader";
 const ConnectionForm = ({connectLobby, disconnectLobby}) => {
 
     const [value, setValue] = useState('Connect as observer');
+    const [uploadedFile, setUploadedFile] = useState('');
 
     const formik = useFormik({
         initialValues: {
             firstName: "",
             lastName: "",
             position: "",
-            ava: "",
-            isObserver: false
+            ava: ""
         },
         onSubmit: values => {
-            connectLobby(values);
+            
+            connectLobby({...values, isObserver: value, ava: uploadedFile});
             
         }
 
@@ -69,10 +70,10 @@ const ConnectionForm = ({connectLobby, disconnectLobby}) => {
                     value={formik.values.position}
                 />
 
-                <FileUploader />
+                <FileUploader uploadedFile={uploadedFile} setUploadedFile={setUploadedFile} />
                 <StyledButtonGroup>
                     <Button text="Confirm" height="big" type="submit" />
-                    <Button onClick={disconnectLobby} ontype="button" color="white" text="Cancel" height="big" />
+                    <Button onClick={disconnectLobby} type="button" color="white" text="Cancel" height="big" />
                 </StyledButtonGroup>
 
             </StyledForm>
