@@ -35,7 +35,8 @@ export const UserWrapper = styled.div`
   margin-top: 10px; 
 `;
 export const LeaveButton = styled.input`
-  background-color: ${theme.colors.dimgray};
+  background-color: ${theme.colors.red};
+  color: ${theme.colors.white};
   align-self: flex-end;
   width: 180px;
   height: 50px;
@@ -45,7 +46,7 @@ export const LeaveButton = styled.input`
   margin-bottom: 10px;
   font-size: 24px;
   font-weight: bold;
-  opacity: .6;
+  opacity: .3;
   cursor: pointer;
   &:hover {
     opacity: 1;
