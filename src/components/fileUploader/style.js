@@ -33,6 +33,7 @@ export const StyledDiv = styled.div`
   line-height: 28px;
   height: 47px;
   width: 276px;
+  text-oveflow: ellipsis;
 `;
 
 export const StyledAva = styled.img`
