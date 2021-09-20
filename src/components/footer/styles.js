@@ -14,7 +14,7 @@ export const StyledFooter = styled.div`
 export const StyledLink = styled.a`
   display: block;
   font-size: 1.5vmin;
-  color: ${theme.colors.dimgray};
+  color: ${theme.colors.gray};
   text-decoration: none;
   margin: 0 2%;
   transform: rotate(-15deg);
