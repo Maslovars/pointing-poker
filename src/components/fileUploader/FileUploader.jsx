@@ -2,7 +2,7 @@
 
 import { useRef, useState } from "react";
 import Button from "../button/Button";
-import {Image} from "cloudinary-react";
+import {Image, Transformation} from "cloudinary-react";
 import {
   StyledAva,
   StyledDiv,
@@ -69,11 +69,13 @@ const FileUploader = (props) => {
         />
         <Button onClick={handleSubmitFile} type="button" text="Upload" />
       </StyledGroup>
-      {props.uploadedFile ? <Image cloudName={process.env.REACT_APP_CLOUDINARY_CLOUD_NAME} publicId={props.uploadedFile} width="83" height="83" crop="scale" style={{  marginTop: 15,
+      {props.uploadedFile ? <Image cloudName={process.env.REACT_APP_CLOUDINARY_CLOUD_NAME} publicId={props.uploadedFile} width="150" crop="scale" style={{  
+  marginTop: 15,
+  objectFit: "cover",
   width: 83,
   height: 83,
   borderRadius: "50%"}}/>
-      : <StyledAva src={ava} alt="avatar"/>}
+      : <div></div>}
       
     </StyledFileUploader>
   );
