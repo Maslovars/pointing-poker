@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import {theme} from '../../../common/theme';
+import styled from "styled-components";
+import { theme } from "../../../common/theme";
 
 export const User = styled.div`
   width: 220px;
@@ -10,8 +10,8 @@ export const User = styled.div`
   display: flex;
   align-items: center;
   justify-content: left;
-  filter: drop-shadow(5px 5px ${theme.colors.dimgray})
-`
+  filter: drop-shadow(5px 5px ${theme.colors.dimgray});
+`;
 export const Avatar = styled.div`
   height: 50px;
   width: 50px;
@@ -20,15 +20,15 @@ export const Avatar = styled.div`
   margin-left: 10px;
   text-align: center;
   font-size: 26px;
-  line-height: 50px; 
+  line-height: 50px;
   font-weight: bold;
-`
+`;
 export const AvatarImage = styled.img`
   height: 50px;
   width: 50px;
   border-radius: 50%;
   margin-left: 10px;
-`
+`;
 export const TextContainer = styled.div`
   width: 130px;
   height: 60px;
@@ -47,7 +47,7 @@ export const TextContainer = styled.div`
     font-weight: bold;
     font-size: 20px;
   }
-`
+`;
 export const ImgButton = styled.input`
   width: 30px;
   height: 30px;
@@ -55,7 +55,7 @@ export const ImgButton = styled.input`
   outline: none;
   cursor: pointer;
   opacity: 0.5;
-  &:hover { 
+  &:hover {
     opacity: 1;
   }
-`
+`;
