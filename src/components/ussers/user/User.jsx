@@ -6,13 +6,13 @@ import { socket } from '../../../common/utils/socket/socket';
 import { KICK_PLAYER } from '../../../common/utils/socket/constants';
 
 export default function UserCard(props) {
-  const { name, surname, ava, position, master, id } = props;
+  const { name, surname, ava, position, master, id, room } = props;
   let avaText;
   const secondLetter = surname ? surname[0] : ''
   if (!ava) { avaText = (name[0] + secondLetter).toUpperCase() }
 
-  const clickHandler = () => {
-    socket.emit(KICK_PLAYER, id);
+  const clickHandler = (userToKickId) => {
+    socket.emit(KICK_PLAYER, { room, id: userToKickId });
   }
 
   return <User>
@@ -23,7 +23,7 @@ export default function UserCard(props) {
       {surname && <p>{surname}</p>}
       {position && <p>{position}</p>}
     </TextContainer>
-    { !master && <ImgButton type='image' src={del} onclick={clickHandler} /> }
+    { !master && <ImgButton id={id} type='image' src={del} onClick={(event) => clickHandler(event.target.id)} /> }
   </User>
 }
 
@@ -34,6 +34,7 @@ UserCard.propTypes = {
   position: PropTypes.string,
   master: PropTypes.bool.isRequired,
   id: PropTypes.string.isRequired,
+  room: PropTypes.string.isRequired,
 }
 
 UserCard.defaultProps = {

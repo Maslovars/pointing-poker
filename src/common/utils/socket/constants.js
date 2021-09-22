@@ -13,3 +13,4 @@ export const USER_DISCONNECTED = "user_disconnected";
 export const GAME_ID = randomWords({ exactly: 2, join: "-" });
 export const KICK_PLAYER = 'kick_player';
 export const LEAVE_GAME = 'leave_game';
+export const BLOCK_APP = 'block_app';

@@ -23,7 +23,7 @@ export default function Ussers() {
     { !userData && <Redirect to='/' /> }
     <UserContainer>
       <UserWrapper>
-        { !!userData && <User id={userData.userId} name={userData.firstName} surname={userData.lastName} position={userData.position} ava={userData.ava} master={true} /> }
+        { !!userData && <User id={userData.userId} name={userData.firstName} surname={userData.lastName} position={userData.position} ava={userData.ava} master={true} room={gameId} /> }
         { !!userData && userData.isMaster && <StyledLinkContainer>
           <p>link to lobby:</p>
         <InputsContainer>
@@ -36,7 +36,7 @@ export default function Ussers() {
       <LeaveButton type='button' value='LEAVE LOBBY' onClick={leaveHandler} />
     </UserContainer>
     <UsersContainer>
-      { users.map(user => user.userId !== userId && <User key={user.userId} id={user.userId} name={user.firstName} surname={user.lastName} position={user.position} ava={user.ava} master={user.isMaster} />) }
+      { users.map(user => user.userId !== userId && <User key={user.userId} id={user.userId} name={user.firstName} surname={user.lastName} position={user.position} ava={user.ava} master={user.isMaster} room={gameId}/>) }
     </UsersContainer>
   </Wrapper>  
 }
