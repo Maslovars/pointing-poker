@@ -14,20 +14,17 @@ import { socket } from './common/utils/socket/socket';
 import { BLOCK_APP, KICK_PLAYER } from './common/utils/socket/constants';
 
 function App() {
-<<<<<<< HEAD
 
-=======
-  
   const [blocked, setBlock] = useState('false');
-  
+
   function blockHandler({ isBlock, message }) {
-    if (isBlock === true || isBlock === false) { setBlock(isBlock)}
-    if (isBlock === undefined) { setBlock(prev => !prev)}
+    if (isBlock === true || isBlock === false) { setBlock(isBlock) }
+    if (isBlock === undefined) { setBlock(prev => !prev) }
     if (blocked) { document.getElementById('message').innerHTML = message; }
   }
 
   function clickHandler(event) {
-    if (event.target.id === 'input-yes' || event.target.id === 'input-no') {  
+    if (event.target.id === 'input-yes' || event.target.id === 'input-no') {
       const room = window.location.pathname.replace('/lobby/', '');
       let vote;
       const id = socket.id;
@@ -38,13 +35,12 @@ function App() {
       setBlock(false);
     }
   }
-  
+
   useEffect(() => {
     socket.on(BLOCK_APP, data => blockHandler(data))
     return () => socket.off(BLOCK_APP, data => blockHandler(data));
   }, [])
-  
->>>>>>> develop
+
   return (
     <Provider store={store}>
       <div className="app">
