@@ -62,7 +62,7 @@ const ConnectionFormContainer = ({ gameId, handlePopup, match }) => {
             socket.emit('LEAVE_ROOM', socket.id);
             setUsersData([]);
         }*/
-        //handlePopup();
+        handlePopup();
 
     };
 

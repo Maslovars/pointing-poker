@@ -107,7 +107,7 @@ const ConnectionForm = ({ connectLobby, disconnectLobby }) => {
                 </StyledFormControl>
 
 
-                <FileUploader uploadedFile={uploadedFile} setUploadedFile={setUploadedFile} />
+                <FileUploader uploadedFile={uploadedFile} setUploadedFile={setUploadedFile} firstInitial={formik.values.firstName.trim().slice(0, 1).toUpperCase()} lastInitial={formik.values.lastName.trim().slice(0, 1).toUpperCase()}/>
                 <StyledButtonGroup>
                     <Button text="Confirm" height="big" type="submit" />
                     <Button onClick={disconnectLobby} type="button" color="white" text="Cancel" height="big" />
