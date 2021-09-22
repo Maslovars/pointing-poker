@@ -2,7 +2,6 @@
 
 import { useFormik } from "formik";
 import { useState } from "react";
-import Switch from 'react-input-switch';
 import Button from "../button/Button";
 import Input from "../input/Input";
 import { StyledButtonGroup, StyledConnectionForm, StyledForm, StyledHeading, StyledFormSwitch, StyledPar } from "./style";
