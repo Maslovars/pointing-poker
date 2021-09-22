@@ -26,10 +26,10 @@ export const StyledHeading = styled.h2`
 export const StyledFormSwitch = styled.div`
   position: relative;
   top: -60px;  
+  left: 550px;
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  margin-right: 50px;
 `;
 
 export const StyledPar = styled.p`
@@ -37,6 +37,18 @@ export const StyledPar = styled.p`
   font-size: 24px;
   line-height: 28px;
   padding-right: 30px;
+`;
+
+export const StyledError = styled.div`  
+  padding-top: 50px;
+  padding-left: 20px;
+  font-size: 14px;
+  line-height: 18px;
+  color: ${theme.colors.red};  
+`;
+
+export const StyledFormControl = styled.div`  
+  display: flex; 
 `;
 
 export const StyledButtonGroup = styled.div`
