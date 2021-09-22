@@ -12,7 +12,7 @@ export default function UserCard(props) {
   if (!ava) { avaText = (name[0] + secondLetter).toUpperCase() }
 
   const clickHandler = (userToKickId) => {
-    socket.emit(KICK_PLAYER, { room, id: userToKickId });
+    socket.emit(KICK_PLAYER, { room, userToKickId, id });
   }
 
   return <User>

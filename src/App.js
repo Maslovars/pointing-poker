@@ -11,21 +11,30 @@ import Header from "./components/header/Header";
 import { Provider } from "react-redux";
 import { store } from "../src/redux/store/store";
 import { socket } from './common/utils/socket/socket';
-import { BLOCK_APP } from './common/utils/socket/constants';
+import { BLOCK_APP, KICK_PLAYER } from './common/utils/socket/constants';
 
 function App() {
   
   const [blocked, setBlock] = useState('false');
   
-
   function blockHandler({ isBlock, message }) {
+    console.log('APP>>>', message)
     if (isBlock === true || isBlock === false) { setBlock(isBlock)}
     if (isBlock === undefined) { setBlock(prev => !prev)}
     if (blocked) { document.getElementById('message').innerHTML = message; }
   }
 
   function clickHandler(event) {
-    console.log('CLICK!!!!!!!!!!!!', event.target.id);
+    if (event.target.id === 'input-yes' || event.target.id === 'input-no') {  
+      const room = window.location.pathname.replace('/lobby/', '');
+      let vote;
+      const id = socket.id;
+      event.target.id === 'input-yes' ? vote = true : vote = false;
+      socket.emit(KICK_PLAYER, { room, vote, id });
+    }
+    if (event.target.id === 'input-close') {
+      setBlock(false);
+    }
   }
   
   useEffect(() => {

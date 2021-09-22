@@ -28,12 +28,12 @@ export default function Ussers() {
           <p>link to lobby:</p>
         <InputsContainer>
           <StyledInput id='link' width='350px' type='text' readOnly={true} value={url} />
-          <StyledInput width='75px' type='button' value='COPY' onClick={copyHandler} />
+          <StyledInput width='75px' type='button' defaultValue='COPY' onClick={copyHandler} />
         </InputsContainer>
-        <StartButton type='start' value='START NEW GAME'  />
+        <StartButton type='start' defaultValue='START NEW GAME'  />
         </StyledLinkContainer> }
       </UserWrapper>
-      <LeaveButton type='button' value='LEAVE LOBBY' onClick={leaveHandler} />
+      <LeaveButton type='button' defaultValue='LEAVE LOBBY' onClick={leaveHandler} />
     </UserContainer>
     <UsersContainer>
       { users.map(user => user.userId !== userId && <User key={user.userId} id={user.userId} name={user.firstName} surname={user.lastName} position={user.position} ava={user.ava} master={user.isMaster} room={gameId}/>) }
