@@ -1,6 +1,6 @@
 /* eslint-disable */
 
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import { withRouter } from 'react-router';
 import { socket } from "../../common/utils/socket/socket";
 import {
@@ -16,6 +16,7 @@ import Modal from '../modal/Modal';
 import Users from '../ussers/Ussers';
 import { useDispatch } from 'react-redux';
 import { updateData } from '../../redux/actions/actions';
+import GameSettingsForm from '../gameSettingsForm/GameSettingsForm';
 
 const Lobby = (props) => {
 
@@ -27,17 +28,17 @@ const Lobby = (props) => {
 
     const addSocketListeners = () => {
 
-        socket.on(GAME_DATA, (data)=> {
+        socket.on(GAME_DATA, (data) => {
             setGameData(data);
             dispatch(updateData(data));
         })
-       
-       
+
+
         socket.on(GAMES_LIST, (data) => {
 
             setGamesList(data);
         }
-            )
+        )
         socket.on(LOBBY_CONNECTED, (data) => {
             setIsOpenPopup(false);
         })
@@ -45,26 +46,26 @@ const Lobby = (props) => {
         socket.on(USER_CONNECTED, handleUserConnect)
         socket.on(USER_DISCONNECTED, handleUserDisconnect)
     }
-    
+
 
     const removeSocketListeners = () => {
-        socket.off(GAME_DATA, (data)=> {
+        socket.off(GAME_DATA, (data) => {
             dispatch(updateData(data));
             setGameData(data);
-         })
-         socket.off(GAMES_LIST, (data) => {
-             setGamesList(data)
-         }
-             )
+        })
+        socket.off(GAMES_LIST, (data) => {
+            setGamesList(data)
+        }
+        )
 
-    socket.off(LOBBY_CONNECTED, (data) => {
-                setIsOpenPopup(false);
-                dispatch(updateData(data));
-            })
+        socket.off(LOBBY_CONNECTED, (data) => {
+            setIsOpenPopup(false);
+            dispatch(updateData(data));
+        })
         socket.off(USER_CONNECTED, handleUserConnect)
         socket.off(USER_DISCONNECTED, handleUserDisconnect)
     }
-    
+
 
     const handlePopup = () => {
         setIsOpenPopup((prevState) => !prevState);
@@ -73,10 +74,10 @@ const Lobby = (props) => {
     const getGameData = (gameId) => {
         if (gameId) {
 
-           if (gamesList.length === 0) { 
-               handlePopup();
-           }
-        socket.emit(GET_GAME_DATA, gameId);
+            if (gamesList.length === 0) {
+                handlePopup();
+            }
+            socket.emit(GET_GAME_DATA, gameId);
         }
 
     }
@@ -91,7 +92,7 @@ const Lobby = (props) => {
 
 
     useEffect(() => {
-        {console.log('handle popup im lobby.jsx', isOpenPopup)}
+        { console.log('handle popup im lobby.jsx', isOpenPopup) }
         getGameData(gameId);
         addSocketListeners();
         return () => removeSocketListeners();
@@ -101,21 +102,22 @@ const Lobby = (props) => {
 
     if (gameData && gameData.users.find(user => user.userId === socket.id)) {
         return (
-        <div>
-         <Users />
-        </div>
-        
+            <div>
+                <Users />
+                <GameSettingsForm />
+            </div>
 
-    )
+
+        )
     } else if
-    (gamesList) {
-     return  gamesList.map(game=> <div key={game}>{game}</div>)
-     } else {
+        (gamesList) {
+        return gamesList.map(game => <div key={game}>{game}</div>)
+    } else {
         return (isOpenPopup &&
             <Modal handlePopup={handlePopup}> <ConnectionFormContainer gameId={gameId} handlePopup={handlePopup} />
             </Modal>)
 
-        }
+    }
 
 }
 

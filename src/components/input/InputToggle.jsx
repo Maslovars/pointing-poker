@@ -1,11 +1,12 @@
+/* eslint-disable */
 import React from 'react';
 import { CheckBox, CheckBoxLabel, CheckBoxWrapper } from './InputTollgestyle';
 
-const InputToggle = ({ ...props }) => {
+const InputToggle = ({ id, ...props }) => {
     return (
         <CheckBoxWrapper {...props}>
-            <CheckBox id="checkbox" type="checkbox" {...props} />
-            <CheckBoxLabel htmlFor="checkbox" />
+            <CheckBox id={id} type="checkbox" {...props} />
+            <CheckBoxLabel htmlFor={id} />
         </CheckBoxWrapper>
     )
 };
