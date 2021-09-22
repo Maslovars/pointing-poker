@@ -18,7 +18,6 @@ function App() {
   const [blocked, setBlock] = useState('false');
   
   function blockHandler({ isBlock, message }) {
-    console.log('APP>>>', message)
     if (isBlock === true || isBlock === false) { setBlock(isBlock)}
     if (isBlock === undefined) { setBlock(prev => !prev)}
     if (blocked) { document.getElementById('message').innerHTML = message; }
