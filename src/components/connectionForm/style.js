@@ -25,12 +25,8 @@ export const StyledHeading = styled.h2`
 
 export const StyledFormSwitch = styled.div`
   position: relative;
-<<<<<<< HEAD
   top: -60px;  
   left: 550px;
-=======
-  top: -60px;
->>>>>>> develop
   display: flex;
   justify-content: flex-end;
   align-items: center;
