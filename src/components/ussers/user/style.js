@@ -23,12 +23,32 @@ export const Avatar = styled.div`
   line-height: 50px;
   font-weight: bold;
 `;
+<<<<<<< HEAD
 export const AvatarImage = styled.img`
+=======
+/* export const AvatarImage = styled.div`
+>>>>>>> 1aec01a32b62faf3b0da6f72b9b14573658339f1
   height: 50px;
   width: 50px;
   border-radius: 50%;
   margin-left: 10px;
+<<<<<<< HEAD
 `;
+=======
+` */
+export const AvatarImage = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 10px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 1px solid ${theme.colors.green};
+  overflow: hidden;
+`;
+
+>>>>>>> 1aec01a32b62faf3b0da6f72b9b14573658339f1
 export const TextContainer = styled.div`
   width: 130px;
   height: 60px;

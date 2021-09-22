@@ -25,7 +25,7 @@ export const StyledHeading = styled.h2`
 
 export const StyledFormSwitch = styled.div`
   position: relative;
-  top: -60px;  
+  top: -60px;
   display: flex;
   justify-content: flex-end;
   align-items: center;
@@ -42,6 +42,7 @@ export const StyledPar = styled.p`
 export const StyledButtonGroup = styled.div`
   width: 100%;
   padding: 15px 0;
+  margin-top: 50px;
   display: flex;
   justify-content: space-between;
 `;
