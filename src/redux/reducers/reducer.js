@@ -179,8 +179,10 @@ export const appState = createReducer(initState, builder =>
     })
     .addCase(updateData, (state, action) => {
       const newState = state;
-      const { users } = action.payload;
-      newState.users = users;
+      const { users, cards, issues } = action.payload;
+      if (users) { newState.users = users }
+      if (cards) { newState.cards.cardsSet = cards }
+      if (issues) { newState.issues.issuesSet = issues }
       return newState;
     })
     .addDefaultCase(() => {})   

@@ -5,7 +5,8 @@ export const StyledModal = styled.div`
   width: 450px;
   height: 450px;
   position: absolute;
-  top: -480px;
+  top: 60px;
+  left: calc(50% - 225px);
   background-color: ${theme.colors.lightcyan};
   display: flex;
   flex-direction: column;

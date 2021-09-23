@@ -27,6 +27,7 @@ export default function Issue({
     target = "_self";
   }
   return (
+    <div>
     <Wrapper selected={selected} type={type}>
       <TextContainer type={type} mode={mode} priority={priority}>
         {type === issueTypes.creator ? (
@@ -71,7 +72,8 @@ export default function Issue({
           />
         )}
       </ButtonsContainer>
-      {mode === creatorMode.createIssue && <Modal closeHandler={setMode} />}
+    </Wrapper>
+    {mode === creatorMode.createIssue && <Modal closeHandler={setMode} />}
       {mode === creatorMode.edit && (
         <Modal
           mode={creatorMode.edit}
@@ -82,7 +84,7 @@ export default function Issue({
           id={issueId}
         />
       )}
-    </Wrapper>
+    </div>
   );
 }
 

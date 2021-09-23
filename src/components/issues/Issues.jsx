@@ -7,6 +7,7 @@ import { modeTypes, issueTypes } from "./constants";
 export default function Issues(props) {
   const { mode } = props;
   const issues = useSelector((store) => store.appState.issues.issuesSet);
+  
   return (
     <Wrapper id="issues" mode={mode}>
       {issues.map((issue) => (
