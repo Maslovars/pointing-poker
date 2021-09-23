@@ -3,8 +3,9 @@ import { modeTypes } from "./constants";
 
 export const Wrapper = styled.div`
   width: 90%;
+  margin: 20px 60px;
+
   height: auto;
-  position: relative;
   display: flex;
   align-items: center;
   justify-content: left;
@@ -12,7 +13,7 @@ export const Wrapper = styled.div`
   ${(props) => {
     if (
       props.mode === modeTypes.masterGame ||
-      props.mode === modeTypes.player
+      props.mode === modeTypes.playerGame
     ) {
       return `{
         width: 450px;

@@ -78,6 +78,7 @@ const ConnectionFormContainer = ({ gameId, handlePopup, match }) => {
 
     const removeSocketListeners = () => {
         socket.off(LOBBY_CONNECTED, handleLobbyRedirect);
+        socket.off(GAMES_LIST, handleLobbyRedirect);
         //socket.off(RECEIVE_MESSAGE, handleIncomingMessage)
         socket.off(USER_CONNECTED, handleUserConnect)
         socket.off(USER_DISCONNECTED, handleUserDisconnect)

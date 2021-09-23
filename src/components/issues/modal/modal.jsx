@@ -90,7 +90,7 @@ export default function Modal({
             text="Ok"
             color="white"
             onClick={() => {
-              dispatch(replaceIssue(state));
+              dispatch(replaceIssue(state)); 
               closeHandler();
             }}
           />

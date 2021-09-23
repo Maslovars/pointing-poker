@@ -14,3 +14,4 @@ export const GAME_ID = randomWords({ exactly: 2, join: "-" });
 export const KICK_PLAYER = 'kick_player';
 export const LEAVE_GAME = 'leave_game';
 export const BLOCK_APP = 'block_app';
+export const SET_GAME_DATA = 'set_game_data';
