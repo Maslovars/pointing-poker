@@ -29,13 +29,27 @@ const Lobby = () => {
     const cards = store.cards.cardsSet;
     const issues = store.issues.issuesSet;
     const users = store.users;
+    const [gameSettings, setGameSettings] = useState({})
     const addedUser = users.find(user => user.userId === socket.id);
     const dispatch = useDispatch();
     
     const sendData = () => {
-        console.log('SEND DATA');
-        socket.emit(SET_GAME_DATA, { gameId: room, data: { cards, issues } });
-    } 
+        socket.emit(SET_GAME_DATA, { gameId: room, data: { cards, issues, gameSettings } });
+    }
+    
+    const getGameSettings = (settings) => {
+        setGameSettings({
+            isPlayer: settings.isPlayer,
+            changingCard: settings.changingCard,
+            autoEntrance: settings.autoEntrance,
+            changingDecision: settings.changingDecision,
+            isTimer: settings.isTimer,
+            scoreType: settings.scoreType,
+            scoreTypeShort: settings.scoreTypeShort,
+            minutes: settings.minutes,
+            seconds: settings.seconds
+        })
+    }
     
     const updateStore = (data) => {
       console.log('GET DATA')
@@ -64,6 +78,7 @@ const Lobby = () => {
       history.push(`/game/${room}`);
     }
 
+
     const addSocketListeners = () => {
         socket.on(GAME_STARTED, () => {
             if (user && user.isMaster) { return };
@@ -81,8 +96,8 @@ const Lobby = () => {
     }
 
     useEffect(() => {
-      if ( user && user.isMaster ) { sendData(); }
-    }, [issues, cards]);
+        if (user && user.isMaster) { sendData() };
+    }, [issues, cards, gameSettings])
 
     useEffect(() => {
         { console.log('handle popup im lobby.jsx', isOpenPopup) }
@@ -95,8 +110,8 @@ const Lobby = () => {
             <div>
                 <Users startGameHandler={startGame} />
                 <Issues mode={mode} />
-                { user.isMaster && <Cards mode={mode} /> }
-                { user.isMaster && <GameSettingsForm /> }
+                {user.isMaster && <Cards mode={mode} />}
+                {user.isMaster && <GameSettingsForm getGameSettings={getGameSettings} />}
             </div>
         )
     } else {

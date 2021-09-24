@@ -6,7 +6,7 @@ import Input from '../input/Input';
 import InputToggle from '../input/InputToggle';
 import { StyledForm, StyledHeading, StyledInputGroup, StyledPar, StyledSettingsForm, StyledTimer, StyledTimerInput } from './style';
 
-const GameSettingsForm = () => {
+const GameSettingsForm = ({ getGameSettings }) => {
 
     const formik = useFormik({
         initialValues: {
@@ -21,7 +21,8 @@ const GameSettingsForm = () => {
             seconds: ""
         },
         onSubmit: values => {
-            console.log(values);
+            getGameSettings({ ...values })
+            // console.log(values);
         },
         validate: values => {
             const errors = {};
@@ -56,8 +57,8 @@ const GameSettingsForm = () => {
                 <StyledInputGroup>
                     <StyledPar>Changing card in round end:</StyledPar>
                     <InputToggle
-                        name="changingCards"
-                        id="changingCards"
+                        name="changingCard"
+                        id="changingCard"
                         onChange={formik.handleChange}
                         checked={formik.values.changingCard} />
                 </StyledInputGroup>
