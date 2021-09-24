@@ -33,7 +33,6 @@ const Lobby = (props) => {
     if (!user && addedUser) { setUser(addedUser); }
     const dispatch = useDispatch();
     const state = useSelector(state => state.appState);
-    const room = window.location.pathname.replace('/lobby/', '');
     const cards = state.cards.cardsSet;
     const issues = state.issues.issuesSet;
     const [gameSettings, setGameSettings] = useState({})
@@ -52,14 +51,11 @@ const Lobby = (props) => {
             minutes: settings.minutes,
             seconds: settings.seconds
         })
-        console.log("123", gameSettings);
     }
 
-    const sendData = () => {
-        socket.emit(SET_GAME_DATA, { gameId: room, data: { cards, issues, gameSettings } });
+    const sendData = (data) => {
+        socket.emit(SET_GAME_DATA, { gameId: gameId, data: {...data} });
     }
-
-
     const addSocketListeners = () => {
 
         socket.on(GAME_DATA, (data) => {
@@ -130,11 +126,11 @@ const Lobby = (props) => {
     }
 
     useEffect(() => {
-        if (user && user.isMaster) { sendData() };
+        if (user && user.isMaster) { sendData({issues, cards, gameSettings}) };
     }, [issues, cards, gameSettings])
 
     useEffect(() => {
-        { console.log('handle popup im lobby.jsx', isOpenPopup) }
+        { console.log('render in UE') }
         getGameData(gameId);
         addSocketListeners();
         return () => removeSocketListeners();
