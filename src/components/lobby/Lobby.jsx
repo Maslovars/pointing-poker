@@ -29,6 +29,7 @@ const Lobby = (props) => {
     const [gameData, setGameData] = useState(null);
     const [gamesList, setGamesList] = useState([]);
     const [user, setUser] = useState(null);
+    
     const addedUser = useSelector((state) => state.appState.users.find(user => user.userId === socket.id));
     if (!user && addedUser) { setUser(addedUser); }
     const dispatch = useDispatch();
