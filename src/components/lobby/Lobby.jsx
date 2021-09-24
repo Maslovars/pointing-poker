@@ -1,5 +1,8 @@
 /* eslint-disable */
 
+
+import ConnectionFormContainer from '../connectionForm/ConnectionFormContainer';
+import Modal from '../modal/Modal';
 import React, { useState, useEffect } from 'react';
 import { withRouter } from 'react-router';
 import { socket } from "../../common/utils/socket/socket";
@@ -8,10 +11,7 @@ import {
     SET_GAME_DATA,
     START_GAME,
     GAME_STARTED,
-    USER_CONNECTED
 } from '../../common/utils/socket/constants';
-import ConnectionFormContainer from '../connectionForm/ConnectionFormContainer';
-import Modal from '../modal/Modal';
 import Users from '../ussers/Ussers';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateData } from '../../redux/actions/actions';
@@ -22,9 +22,10 @@ import Cards from '../cards/Cards';
 import { useHistory } from 'react-router-dom';
 
 const Lobby = () => {
-    const [user, setUser] = useState('');
     const [isOpenPopup, setIsOpenPopup] = useState(false);
-    const room = window.location.pathname.replace('/lobby/', '');
+    const [user, setUser] = useState('');
+    const history = useHistory();
+    const room = history.location.pathname.replace('/lobby/', '');
     const store = useSelector((state) => state.appState);
     const cards = store.cards.cardsSet;
     const issues = store.issues.issuesSet;
@@ -33,8 +34,12 @@ const Lobby = () => {
     const addedUser = users.find(user => user.userId === socket.id);
     const dispatch = useDispatch();
     
-    const sendData = () => {
-        socket.emit(SET_GAME_DATA, { gameId: room, data: { cards, issues, gameSettings } });
+    const sendData = ({type}) => {
+        switch (type) { 
+          case 'get':  socket.emit(SET_GAME_DATA, { type, gameId: room, data: { cards, issues, gameSettings } }); break;
+          case 'post': socket.emit(SET_GAME_DATA, { type, gameId: room, data: { cards, issues, gameSettings } }); break;
+          default: return;
+        }
     }
     
     const getGameSettings = (settings) => {
@@ -52,9 +57,9 @@ const Lobby = () => {
     }
     
     const updateStore = (data) => {
-      console.log('GET DATA')
       const { users } = data;
-      const sockedUser = users.find(user => user.userId === socket.id)
+      const sockedUser = users.find(user => user.userId === socket.id);
+      if (!sockedUser) { history.push('/'); return; }
       const { isMaster } = sockedUser;
       if (isMaster) {
         dispatch(updateData({ users: data.users }));
@@ -64,12 +69,8 @@ const Lobby = () => {
     }
     
     if (user === '' && addedUser) { setUser({ ...addedUser }) }
-    if (user === '') { sendData() }
+    if (user === '') { sendData({type: 'get'}) }
     
-        
-    console.log('-------------RESET------------------');
-    
-    const history = useHistory();
     let mode = modeTypes.player;
     if (user && user.isMaster) { mode = modeTypes.master }
     
@@ -78,48 +79,49 @@ const Lobby = () => {
       history.push(`/game/${room}`);
     }
 
+    const handlePopup = () => {
+      setIsOpenPopup((prevState) => !prevState);
+    }
 
     const addSocketListeners = () => {
         socket.on(GAME_STARTED, () => {
             if (user && user.isMaster) { return };
             history.push(`/game/${room}`);
         })
-        socket.on(GAME_DATA, data => updateStore(data))
+        socket.on(GAME_DATA, data => updateStore(data));
     }
 
     const removeSocketListeners = () => {
-      socket.removeAllListeners();
+        socket.off(GAME_STARTED, () => {
+            if (user && user.isMaster) { return };
+            history.push(`/game/${room}`);
+        })
+        socket.off(GAME_DATA, data => updateStore(data))
     }
 
-    const handlePopup = () => {
-      setIsOpenPopup((prevState) => !prevState);
-    }
-
-    useEffect(() => {
-        if (user && user.isMaster) { sendData() };
+   useEffect(() => {
+        if (user && user.isMaster) { sendData({type: 'post'}) };
     }, [issues, cards, gameSettings])
 
     useEffect(() => {
-        { console.log('handle popup im lobby.jsx', isOpenPopup) }
         addSocketListeners();
         return () => removeSocketListeners();
     }, [])
-
     if (user) {
-        return (
-            <div>
-                <Users startGameHandler={startGame} />
-                <Issues mode={mode} />
-                {user.isMaster && <Cards mode={mode} />}
-                {user.isMaster && <GameSettingsForm getGameSettings={getGameSettings} />}
-            </div>
-        )
-    } else {
-        return (isOpenPopup &&
-            <Modal handlePopup={handlePopup}> <ConnectionFormContainer gameId={gameId} handlePopup={handlePopup} />
-            </Modal>)
+      return (
+          <div>
+              <Users startGameHandler={startGame} />
+              <Issues mode={mode} />
+              { user.isMaster && <Cards mode={mode} /> }
+              { user.isMaster && <GameSettingsForm /> }
+          </div>
+      )
+  } else {
+      return (isOpenPopup &&
+          <Modal handlePopup={handlePopup}> <ConnectionFormContainer gameId={room} handlePopup={handlePopup} />
+          </Modal>)
 
-    }
+  }
 
 }
 

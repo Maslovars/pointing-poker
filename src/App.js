@@ -12,9 +12,11 @@ import { Provider } from "react-redux";
 import { store } from "../src/redux/store/store";
 import { socket } from "./common/utils/socket/socket";
 import { BLOCK_APP, KICK_PLAYER } from "./common/utils/socket/constants";
+import { useHistory } from 'react-router-dom'
 
 function App() {
   const [blocked, setBlock] = useState("false");
+  let history = useHistory();
   
   function blockHandler({ isBlock, message }) {
     if (isBlock === true || isBlock === false) {
@@ -30,7 +32,7 @@ function App() {
 
   function clickHandler(event) {
     if (event.target.id === "input-yes" || event.target.id === "input-no") {
-      const room = window.location.pathname.replace("/lobby/", "");
+      const room = history.location.pathname.replace("/lobby/", "");
       let vote;
       const id = socket.id;
       event.target.id === "input-yes" ? (vote = true) : (vote = false);
@@ -57,7 +59,7 @@ function App() {
             <Route path="/settings" render={() => <Settings />}></Route>
             <Route path="/game" render={() => <Game />}></Route>
           </Switch>
-        <Redirect to='/' />  
+          <Redirect to='/' />
         </div>
         <Footer />
         {blocked === true && <div id="block"></div>}
