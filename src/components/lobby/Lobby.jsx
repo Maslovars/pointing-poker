@@ -36,12 +36,29 @@ const Lobby = (props) => {
     const room = window.location.pathname.replace('/lobby/', '');
     const cards = state.cards.cardsSet;
     const issues = state.issues.issuesSet;
+    const [gameSettings, setGameSettings] = useState({})
     let mode = modeTypes.player;
     if (user && user.isMaster) { mode = modeTypes.master }
 
-    const sendData = () => {
-        socket.emit(SET_GAME_DATA, { gameId: room, data: { cards, issues } });
+    const getGameSettings = (settings) => {
+        setGameSettings({
+            isPlayer: settings.isPlayer,
+            changingCard: settings.changingCard,
+            autoEntrance: settings.autoEntrance,
+            changingDecision: settings.changingDecision,
+            isTimer: settings.isTimer,
+            scoreType: settings.scoreType,
+            scoreTypeShort: settings.scoreTypeShort,
+            minutes: settings.minutes,
+            seconds: settings.seconds
+        })
+        console.log("123", gameSettings);
     }
+
+    const sendData = () => {
+        socket.emit(SET_GAME_DATA, { gameId: room, data: { cards, issues, gameSettings } });
+    }
+
 
     const addSocketListeners = () => {
 
@@ -111,10 +128,10 @@ const Lobby = (props) => {
     const handleUserDisconnect = (userId) => {
         // handleIncomingMessage({ message: `${userId} disconnected` })
     }
-    
+
     useEffect(() => {
         if (user && user.isMaster) { sendData() };
-    }, [issues, cards])
+    }, [issues, cards, gameSettings])
 
     useEffect(() => {
         { console.log('handle popup im lobby.jsx', isOpenPopup) }
@@ -130,8 +147,8 @@ const Lobby = (props) => {
             <div>
                 <Users />
                 <Issues mode={mode} />
-                { user.isMaster && <Cards mode={mode} /> }
-                { user.isMaster && <GameSettingsForm /> }
+                {user.isMaster && <Cards mode={mode} />}
+                {user.isMaster && <GameSettingsForm getGameSettings={getGameSettings} />}
             </div>
         )
     } else if
