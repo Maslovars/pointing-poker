@@ -15,7 +15,7 @@ import { BLOCK_APP, KICK_PLAYER } from "./common/utils/socket/constants";
 
 function App() {
   const [blocked, setBlock] = useState("false");
-
+  
   function blockHandler({ isBlock, message }) {
     if (isBlock === true || isBlock === false) {
       setBlock(isBlock);
@@ -57,7 +57,7 @@ function App() {
             <Route path="/settings" render={() => <Settings />}></Route>
             <Route path="/game" render={() => <Game />}></Route>
           </Switch>
-          <Redirect to="/" />
+        <Redirect to='/' />  
         </div>
         <Footer />
         {blocked === true && <div id="block"></div>}

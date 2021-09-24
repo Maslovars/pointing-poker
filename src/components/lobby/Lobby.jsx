@@ -4,13 +4,11 @@ import React, { useState, useEffect } from 'react';
 import { withRouter } from 'react-router';
 import { socket } from "../../common/utils/socket/socket";
 import {
-    GET_GAME_DATA,
     GAME_DATA,
-    GAMES_LIST,
-    LOBBY_CONNECTED,
-    USER_CONNECTED,
-    USER_DISCONNECTED,
-    SET_GAME_DATA
+    SET_GAME_DATA,
+    START_GAME,
+    GAME_STARTED,
+    USER_CONNECTED
 } from '../../common/utils/socket/constants';
 import ConnectionFormContainer from '../connectionForm/ConnectionFormContainer';
 import Modal from '../modal/Modal';
@@ -21,122 +19,86 @@ import GameSettingsForm from '../gameSettingsForm/GameSettingsForm';
 import Issues from '../issues/Issues';
 import { modeTypes } from '../issues/constants';
 import Cards from '../cards/Cards';
+import { useHistory } from 'react-router-dom';
 
-const Lobby = (props) => {
-
+const Lobby = () => {
+    const [user, setUser] = useState('');
     const [isOpenPopup, setIsOpenPopup] = useState(false);
-    const [gameId, setGameId] = useState(props.match.params.gameId);
-    const [gameData, setGameData] = useState(null);
-    const [gamesList, setGamesList] = useState([]);
-    const [user, setUser] = useState(null);
-    const addedUser = useSelector((state) => state.appState.users.find(user => user.userId === socket.id));
-    if (!user && addedUser) { setUser(addedUser); }
-    const dispatch = useDispatch();
-    const state = useSelector(state => state.appState);
     const room = window.location.pathname.replace('/lobby/', '');
-    const cards = state.cards.cardsSet;
-    const issues = state.issues.issuesSet;
+    const store = useSelector((state) => state.appState);
+    const cards = store.cards.cardsSet;
+    const issues = store.issues.issuesSet;
+    const users = store.users;
+    const addedUser = users.find(user => user.userId === socket.id);
+    const dispatch = useDispatch();
+    
+    const sendData = () => {
+        console.log('SEND DATA');
+        socket.emit(SET_GAME_DATA, { gameId: room, data: { cards, issues } });
+    } 
+    
+    const updateStore = (data) => {
+      console.log('GET DATA')
+      const { users } = data;
+      const sockedUser = users.find(user => user.userId === socket.id)
+      const { isMaster } = sockedUser;
+      if (isMaster) {
+        dispatch(updateData({ users: data.users }));
+      } else {
+        dispatch(updateData(data));
+      }
+    }
+    
+    if (user === '' && addedUser) { setUser({ ...addedUser }) }
+    if (user === '') { sendData() }
+    
+        
+    console.log('-------------RESET------------------');
+    
+    const history = useHistory();
     let mode = modeTypes.player;
     if (user && user.isMaster) { mode = modeTypes.master }
-
-    const sendData = () => {
-        socket.emit(SET_GAME_DATA, { gameId: room, data: { cards, issues } });
+    
+    const startGame = () => {
+      socket.emit(START_GAME, { room });
+      history.push(`/game/${room}`);
     }
 
     const addSocketListeners = () => {
-
-        socket.on(GAME_DATA, (data) => {
-            let update;
-            const { users } = data;
-            if (user && user.isMaster) { update = { users } } else { update = data }
-            setGameData(update);
-            dispatch(updateData(update));
+        socket.on(GAME_STARTED, () => {
+            if (user && user.isMaster) { return };
+            history.push(`/game/${room}`);
         })
-
-
-        socket.on(GAMES_LIST, (data) => {
-            setGamesList(data);
-        }
-        )
-        socket.on(LOBBY_CONNECTED, (data) => {
-            setIsOpenPopup(false);
-        })
-
-        socket.on(USER_CONNECTED, handleUserConnect)
-        socket.on(USER_DISCONNECTED, handleUserDisconnect)
+        socket.on(GAME_DATA, data => updateStore(data))
     }
-
 
     const removeSocketListeners = () => {
-        socket.off(GAME_DATA, (data) => {
-            let update;
-            const { users } = data;
-            if (user && user.isMaster) { update = { users } } else { update = data }
-            setGameData(update);
-            dispatch(updateData(update));
-        })
-        socket.off(GAMES_LIST, (data) => {
-            setGamesList(data)
-        }
-        )
-
-        socket.off(LOBBY_CONNECTED, (data) => {
-            setIsOpenPopup(false);
-            dispatch(updateData(data));
-        })
-        socket.off(USER_CONNECTED, handleUserConnect);
-        socket.off(USER_DISCONNECTED, handleUserDisconnect);
+      socket.removeAllListeners();
     }
-
 
     const handlePopup = () => {
-        setIsOpenPopup((prevState) => !prevState);
+      setIsOpenPopup((prevState) => !prevState);
     }
 
-    const getGameData = (gameId) => {
-        if (gameId) {
-
-            if (gamesList.length === 0) {
-                handlePopup();
-            }
-            socket.emit(GET_GAME_DATA, gameId);
-        }
-
-    }
-
-    const handleUserConnect = (userId) => {
-        // handleIncomingMessage({ message: `${userId} connected` })
-    }
-
-    const handleUserDisconnect = (userId) => {
-        // handleIncomingMessage({ message: `${userId} disconnected` })
-    }
-    
     useEffect(() => {
-        if (user && user.isMaster) { sendData() };
-    }, [issues, cards])
+      if ( user && user.isMaster ) { sendData(); }
+    }, [issues, cards]);
 
     useEffect(() => {
         { console.log('handle popup im lobby.jsx', isOpenPopup) }
-        getGameData(gameId);
         addSocketListeners();
         return () => removeSocketListeners();
     }, [])
-    // если нет такого gameId, тогда выводим список пameId карточками
-    // если gameId найден, выводим ConnectionForm в модалке
 
-    if (gameData && user) {
+    if (user) {
         return (
             <div>
-                <Users />
+                <Users startGameHandler={startGame} />
                 <Issues mode={mode} />
                 { user.isMaster && <Cards mode={mode} /> }
                 { user.isMaster && <GameSettingsForm /> }
             </div>
         )
-    } else if
-        (gamesList) {
-        return gamesList.map(game => <div key={game}>{game}</div>)
     } else {
         return (isOpenPopup &&
             <Modal handlePopup={handlePopup}> <ConnectionFormContainer gameId={gameId} handlePopup={handlePopup} />

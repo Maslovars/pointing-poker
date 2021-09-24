@@ -10,13 +10,16 @@ import {
   InputsContainer,
   StartButton,
 } from "./style";
+import { PropTypes } from 'prop-types';
+
 import User from "./user/User";
 import { useSelector } from "react-redux";
 import { socket } from "../../common/utils/socket/socket";
 import { LEAVE_GAME } from "../../common/utils/socket/constants";
 import { useLocation, Redirect } from "react-router-dom";
 
-export default function Ussers() {
+export default function Ussers(props) {
+  const { startGameHandler } = props;
   const url = window.location.href;
   const users = useSelector((state) => state.appState.users);
   const userId = socket.id;
@@ -66,7 +69,7 @@ export default function Ussers() {
                   onClick={copyHandler}
                 />
               </InputsContainer>
-              <StartButton type="start" defaultValue="START NEW GAME" />
+              <StartButton type='button' defaultValue="START NEW GAME" onClick={startGameHandler} />
             </StyledLinkContainer>
           )}
         </UserWrapper>
@@ -95,4 +98,12 @@ export default function Ussers() {
       </UsersContainer>
     </Wrapper>
   );
+}
+
+Ussers.propTypes = {
+  startGameHandler: PropTypes.func,
+}
+
+Ussers.defaultProps = {
+  startGameHandler: () => console.warn('Users startGameHandler was not defined.'),
 }
