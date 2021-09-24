@@ -24,6 +24,10 @@ const GameSettingsForm = ({ getGameSettings }) => {
             getGameSettings({ ...values })
             // console.log(values);
         },
+        onChange: values => {
+            getGameSettings({ ...values })
+            // console.log(values);
+        },
         validate: values => {
             const errors = {};
             if (values.minutes > 100) {
