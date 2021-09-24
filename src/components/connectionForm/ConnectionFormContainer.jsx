@@ -14,7 +14,7 @@ import {
 } from '../../common/utils/socket/constants';
 
 const ConnectionFormContainer = ({ gameId, handlePopup, match }) => {
-
+    
     const history = useHistory();
 
     const [usersData, setUsersData] = useState([]);

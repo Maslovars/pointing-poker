@@ -22,9 +22,9 @@ import Cards from '../cards/Cards';
 import { useHistory } from 'react-router-dom';
 
 const Lobby = () => {
+    const history = useHistory();
     const [isOpenPopup, setIsOpenPopup] = useState(false);
     const [user, setUser] = useState('');
-    const history = useHistory();
     const room = history.location.pathname.replace('/lobby/', '');
     const store = useSelector((state) => state.appState);
     const cards = store.cards.cardsSet;
@@ -33,7 +33,6 @@ const Lobby = () => {
     const [gameSettings, setGameSettings] = useState({})
     const addedUser = users.find(user => user.userId === socket.id);
     const dispatch = useDispatch();
-    
     const sendData = ({type}) => {
         switch (type) { 
           case 'get':  socket.emit(SET_GAME_DATA, { type, gameId: room, data: { cards, issues, gameSettings } }); break;
@@ -59,7 +58,7 @@ const Lobby = () => {
     const updateStore = (data) => {
       const { users } = data;
       const sockedUser = users.find(user => user.userId === socket.id);
-      if (!sockedUser) { history.push('/'); return; }
+      if (!sockedUser) { history.push(`/`); return; }
       const { isMaster } = sockedUser;
       if (isMaster) {
         dispatch(updateData({ users: data.users }));
@@ -120,9 +119,7 @@ const Lobby = () => {
       return (isOpenPopup &&
           <Modal handlePopup={handlePopup}> <ConnectionFormContainer gameId={room} handlePopup={handlePopup} />
           </Modal>)
-
   }
-
 }
 
 export default withRouter(Lobby);

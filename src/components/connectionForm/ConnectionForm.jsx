@@ -22,7 +22,6 @@ const ConnectionForm = ({ connectLobby, disconnectLobby }) => {
 
         },
         onSubmit: values => {
-
             connectLobby({ ...values, ava: uploadedFile });
 
         },
