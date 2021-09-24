@@ -24,10 +24,6 @@ const GameSettingsForm = ({ getGameSettings }) => {
             getGameSettings({ ...values })
             // console.log(values);
         },
-        onChange: values => {
-            getGameSettings({ ...values })
-            // console.log(values);
-        },
         validate: values => {
             const errors = {};
             if (values.minutes > 100) {
@@ -51,7 +47,7 @@ const GameSettingsForm = ({ getGameSettings }) => {
             <StyledHeading>Game settings:</StyledHeading>
             <StyledForm onSubmit={formik.handleSubmit}>
                 <StyledInputGroup>
-                    <StyledPar>Scram master as player:</StyledPar>
+                    <StyledPar>Scrum master as player:</StyledPar>
                     <InputToggle
                         name="isPlayer"
                         id="isPlayer"
