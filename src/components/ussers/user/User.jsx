@@ -2,7 +2,7 @@ import React from "react";
 import { User, Avatar, AvatarImage, TextContainer, ImgButton } from "./style";
 import { PropTypes } from "prop-types";
 import del from "../../../assets/delete-users.png";
-import {Image} from "cloudinary-react";
+import { Image } from "cloudinary-react";
 import { socket } from "../../../common/utils/socket/socket";
 import { KICK_PLAYER } from "../../../common/utils/socket/constants";
 export default function UserCard(props) {
