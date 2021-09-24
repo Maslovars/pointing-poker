@@ -79,12 +79,12 @@ export const appState = createReducer(initState, builder =>
     .addCase(addNewIssue, (state, action) => {
       const newState = state;
       if (action.payload.name.length > 10) { action.payload.title = `${action.payload.name.slice(0, 10)}...` }
-      else { action.payload.title = action.payload.name}
+      else { action.payload.title = action.payload.name }
       switch (action.payload.priority) {
         case priorityTypes.low: newState.issues.lowSet.push(action.payload); break;
         case priorityTypes.middle: newState.issues.middleSet.push(action.payload); break;
         case priorityTypes.hight: newState.issues.hightSet.push(action.payload); break;
-        defauft: return;
+        default: return;
       }
       newState.issues.issuesSet = newState.issues.hightSet.concat(newState.issues.middleSet, newState.issues.lowSet);
       return newState;
@@ -93,21 +93,21 @@ export const appState = createReducer(initState, builder =>
       const newState = state;
       let index = -1;
       if (action.payload.priority === priorityTypes.low) {
-        newState.issues.lowSet.map((issue, ind) => {if (issue.id === action.payload.issueId) { index = ind }});
+        newState.issues.lowSet.map((issue, ind) => { if (issue.id === action.payload.issueId) { index = ind } });
         if (index !== -1) {
           newState.issues.lowSet.splice(index, 1);
           newState.issues.issuesSet = newState.issues.hightSet.concat(newState.issues.middleSet, newState.issues.lowSet);
         }
       }
       if (action.payload.priority === priorityTypes.middle) {
-        newState.issues.middleSet.map((issue, ind) => {if (issue.id === action.payload.issueId) { index = ind }});
+        newState.issues.middleSet.map((issue, ind) => { if (issue.id === action.payload.issueId) { index = ind } });
         if (index !== -1) {
           newState.issues.middleSet.splice(index, 1);
           newState.issues.issuesSet = newState.issues.hightSet.concat(newState.issues.middleSet, newState.issues.lowSet);
         }
       }
       if (action.payload.priority === priorityTypes.hight) {
-        newState.issues.hightSet.map((issue, ind) => {if (issue.id === action.payload.issueId) { index = ind }});
+        newState.issues.hightSet.map((issue, ind) => { if (issue.id === action.payload.issueId) { index = ind } });
         if (index !== -1) {
           newState.issues.hightSet.splice(index, 1);
           newState.issues.issuesSet = newState.issues.hightSet.concat(newState.issues.middleSet, newState.issues.lowSet);
@@ -124,7 +124,7 @@ export const appState = createReducer(initState, builder =>
       const newIssue = { name, priority, id, link, title };
       let index = -1;
       if (oldPriority === priorityTypes.low) {
-        newState.issues.lowSet.map((issue, ind) => {if (issue.id === id) { index = ind }});
+        newState.issues.lowSet.map((issue, ind) => { if (issue.id === id) { index = ind } });
         if (index !== -1 && oldPriority === priority) {
           newState.issues.lowSet.splice(index, 1, newIssue);
           newState.issues.issuesSet = newState.issues.hightSet.concat(newState.issues.middleSet, newState.issues.lowSet);
@@ -133,13 +133,13 @@ export const appState = createReducer(initState, builder =>
           switch (priority) {
             case priorityTypes.middle: newState.issues.middleSet.push(newIssue); break;
             case priorityTypes.hight: newState.issues.hightSet.push(newIssue); break;
-            defauft: return;
+            default: return;
           }
           newState.issues.issuesSet = newState.issues.hightSet.concat(newState.issues.middleSet, newState.issues.lowSet);
         }
       }
       if (oldPriority === priorityTypes.middle) {
-        newState.issues.middleSet.map((issue, ind) => {if (issue.id === id) { index = ind }});
+        newState.issues.middleSet.map((issue, ind) => { if (issue.id === id) { index = ind } });
         if (index !== -1 && oldPriority === priority) {
           newState.issues.middleSet.splice(index, 1, newIssue);
           newState.issues.issuesSet = newState.issues.hightSet.concat(newState.issues.middleSet, newState.issues.lowSet);
@@ -148,13 +148,13 @@ export const appState = createReducer(initState, builder =>
           switch (priority) {
             case priorityTypes.low: newState.issues.lowSet.push(newIssue); break;
             case priorityTypes.hight: newState.issues.hightSet.push(newIssue); break;
-            defauft: return;
+            default: return;
           }
           newState.issues.issuesSet = newState.issues.hightSet.concat(newState.issues.middleSet, newState.issues.lowSet);
         }
       }
       if (oldPriority === priorityTypes.hight) {
-        newState.issues.hightSet.map((issue, ind) => {if (issue.id === id) { index = ind }});
+        newState.issues.hightSet.map((issue, ind) => { if (issue.id === id) { index = ind } });
         if (index !== -1 && oldPriority === priority) {
           newState.issues.hightSet.splice(index, 1, newIssue);
           newState.issues.issuesSet = newState.issues.hightSet.concat(newState.issues.middleSet, newState.issues.lowSet);
@@ -163,7 +163,7 @@ export const appState = createReducer(initState, builder =>
           switch (priority) {
             case priorityTypes.middle: newState.issues.middleSet.push(newIssue); break;
             case priorityTypes.low: newState.issues.hightSet.push(newIssue); break;
-            defauft: return;
+            default: return;
           }
           newState.issues.issuesSet = newState.issues.hightSet.concat(newState.issues.middleSet, newState.issues.lowSet);
         }
@@ -185,5 +185,5 @@ export const appState = createReducer(initState, builder =>
       if (issues) { newState.issues.issuesSet = issues }
       return newState;
     })
-    .addDefaultCase(() => {})   
+    .addDefaultCase(() => { })
 )
