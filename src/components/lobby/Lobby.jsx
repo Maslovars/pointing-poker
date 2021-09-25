@@ -24,15 +24,15 @@ import { useHistory } from 'react-router-dom';
 const Lobby = () => {
     const history = useHistory();
     const [isOpenPopup, setIsOpenPopup] = useState(false);
-    const [user, setUser] = useState('');
+    const [user, setUser] = useState(undefined);
     const room = history.location.pathname.replace('/lobby/', '');
     const store = useSelector((state) => state.appState);
     const cards = store.cards.cardsSet;
     const issues = store.issues.issuesSet;
-    const users = store.users;
+    const users = store.users
     const [gameSettings, setGameSettings] = useState({})
-    const addedUser = users.find(user => user.userId === socket.id);
     const dispatch = useDispatch();
+    
     const sendData = ({type}) => {
         switch (type) { 
           case 'get':  socket.emit(SET_GAME_DATA, { type, gameId: room, data: { cards, issues, gameSettings } }); break;
@@ -40,6 +40,8 @@ const Lobby = () => {
           default: return;
         }
     }
+    
+    if (!user && users.length) { setUser(users.find(user => user.userId === socket.id)) }
     
     const getGameSettings = (settings) => {
         setGameSettings({
@@ -54,10 +56,9 @@ const Lobby = () => {
             seconds: settings.seconds
         })
     }
-    
-    const updateStore = (data) => {
-      const { users } = data;
-      const sockedUser = users.find(user => user.userId === socket.id);
+      const updateStore = (data) => {
+      const socketUsers = data.users;
+      const sockedUser = socketUsers.find(el => el.userId === socket.id);
       if (!sockedUser) { history.push(`/`); return; }
       const { isMaster } = sockedUser;
       if (isMaster) {
@@ -66,9 +67,6 @@ const Lobby = () => {
         dispatch(updateData(data));
       }
     }
-    
-    if (user === '' && addedUser) { setUser({ ...addedUser }) }
-    if (user === '') { sendData({type: 'get'}) }
     
     let mode = modeTypes.player;
     if (user && user.isMaster) { mode = modeTypes.master }
@@ -98,28 +96,28 @@ const Lobby = () => {
         socket.off(GAME_DATA, data => updateStore(data))
     }
 
-   useEffect(() => {
+    useEffect(() => {
         if (user && user.isMaster) { sendData({type: 'post'}) };
     }, [issues, cards, gameSettings])
 
     useEffect(() => {
+        sendData({type: 'get'});
         addSocketListeners();
         return () => removeSocketListeners();
     }, [])
-    if (user) {
+  if (user) {
       return (
           <div>
               <Users startGameHandler={startGame} />
               <Issues mode={mode} />
-              { user.isMaster && <Cards mode={mode} /> }
-              { user.isMaster && <GameSettingsForm /> }
+              { user && user.isMaster && <Cards mode={mode} /> }
+              { user && user.isMaster && <GameSettingsForm /> }
           </div>
       )
-  } else {
-      return (isOpenPopup &&
-          <Modal handlePopup={handlePopup}> <ConnectionFormContainer gameId={room} handlePopup={handlePopup} />
-          </Modal>)
-  }
+  } 
+  if (!user && !isOpenPopup) { return <div><h1>Please, wait</h1></div> }
+  if (isOpenPopup) { return <Modal handlePopup={handlePopup}> <ConnectionFormContainer gameId={room} handlePopup={handlePopup} />
+          </Modal> }
 }
 
 export default withRouter(Lobby);
