@@ -13,7 +13,7 @@ import {
     GAME_ID
 } from '../../common/utils/socket/constants';
 
-const ConnectionFormContainer = ({ gameId, handlePopup, match }) => {
+const ConnectionFormContainer = ({ gameId, handlePopup, match, observer }) => {
 
     const history = useHistory();
 
@@ -92,7 +92,7 @@ const ConnectionFormContainer = ({ gameId, handlePopup, match }) => {
     }, [])
 
 
-    return (<ConnectionForm connectLobby={connectLobby} disconnectLobby={disconnectLobby} />
+    return (<ConnectionForm connectLobby={connectLobby} disconnectLobby={disconnectLobby} observer={observer} />
     )
 }
 

@@ -60,6 +60,7 @@ const Lobby = (props) => {
     const addSocketListeners = () => {
 
         socket.on(GAME_DATA, (data) => {
+            console.log('DATA');
             let update;
             const { users } = data;
             if (user && user.isMaster) { update = { users } } else { update = data }

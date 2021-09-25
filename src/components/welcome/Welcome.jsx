@@ -21,16 +21,17 @@ const Welcome = () => {
     }, [])
 
    const [isOpenPopup, setIsOpenPopup] = useState(false);
-
+    
     const [gameId, setGameId] = useState('');
 
+    const [visibleObserver, setVisibleObserver] = useState(true);
+
     const handlePopup = () => {
-        
         setIsOpenPopup((prevState) => !prevState);
-        
     }
 
     const handleOpenConnectForm = (event) => {
+        event.target.innerText === 'Start new game' ? setVisibleObserver(false) : setVisibleObserver(true);
         (event.target.innerText === 'Start new game') && setGameId('');
         handlePopup();
     }
@@ -45,7 +46,7 @@ const Welcome = () => {
             <StyledText>Start your planning:</StyledText>
             <WelcomeGroup>
                 <StyledPar>Create session:</StyledPar>
-                <Button onClick={handleOpenConnectForm} width="big" text="Start new game" />
+                <Button  onClick={(event) => handleOpenConnectForm(event)} width="big" text="Start new game" />
             </WelcomeGroup>
             <StyledText>OR:</StyledText>
             <WelcomeGroup>
@@ -54,7 +55,7 @@ const Welcome = () => {
             {console.log('handle popup im welcome.jsx', isOpenPopup)}
             {isOpenPopup &&
                 <Modal handlePopup={handlePopup}> 
-                    <ConnectionFormContainer gameId={gameId.split('/')[4]} handlePopup={handlePopup}/>
+                    <ConnectionFormContainer gameId={gameId.split('/')[4]} handlePopup={handlePopup} observer={visibleObserver} />
                 </Modal>}
         </StyledWelcome>
     )
