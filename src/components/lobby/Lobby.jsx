@@ -20,6 +20,7 @@ import Issues from '../issues/Issues';
 import { modeTypes } from '../issues/constants';
 import Cards from '../cards/Cards';
 import { useHistory } from 'react-router-dom';
+import { LobbyWrapper } from './style';
 
 const Lobby = () => {
     const history = useHistory();
@@ -30,7 +31,7 @@ const Lobby = () => {
     const cards = store.cards.cardsSet;
     const issues = store.issues.issuesSet;
     const users = store.users
-    const [gameSettings, setGameSettings] = useState({})
+    const gameSettings = store.gameSettings;
     const dispatch = useDispatch();
     
     const sendData = ({type}) => {
@@ -43,20 +44,11 @@ const Lobby = () => {
     
     if (!user && users.length) { setUser(users.find(user => user.userId === socket.id)) }
     
-    const getGameSettings = (settings) => {
-        setGameSettings({
-            isPlayer: settings.isPlayer,
-            changingCard: settings.changingCard,
-            autoEntrance: settings.autoEntrance,
-            changingDecision: settings.changingDecision,
-            isTimer: settings.isTimer,
-            scoreType: settings.scoreType,
-            scoreTypeShort: settings.scoreTypeShort,
-            minutes: settings.minutes,
-            seconds: settings.seconds
-        })
+    const getGameSettings = (gameSettings) => {
+        dispatch(updateData({ gameSettings }))
     }
-      const updateStore = (data) => {
+    
+    const updateStore = (data) => {
       const socketUsers = data.users;
       const sockedUser = socketUsers.find(el => el.userId === socket.id);
       if (!sockedUser) { history.push(`/`); return; }
@@ -107,12 +99,12 @@ const Lobby = () => {
     }, [])
   if (user) {
       return (
-          <div>
+          <LobbyWrapper>
               <Users startGameHandler={startGame} />
               <Issues mode={mode} />
               { user && user.isMaster && <Cards mode={mode} /> }
-              { user && user.isMaster && <GameSettingsForm /> }
-          </div>
+              { user && user.isMaster && <GameSettingsForm getGameSettings={getGameSettings} /> }
+          </LobbyWrapper>
       )
   } 
   if (!user && !isOpenPopup) { return <div><h1>Please, wait</h1></div> }

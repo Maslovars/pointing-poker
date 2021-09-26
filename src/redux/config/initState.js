@@ -21,5 +21,16 @@ export const initState = {
     middleSet: [],
     hightSet: [],
     issuesSet: []
+  },
+  gameSettings: {
+    isPlayer: true,
+    changingCard: false,
+    autoEntrance: true,
+    changingDecision: false,
+    isTimer: false,
+    scoreType: "story points",
+    scoreTypeShort: 'SP',
+    minutes: "",
+    seconds: ""
   }
 }
