@@ -19,16 +19,25 @@ import { LEAVE_GAME } from "../../common/utils/socket/constants";
 import { useLocation, Redirect } from "react-router-dom";
 
 export default function Ussers(props) {
-  const { startGameHandler } = props;
+  const { startGameHandler, gameData, leaveHandlerFunc } = props;
   const url = window.location.href;
-  const users = useSelector((state) => state.appState.users);
+  let userData;
+  let gameId;
   const userId = socket.id;
-  const userData = users.find((user) => user.userId === userId);
-  const gameId = useLocation().pathname.replace("/lobby/", "");
+  let users;
+  let leaveHandler;
+  if (gameData) {
+    users = gameData.users;
+    userData = users.find((user) => user.userId === userId);
+    gameId = useLocation().pathname.replace("/lobby/", "");
+    leaveHandler = leaveHandlerFunc;
+  } else {
+  users = useSelector((state) => state.appState.users);
+  userData = users.find((user) => user.userId === userId);
+  gameId = useLocation().pathname.replace("/lobby/", "");
+  leaveHandler = () => { socket.emit(LEAVE_GAME, { gameId, userId }) };
+  }
 
-  const leaveHandler = () => {
-    socket.emit(LEAVE_GAME, { gameId, userId });
-  };
   const copyHandler = () => {
     const link = document.getElementById("link");
     link.select();
@@ -51,7 +60,7 @@ export default function Ussers(props) {
               room={gameId}
             />
           )}
-          {!!userData && userData.isMaster && (
+          {!!userData && !gameData && userData.isMaster && (
             <StyledLinkContainer>
               <p>link to lobby:</p>
               <InputsContainer>
@@ -73,11 +82,16 @@ export default function Ussers(props) {
             </StyledLinkContainer>
           )}
         </UserWrapper>
-        <LeaveButton
+        { !gameData && <LeaveButton
           type="button"
           defaultValue="LEAVE LOBBY"
           onClick={leaveHandler}
-        />
+        /> }
+        { gameData && <LeaveButton
+          type="button"
+          defaultValue="EXIT"
+          onClick={leaveHandler}
+        /> }
       </UserContainer>
       <UsersContainer>
         {users.map(
@@ -102,8 +116,12 @@ export default function Ussers(props) {
 
 Ussers.propTypes = {
   startGameHandler: PropTypes.func,
+  leaveHandlerFunc: PropTypes.func,
+  gameData: PropTypes.object,
 }
 
 Ussers.defaultProps = {
   startGameHandler: () => console.warn('Users startGameHandler was not defined.'),
+  leaveHandlerFunc: () => console.warn('Users leaveHandler was not defined.'),
+  gameData: null,
 }
