@@ -23,12 +23,16 @@ export const Avatar = styled.div`
   line-height: 50px;
   font-weight: bold;
 `;
-
-export const AvatarImage = styled.img`
-  height: 50px;
-  width: 50px;
-  border-radius: 50%;
+export const AvatarImage = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   margin-left: 10px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 1px solid ${theme.colors.green};
+  overflow: hidden;
 `;
 export const TextContainer = styled.div`
   width: 130px;

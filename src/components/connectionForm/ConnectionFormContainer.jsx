@@ -88,7 +88,7 @@ const ConnectionFormContainer = ({ gameId, handlePopup, match }) => {
     }, [])
 
 
-    return (<ConnectionForm connectLobby={connectLobby} disconnectLobby={disconnectLobby} />
+    return (<ConnectionForm connectLobby={connectLobby} disconnectLobby={disconnectLobby} observer={observer} />
     )
 }
 
