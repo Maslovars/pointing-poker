@@ -13,8 +13,8 @@ import {
     GAME_ID
 } from '../../common/utils/socket/constants';
 
-const ConnectionFormContainer = ({ gameId, handlePopup, match }) => {
-    
+const ConnectionFormContainer = ({ gameId, handlePopup, match, observer }) => {
+
     const history = useHistory();
 
     const [usersData, setUsersData] = useState([]);
