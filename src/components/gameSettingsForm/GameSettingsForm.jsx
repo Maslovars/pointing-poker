@@ -47,7 +47,7 @@ const GameSettingsForm = ({ getGameSettings }) => {
             <StyledHeading>Game settings:</StyledHeading>
             <StyledForm onSubmit={formik.handleSubmit}>
                 <StyledInputGroup>
-                    <StyledPar>Scram master as player:</StyledPar>
+                    <StyledPar>Scrum master as player:</StyledPar>
                     <InputToggle
                         name="isPlayer"
                         id="isPlayer"

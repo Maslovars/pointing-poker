@@ -8,9 +8,10 @@ import { StyledButtonGroup, StyledConnectionForm, StyledForm, StyledHeading, Sty
 import FileUploader from "../fileUploader/FileUploader";
 import InputToggle from "../input/InputToggle";
 
-const ConnectionForm = ({ connectLobby, disconnectLobby }) => {
+const ConnectionForm = ({ connectLobby, disconnectLobby, observer }) => {
 
     const [uploadedFile, setUploadedFile] = useState('');
+    const [visibleObserver, setVisibleObserver] = useState(true);
 
     const formik = useFormik({
         initialValues: {
@@ -18,8 +19,6 @@ const ConnectionForm = ({ connectLobby, disconnectLobby }) => {
             lastName: "",
             position: "",
             isObserver: false
-
-
         },
         onSubmit: values => {
             connectLobby({ ...values, ava: uploadedFile });
@@ -53,14 +52,14 @@ const ConnectionForm = ({ connectLobby, disconnectLobby }) => {
 
             <StyledForm onSubmit={formik.handleSubmit}>
 
-                <StyledFormSwitch>
+                { observer && <StyledFormSwitch>
                     <StyledPar>Connect as<br /> observer</StyledPar>
                     <InputToggle
                         name="isObserver"
                         id="isObserver"
                         onChange={formik.handleChange}
                         checked={formik.values.isObserver} />
-                </StyledFormSwitch>
+                </StyledFormSwitch> }
 
 
                 <StyledFormControl>
