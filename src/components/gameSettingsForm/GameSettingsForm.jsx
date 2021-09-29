@@ -5,23 +5,24 @@ import React from 'react';
 import Input from '../input/Input';
 import InputToggle from '../input/InputToggle';
 import { StyledForm, StyledHeading, StyledInputGroup, StyledPar, StyledSettingsForm, StyledTimer, StyledTimerInput } from './style';
+import Button from '../button/Button';
 
 const GameSettingsForm = ({ getGameSettings }) => {
-
+    
     const formik = useFormik({
         initialValues: {
             isPlayer: true,
             changingCard: false,
             autoEntrance: true,
             changingDecision: false,
-            isTimer: true,
-            scoreType: "",
-            scoreTypeShort: "",
+            isTimer: false,
+            scoreType: "story points",
+            scoreTypeShort: 'SP',
             minutes: "",
             seconds: ""
         },
         onSubmit: values => {
-            getGameSettings({ ...values })
+            getGameSettings({values})
             // console.log(values);
         },
         validate: values => {
@@ -32,7 +33,7 @@ const GameSettingsForm = ({ getGameSettings }) => {
                 errors.minutes = "!"
             }
             if (values.seconds > 59) {
-                errors.seconds = "!"
+                errors.seconds = "Max value 59!"
             } else if (values.seconds.length > 2) {
                 errors.seconds = "!"
             }
@@ -40,7 +41,6 @@ const GameSettingsForm = ({ getGameSettings }) => {
             return errors;
         }
     });
-
 
     return (
         <StyledSettingsForm>
@@ -101,9 +101,9 @@ const GameSettingsForm = ({ getGameSettings }) => {
                     <Input
                         id="scoreTypeShort"
                         name="scoreTypeShort"
+                        value={formik.values.scoreTypeShort}
                         type="text"
                         onChange={formik.handleChange}
-                        value={formik.values.firstName}
                         required />
                 </StyledInputGroup>
                 {formik.values.isTimer && <StyledInputGroup>
@@ -126,7 +126,7 @@ const GameSettingsForm = ({ getGameSettings }) => {
                             value={formik.values.seconds} />
                     </StyledTimer>
                 </StyledInputGroup>}
-                <button type="submit">Submit</button>
+                <Button type="submit" text='SAVE'  />
             </StyledForm>
         </StyledSettingsForm>
     )

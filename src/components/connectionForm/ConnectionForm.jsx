@@ -21,7 +21,6 @@ const ConnectionForm = ({ connectLobby, disconnectLobby, observer }) => {
             isObserver: false
         },
         onSubmit: values => {
-
             connectLobby({ ...values, ava: uploadedFile });
 
         },

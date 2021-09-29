@@ -1,5 +1,5 @@
 /* eslint-disable */
-import React, { useEffect } from 'react';
+import React from 'react';
 import logo from "../../assets/welcome-logo.png"
 import { Logo, StyledPar, StyledText, StyledWelcome, WelcomeGroup } from './styles';
 import Input from '../input/Input';
@@ -7,12 +7,9 @@ import Button from '../button/Button';
 import { useState } from 'react';
 import Modal from '../modal/Modal';
 import ConnectionFormContainer from '../connectionForm/ConnectionFormContainer';
-import { socket } from '../../common/utils/socket/socket';
-import { LOBBY_CONNECTED } from '../../common/utils/socket/constants';
-import { useDispatch } from 'react-redux';
-import { updateData } from '../../redux/actions/actions';
 
 const Welcome = () => {
+<<<<<<< HEAD
     const dispatch = useDispatch();
     useEffect(() => {
         socket.once(LOBBY_CONNECTED, (data) => {
@@ -22,6 +19,11 @@ const Welcome = () => {
 
     const [isOpenPopup, setIsOpenPopup] = useState(false);
 
+=======
+   
+   const [isOpenPopup, setIsOpenPopup] = useState(false);
+    
+>>>>>>> develop
     const [gameId, setGameId] = useState('');
 
     const [visibleObserver, setVisibleObserver] = useState(true);
