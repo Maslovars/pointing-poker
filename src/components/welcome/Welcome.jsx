@@ -15,13 +15,13 @@ import { updateData } from '../../redux/actions/actions';
 const Welcome = () => {
     const dispatch = useDispatch();
     useEffect(() => {
-      socket.once(LOBBY_CONNECTED, (data) => {
-        dispatch(updateData(data)); 
-      })
+        socket.once(LOBBY_CONNECTED, (data) => {
+            dispatch(updateData(data));
+        })
     }, [])
 
-   const [isOpenPopup, setIsOpenPopup] = useState(false);
-    
+    const [isOpenPopup, setIsOpenPopup] = useState(false);
+
     const [gameId, setGameId] = useState('');
 
     const [visibleObserver, setVisibleObserver] = useState(true);
@@ -46,7 +46,7 @@ const Welcome = () => {
             <StyledText>Start your planning:</StyledText>
             <WelcomeGroup>
                 <StyledPar>Create session:</StyledPar>
-                <Button  onClick={(event) => handleOpenConnectForm(event)} width="big" text="Start new game" />
+                <Button onClick={(event) => handleOpenConnectForm(event)} width="big" text="Start new game" />
             </WelcomeGroup>
             <StyledText>OR:</StyledText>
             <WelcomeGroup>
@@ -54,7 +54,7 @@ const Welcome = () => {
             </WelcomeGroup>
             {console.log('handle popup im welcome.jsx', isOpenPopup)}
             {isOpenPopup &&
-                <Modal handlePopup={handlePopup}> 
+                <Modal handlePopup={handlePopup}>
                     <ConnectionFormContainer gameId={gameId.split('/')[4]} handlePopup={handlePopup} observer={visibleObserver} />
                 </Modal>}
         </StyledWelcome>

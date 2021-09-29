@@ -11,7 +11,7 @@ import InputToggle from "../input/InputToggle";
 const ConnectionForm = ({ connectLobby, disconnectLobby, observer }) => {
 
     const [uploadedFile, setUploadedFile] = useState('');
-    const [visibleObserver, setVisibleObserver] = useState(true);
+    // const [visibleObserver, setVisibleObserver] = useState(true);
 
     const formik = useFormik({
         initialValues: {
@@ -46,6 +46,8 @@ const ConnectionForm = ({ connectLobby, disconnectLobby, observer }) => {
 
     })
 
+    // console.log("333", formik.touched);
+
     return (
         <StyledConnectionForm>
             <StyledHeading> Connect to Lobby
@@ -53,14 +55,14 @@ const ConnectionForm = ({ connectLobby, disconnectLobby, observer }) => {
 
             <StyledForm onSubmit={formik.handleSubmit}>
 
-                { observer && <StyledFormSwitch>
+                {observer && <StyledFormSwitch>
                     <StyledPar>Connect as<br /> observer</StyledPar>
                     <InputToggle
                         name="isObserver"
                         id="isObserver"
                         onChange={formik.handleChange}
                         checked={formik.values.isObserver} />
-                </StyledFormSwitch> }
+                </StyledFormSwitch>}
 
 
                 <StyledFormControl>
@@ -73,9 +75,10 @@ const ConnectionForm = ({ connectLobby, disconnectLobby, observer }) => {
                         fontWeight="bold"
                         onChange={formik.handleChange}
                         value={formik.values.firstName}
+                        onBlur={formik.handleBlur}
                         required />
 
-                    {formik.errors.firstName ? <StyledError>{formik.errors.firstName}</StyledError> : null}
+                    {formik.errors.firstName && formik.touched.firstName ? <StyledError>{formik.errors.firstName}</StyledError> : null}
                 </StyledFormControl>
                 <StyledFormControl>
                     <Input
@@ -87,6 +90,7 @@ const ConnectionForm = ({ connectLobby, disconnectLobby, observer }) => {
                         fontWeight="bold"
                         onChange={formik.handleChange}
                         value={formik.values.lastName}
+                        onBlur={formik.handleBlur}
                     />
                     {formik.errors.lastName ? <StyledError>{formik.errors.lastName}</StyledError> : null}
                 </StyledFormControl>
@@ -101,12 +105,13 @@ const ConnectionForm = ({ connectLobby, disconnectLobby, observer }) => {
                         fontWeight="bold"
                         onChange={formik.handleChange}
                         value={formik.values.position}
+                        onBlur={formik.handleBlur}
                     />
                     {formik.errors.position ? <StyledError>{formik.errors.position}</StyledError> : null}
                 </StyledFormControl>
 
 
-                <FileUploader uploadedFile={uploadedFile} setUploadedFile={setUploadedFile} firstInitial={formik.values.firstName.trim().slice(0, 1).toUpperCase()} lastInitial={formik.values.lastName.trim().slice(0, 1).toUpperCase()}/>
+                <FileUploader uploadedFile={uploadedFile} setUploadedFile={setUploadedFile} firstInitial={formik.values.firstName.trim().slice(0, 1).toUpperCase()} lastInitial={formik.values.lastName.trim().slice(0, 1).toUpperCase()} />
                 <StyledButtonGroup>
                     <Button text="Confirm" height="big" type="submit" />
                     <Button onClick={disconnectLobby} type="button" color="white" text="Cancel" height="big" />
