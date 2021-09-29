@@ -19,16 +19,25 @@ import { LEAVE_GAME } from "../../common/utils/socket/constants";
 import { useLocation, Redirect } from "react-router-dom";
 
 export default function Ussers(props) {
-  const { startGameHandler } = props;
+  const { startGameHandler, gameData, leaveHandlerFunc, gameMode } = props;
   const url = window.location.href;
-  const users = useSelector((state) => state.appState.users);
+  let userData;
+  let gameId;
   const userId = socket.id;
-  const userData = users.find((user) => user.userId === userId);
-  const gameId = useLocation().pathname.replace("/lobby/", "");
+  let users;
+  let leaveHandler;
+  if (gameData) {
+    users = gameData.users;
+    userData = users.find((user) => user.userId === userId);
+    gameId = useLocation().pathname.replace(/\/\w*\//, "");
+    leaveHandler = leaveHandlerFunc;
+  } else {
+  users = useSelector((state) => state.appState.users);
+  userData = users.find((user) => user.userId === userId);
+  gameId = useLocation().pathname.replace(/\/\w*\//, "");
+  leaveHandler = () => { socket.emit(LEAVE_GAME, { gameId, userId }) };
+  }
 
-  const leaveHandler = () => {
-    socket.emit(LEAVE_GAME, { gameId, userId });
-  };
   const copyHandler = () => {
     const link = document.getElementById("link");
     link.select();
@@ -38,7 +47,7 @@ export default function Ussers(props) {
   return (
     <Wrapper>
       {!userData && <Redirect to="/" />}
-      <UserContainer>
+      <UserContainer gameMode={gameMode}>
         <UserWrapper>
           {!!userData && (
             <User
@@ -51,7 +60,7 @@ export default function Ussers(props) {
               room={gameId}
             />
           )}
-          {!!userData && userData.isMaster && (
+          {!!userData && !gameData && userData.isMaster && (
             <StyledLinkContainer>
               <p>link to lobby:</p>
               <InputsContainer>
@@ -73,13 +82,19 @@ export default function Ussers(props) {
             </StyledLinkContainer>
           )}
         </UserWrapper>
-        <LeaveButton
+        { !gameMode && <LeaveButton
           type="button"
           defaultValue="LEAVE LOBBY"
           onClick={leaveHandler}
-        />
+        /> }
+        { gameMode && <LeaveButton
+          gameMode={gameMode}
+          type="button"
+          defaultValue="EXIT"
+          onClick={leaveHandler}
+        /> }
       </UserContainer>
-      <UsersContainer>
+      <UsersContainer gameMode={gameMode}>
         {users.map(
           (user) =>
             user.userId !== userId && (
@@ -102,8 +117,14 @@ export default function Ussers(props) {
 
 Ussers.propTypes = {
   startGameHandler: PropTypes.func,
+  leaveHandlerFunc: PropTypes.func,
+  gameData: PropTypes.object,
+  gameMode: PropTypes.bool,
 }
 
 Ussers.defaultProps = {
   startGameHandler: () => console.warn('Users startGameHandler was not defined.'),
+  leaveHandlerFunc: () => console.warn('Users leaveHandler was not defined.'),
+  gameData: null,
+  gameMode: false,
 }

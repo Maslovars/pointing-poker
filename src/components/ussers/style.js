@@ -3,7 +3,7 @@ import { theme } from "../../common/theme";
 
 export const Wrapper = styled.div`
   margin: 0;
-  width: 100vw;
+  width: 90vw;
   min-width: 480px;
   min-height: 90%;
   display: flex;
@@ -16,20 +16,38 @@ export const UsersContainer = styled.div`
   margin: 0;
   min-width: 480px;
   display: flex;
-
   justify-content: space-around;
   flex-wrap: wrap;
+  ${ props => {
+    if (props.gameMode === true) {
+      return `{flex-direction: column;
+              align-items: center;
+              justify-content: flex-start;}
+              `
+    } 
+  } }
 `;
 export const UserContainer = styled.div`
   margin: 0;
-  height: 250px;
   width: 70%;
+  min-height: 250px;
   min-width: 480px;
   display: flex;
   align-items: top;
   justify-content: space-between;
   flex-wrap: wrap;
   margin-bottom: 20px;
+  ${ props => {
+    if (props.gameMode === true) {
+      return `{width: 260px;
+              min-width: 260px;
+              flex-direction: column;
+              align-items: center;
+              justify-content: flex-start;
+              min-height: 100px;}
+              `
+    } 
+  } }
 `;
 export const UserWrapper = styled.div`
   align-self: top;
@@ -91,6 +109,14 @@ export const LeaveButton = styled.input`
   font-size: 24px;
   font-weight: bold;
   opacity: 0.3;
+  ${ props => {
+    if (props.gameMode === true) {
+      return `{align-self: center;
+              margin-top: 30px;
+              margin-right: 0;}
+              `
+    } 
+  } }
   cursor: pointer;
   &:hover {
     opacity: 1;

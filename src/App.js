@@ -32,7 +32,7 @@ function App() {
 
   function clickHandler(event) {
     if (event.target.id === "input-yes" || event.target.id === "input-no") {
-      const room = history.location.pathname.replace("/lobby/", "");
+      const room = history.location.pathname.replace(/\/\w*\//, "");
       let vote;
       const id = socket.id;
       event.target.id === "input-yes" ? (vote = true) : (vote = false);
