@@ -7,7 +7,8 @@ export const StyledSettingsForm = styled.div`
   display: flex;
   flex-direction: column;  
   max-width: 550px;
-  
+  margin: 20px 0;
+  margin-bottom: 5%;
 `;
 
 export const StyledForm = styled.form`

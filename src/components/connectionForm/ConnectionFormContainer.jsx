@@ -30,10 +30,7 @@ const ConnectionFormContainer = ({ gameId, handlePopup, match, observer }) => {
     }
 
     const handleLobbyRedirect = (data, gameUrl = '') => {
-
-
         if (match.params.gameId !== gameUrl) {
-
             gameUrl && (gameUrl = '/' + gameUrl);
             gameUrl = gameUrl.trim();
             history.push({ pathname: `/lobby${gameUrl}`, state: data });
@@ -42,7 +39,6 @@ const ConnectionFormContainer = ({ gameId, handlePopup, match, observer }) => {
     }
 
     const connectLobby = (userData) => {
-        // connect to lobby for masters and gamers
         socket.emit(CONNECT_LOBBY, {
             gameId: gameId || GAME_ID,
             firstName: userData.firstName,
