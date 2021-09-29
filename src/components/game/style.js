@@ -5,9 +5,9 @@ export const GameWrapper = styled.div`
   width: 90%;
   min-width: 480px;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
+  align-items: top;
+  flex-wrap: wrap;
+  justify-content: left;
 `;
 
 export const Message = styled.div`

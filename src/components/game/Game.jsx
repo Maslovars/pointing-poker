@@ -35,17 +35,24 @@ const Game = () => {
     })
   }
 
+  function removeSocketListeners() {
+    socket.off(GAME_DATA, (data) => {
+      if (data.users.find(user => user.userId === userId)) { setGameData(data); }
+      else { isRedirect = true }
+    })
+  }
+
   useEffect(() => {
     addSocketListeners();
     if (!gameData) { getData(gameId); }
-    return () => socket.removeAllListeners();
+    return () => removeSocketListeners();
   }, [])
   
   return (
   <GameWrapper>
     { console.log('-----RENDER------') }
     {isRedirect && <Redirect to='/' />}
-    { gameData &&  <Users  gameData={gameData} leaveHandlerFunc={leaveHandler} /> }
+    { gameData &&  <Users gameMode={true} gameData={gameData} leaveHandlerFunc={leaveHandler} /> }
     {!gameData && <Message><p>Connecting to server...</p></Message>}
   </GameWrapper>
   )
