@@ -145,7 +145,7 @@ export default function Card(props) {
         <Glass
           id={buttonId + eventTypes.selectCard}
           onClick={(event) => {
-            dispath(selectCard(event.target.id.replace(/\D/g, "")));
+            {!additionalHandler && dispath(selectCard(event.target.id.replace(/\D/g, ""))) }
             { additionalHandler && additionalHandler(event.target.id.replace(/\D/g, "")) }
           }
           }

@@ -15,7 +15,7 @@ import {
   Message,
   UsersWrapper
 } from './style';
-import { SET_GAME_DATA, GAME_DATA, LEAVE_GAME } from "../../common/utils/socket/constants";
+import { SET_GAME_DATA, GAME_DATA, LEAVE_GAME, PLAY_GAME_DATA, GET_PLAY_GAME_DATA } from "../../common/utils/socket/constants";
 
 
 const Game = () => {
@@ -24,40 +24,57 @@ const Game = () => {
   const gameId = window.location.pathname.replace('/game/', '');
   const userId = socket.id;
   let isRedirect = false;
-  console.log('GAMEDATA>>>', gameData);
   
-
   function leaveHandler() {
     socket.emit(LEAVE_GAME, { gameId, userId });
-  }
+  };
   
   function getData(gameId) {
     socket.emit(SET_GAME_DATA, {type: 'get', gameId})
-  }
+  };
+
+  function playDataHandler(data) {
+    setGameData(prev => {
+      const { users, gameSettings } = prev;
+      const { issues, cards } = data;
+      const newData = { users, gameSettings, issues, cards };
+      return newData;
+    })
+  };
 
   function addSocketListeners() {
+    socket.on(PLAY_GAME_DATA, (data) => playDataHandler(data));
     socket.on(GAME_DATA, (data) => {
-      if (data.users.find(user => user.userId === userId)) { setGameData(data); }
+      if (data.users.find(user => user.userId === userId)) {
+        socket.emit(GET_PLAY_GAME_DATA, { room: gameId, id: socket.id });
+        setGameData(data);
+      }
       else { isRedirect = true }
     })
-  }
+  };
+
+
 
   function removeSocketListeners() {
     socket.off(GAME_DATA, (data) => {
-      if (data.users.find(user => user.userId === userId)) { setGameData(data); }
+      if (data.users.find(user => user.userId === userId)) {
+        socket.emit(GET_PLAY_GAME_DATA, { room: gameId, id: socket.id });
+        setGameData(data);
+      }
       else { isRedirect = true }
     })
-  }
+    socket.off(PLAY_GAME_DATA, () => playDataHandler());
+  };
 
   function cardsAddHandler(id) {
     console.log('CARDS CLICK>>>', id);
-  }
+  };
 
   useEffect(() => {
     addSocketListeners();
     if (!gameData) { getData(gameId); }
     return () => removeSocketListeners();
-  }, [])
+  }, []);
   
   return (
   <GameWrapper>
