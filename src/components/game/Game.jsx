@@ -3,11 +3,17 @@
 import React, { useEffect, useState } from "react";
 import { Redirect } from 'react-router-dom';
 import Timer from "../timer/Timer";
-import Users from '../ussers/Ussers'
+import Users from '../ussers/Ussers';
+import Issues from '../issues/Issues';
 import { socket } from '../../common/utils/socket/socket';
+import { modeTypes } from "../issues/constants";
+import Cards from '../cards/Cards';
+import { CardsMode } from '../cards/constants';
 import { 
   GameWrapper,
-  Message
+  MainContainer,
+  Message,
+  UsersWrapper
 } from './style';
 import { SET_GAME_DATA, GAME_DATA, LEAVE_GAME } from "../../common/utils/socket/constants";
 
@@ -18,6 +24,7 @@ const Game = () => {
   const gameId = window.location.pathname.replace('/game/', '');
   const userId = socket.id;
   let isRedirect = false;
+  console.log('GAMEDATA>>>', gameData);
   
 
   function leaveHandler() {
@@ -42,6 +49,10 @@ const Game = () => {
     })
   }
 
+  function cardsAddHandler(id) {
+    console.log('CARDS CLICK>>>', id);
+  }
+
   useEffect(() => {
     addSocketListeners();
     if (!gameData) { getData(gameId); }
@@ -52,7 +63,14 @@ const Game = () => {
   <GameWrapper>
     { console.log('-----RENDER------') }
     {isRedirect && <Redirect to='/' />}
-    { gameData &&  <Users gameMode={true} gameData={gameData} leaveHandlerFunc={leaveHandler} /> }
+    { gameData && <UsersWrapper>
+      <Users gameMode={true} gameData={gameData} leaveHandlerFunc={leaveHandler} />
+    </UsersWrapper> }
+    { gameData && <MainContainer>
+      { gameData.gameSettings.isTimer && <Timer maxTime={gameData.gameSettings.minutes * 60 + gameData.gameSettings.seconds} /> }
+      <Issues mode={modeTypes.player} gameIssues={gameData.issues} />
+      <Cards mode={CardsMode.player} gameCards={gameData.cards} additionalHandler={cardsAddHandler}/>
+    </MainContainer> }
     {!gameData && <Message><p>Connecting to server...</p></Message>}
   </GameWrapper>
   )

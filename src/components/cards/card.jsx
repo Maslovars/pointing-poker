@@ -34,7 +34,7 @@ import {
 
 export default function Card(props) {
   const dispath = useDispatch();
-  const { name, value, type, mode, buttonId, selected, handler } = props;
+  const { name, value, type, mode, buttonId, selected, handler, additionalHandler } = props;
   const cardSample = { value: "", name: "" };
 
   function getImage(typeCard) {
@@ -144,8 +144,10 @@ export default function Card(props) {
       {(!mode || mode === CardsMode.player) && !selected ? (
         <Glass
           id={buttonId + eventTypes.selectCard}
-          onClick={(event) =>
-            dispath(selectCard(event.target.id.replace(/\D/g, "")))
+          onClick={(event) => {
+            dispath(selectCard(event.target.id.replace(/\D/g, "")));
+            { additionalHandler && additionalHandler(event.target.id.replace(/\D/g, "")) }
+          }
           }
         />
       ) : (
@@ -155,9 +157,11 @@ export default function Card(props) {
         <Glass
           id={buttonId + eventTypes.selectCard}
           selected
-          onClick={(event) =>
-            dispath(selectCard(event.target.id.replace(/\D/g, "")))
+          onClick={(event) => {
+            dispath(selectCard(event.target.id.replace(/\D/g, "")));
+            { additionalHandler && additionalHandler(event.target.id.replace(/\D/g, "")) }
           }
+        }
         />
       ) : (
         ""
@@ -175,6 +179,7 @@ Card.propTypes = {
   buttonId: PropTypes.number,
   selected: PropTypes.bool,
   handler: PropTypes.func,
+  additionalHandler: PropTypes.func,
 };
 
 Card.defaultProps = {
@@ -185,4 +190,5 @@ Card.defaultProps = {
   buttonId: 0,
   selected: false,
   handler: () => undefined,
+  additionalHandler: null,
 };

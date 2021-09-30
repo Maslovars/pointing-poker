@@ -8,8 +8,11 @@ import SettingsMode from "./settingsMode/settingsMode";
 
 export default function Cards(props) {
   const [settingsMode, setSettingsMode] = useState(false);
-  const cards = useSelector((state) => state.appState.cards.cardsSet);
-  const { mode } = props;
+  let cards;
+  const { mode, gameCards, additionalHandler } = props;
+  if (gameCards) { cards = gameCards }
+  else { cards = useSelector((state) => state.appState.cards.cardsSet); }
+
   let key = 0;
 
   return (
@@ -25,6 +28,7 @@ export default function Cards(props) {
             value={conf.value}
             selected={conf.selected}
             mode={mode}
+            additionalHandler={additionalHandler}
           />
         );
       })}
@@ -44,4 +48,11 @@ export default function Cards(props) {
 
 Cards.propTypes = {
   mode: PropTypes.string.isRequired,
+  gameCards: PropTypes.array,
+  additionalHandler: PropTypes.func,
 };
+
+Cards.defaultProps = {
+  gameCards: null,
+  additionalHandler: null,
+}
