@@ -18,6 +18,7 @@ export default function Issue({
   name,
   issueId,
   selected,
+  additionalHandler
 }) {
   const [mode, setMode] = useState(creatorMode.default);
   const dispatch = useDispatch();
@@ -68,7 +69,9 @@ export default function Issue({
             src={del}
             issueId={issueId}
             priority={priority}
-            onClick={() => dispatch(deleteIssue({ issueId, priority }))}
+            onClick={() => {
+              !additionalHandler && dispatch(deleteIssue({ issueId, priority }))}
+            }
           />
         )}
       </ButtonsContainer>
@@ -96,6 +99,7 @@ Issue.propTypes = {
   name: PropTypes.string,
   issueId: PropTypes.string,
   selected: PropTypes.bool,
+  additionalHandler: PropTypes.func,
 };
 
 Issue.defaultProps = {
@@ -105,4 +109,5 @@ Issue.defaultProps = {
   name: "",
   issueId: "",
   selected: false,
+  additionalHandler: null,
 };

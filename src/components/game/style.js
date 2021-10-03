@@ -8,6 +8,28 @@ export const GameWrapper = styled.div`
   align-items: top;
   flex-wrap: wrap;
   justify-content: left;
+  ${
+    props => {
+      if (props.res) {
+        return `
+          {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+          }
+        `
+      }
+    }
+  }
+  & h1, h2 {
+    font-size: 48px;
+    font-weight: bold;
+  }
+  & h2 {
+    margin: 0;
+    font-size: 28px;
+  }
 `;
 
 export const Message = styled.div`
@@ -24,4 +46,59 @@ export const Message = styled.div`
     margin: 10px 20px;
   } 
 `;
+
+export const UsersWrapper = styled.div`
+  width: 30%;
+  min-width: 480px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+`;
+
+export const MainContainer = styled.div`
+  width: 60%;
+  min-width: 480px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+
+`;
+
+export const ResultContainer = styled.div`
+  width: 96%;
+  min-width: 480px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+`;
+
+export const CardsContainer = styled.div`
+  width: 90%;
+  min-width: 480px;
+  display: flex;
+  align-items: top;
+  flex-wrap: wrap;
+  justify-content: space-around;
+`;
+
+export const CardContainer = styled.div`
+  min-width: 480px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+`;
+
+export const StyledPercent = styled.div`
+  margin: 0;
+  font-weight: bold;
+  font-size: 32px;
+  margin-bottom: 30px;
+`;
+
+export const ButtonWrapper = styled.div`
+  margin: 30px 0;
+`
 

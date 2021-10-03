@@ -25,7 +25,7 @@ function App() {
     if (isBlock === undefined) {
       setBlock((prev) => !prev);
     }
-    if (blocked) {
+    if (blocked && isBlock) {
       document.getElementById("message").innerHTML = message;
     }
   }

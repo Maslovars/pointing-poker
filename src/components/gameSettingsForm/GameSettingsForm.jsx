@@ -22,8 +22,7 @@ const GameSettingsForm = ({ getGameSettings }) => {
             seconds: ""
         },
         onSubmit: values => {
-            getGameSettings({values})
-            // console.log(values);
+            getGameSettings({...values})
         },
         validate: values => {
             const errors = {};
