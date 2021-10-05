@@ -5,8 +5,11 @@ import { Wrapper } from "./style";
 import Issue from "./issue/issue";
 import { modeTypes, issueTypes } from "./constants";
 export default function Issues(props) {
-  const { mode } = props;
-  const issues = useSelector((store) => store.appState.issues.issuesSet);
+  const { mode, gameIssues, additionalHandler } = props;
+  let issues;
+
+  if (gameIssues) { issues = gameIssues } 
+  else { issues = useSelector((store) => store.appState.issues.issuesSet) }
   
   return (
     <Wrapper id="issues" mode={mode}>
@@ -20,6 +23,7 @@ export default function Issues(props) {
           link={issue.link}
           priority={issue.priority}
           selected={issue.selected}
+          additionalHandler={additionalHandler}
         />
       ))}
       {(mode === modeTypes.master || mode === modeTypes.masterGame) && (
@@ -31,4 +35,11 @@ export default function Issues(props) {
 
 Issues.propTypes = {
   mode: PropTypes.string.isRequired,
+  gameIssues: PropTypes.array,
+  additionalHandler: PropTypes.func,
 };
+
+Issues.defaultProps = {
+  gameIssues: null,
+  additionalHandler: null,
+}

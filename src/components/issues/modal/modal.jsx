@@ -30,6 +30,7 @@ export default function Modal({
       priority,
       id,
       oldPriority: priority,
+      selected: false,
     });
   } else {
     [state, setState] = useState({
@@ -37,6 +38,7 @@ export default function Modal({
       link: "",
       priority: priorityTypes.low,
       id: randomWords({ exactly: 5, join: "" }),
+      selected: false,
     });
   }
   const dispatch = useDispatch();

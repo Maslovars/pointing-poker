@@ -72,7 +72,9 @@ Timer.propTypes = {
   };
   
   Timer.defaultProps = {
-    maxTime: 0
+    maxTime: 0,
+    onTimerStart: () => console.warn('Timer start function is not defined.'),
+    onTimerEnd: () => console.warn('Timer end function is not defined.'),
   };
 
 export default Timer;
