@@ -9,21 +9,9 @@ import Modal from '../modal/Modal';
 import ConnectionFormContainer from '../connectionForm/ConnectionFormContainer';
 
 const Welcome = () => {
-<<<<<<< HEAD
-    const dispatch = useDispatch();
-    useEffect(() => {
-        socket.once(LOBBY_CONNECTED, (data) => {
-            dispatch(updateData(data));
-        })
-    }, [])
 
     const [isOpenPopup, setIsOpenPopup] = useState(false);
 
-=======
-   
-   const [isOpenPopup, setIsOpenPopup] = useState(false);
-    
->>>>>>> develop
     const [gameId, setGameId] = useState('');
 
     const [visibleObserver, setVisibleObserver] = useState(true);
