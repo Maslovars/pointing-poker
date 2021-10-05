@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import { theme } from '../../common/theme';
+import styled from "styled-components";
+import { theme } from "../../common/theme";
 
 export const GameWrapper = styled.div`
   width: 90%;
@@ -7,21 +7,19 @@ export const GameWrapper = styled.div`
   display: flex;
   align-items: top;
   flex-wrap: wrap;
-  justify-content: left;
-  ${
-    props => {
-      if (props.res) {
-        return `
+  justify-content: center;
+  ${(props) => {
+    if (props.res) {
+      return `
           {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: flex-start;
           }
-        `
-      }
+        `;
     }
-  }
+  }}
   & h1, h2 {
     font-size: 48px;
     font-weight: bold;
@@ -36,15 +34,19 @@ export const Message = styled.div`
   text-align: center;
   font-size: 32px;
   font-weight: bold;
-  ${ props => {
-    if (props.type === 'alert') { return `border: 6px solid ${theme.colors.red};` }
-    if (props.type === 'warn') { return `border: 6px solid ${theme.colors.dark_orange};` }
-    return `border: 6px solid ${theme.colors.dark_blue};`
-  } }
+  ${(props) => {
+    if (props.type === "alert") {
+      return `border: 6px solid ${theme.colors.red};`;
+    }
+    if (props.type === "warn") {
+      return `border: 6px solid ${theme.colors.dark_orange};`;
+    }
+    return `border: 6px solid ${theme.colors.dark_blue};`;
+  }}
   border-radius: 10px;
   & p {
     margin: 10px 20px;
-  } 
+  }
 `;
 
 export const UsersWrapper = styled.div`
@@ -62,7 +64,6 @@ export const MainContainer = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-
 `;
 
 export const ResultContainer = styled.div`
@@ -100,5 +101,13 @@ export const StyledPercent = styled.div`
 
 export const ButtonWrapper = styled.div`
   margin: 30px 0;
-`
+`;
 
+export const Dashboard = styled.div`
+  width: 100%;
+  min-width: 480px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+`;
