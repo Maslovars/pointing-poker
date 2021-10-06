@@ -9,9 +9,9 @@ import Modal from '../modal/Modal';
 import ConnectionFormContainer from '../connectionForm/ConnectionFormContainer';
 
 const Welcome = () => {
-   
-   const [isOpenPopup, setIsOpenPopup] = useState(false);
-    
+
+    const [isOpenPopup, setIsOpenPopup] = useState(false);
+
     const [gameId, setGameId] = useState('');
 
     const [visibleObserver, setVisibleObserver] = useState(true);
@@ -36,15 +36,16 @@ const Welcome = () => {
             <StyledText>Start your planning:</StyledText>
             <WelcomeGroup>
                 <StyledPar>Create session:</StyledPar>
-                <Button  onClick={(event) => handleOpenConnectForm(event)} width="big" text="Start new game" />
+                <Button onClick={(event) => handleOpenConnectForm(event)} width="big" text="Start new game" />
             </WelcomeGroup>
             <StyledText>OR:</StyledText>
             <WelcomeGroup>
-                <Input id="url" value={gameId} onChange={handleUrlChange} text={"Connect to lobby by URL:"} endBtn={<Button onClick={handleOpenConnectForm} text="Connect" width="big" />} />
+                <Input id="url" value={gameId} onChange={handleUrlChange} text={"Connect to lobby by URL:"}
+                    endBtn={<Button onClick={handleOpenConnectForm} text="Connect" width="big" disabled={gameId ? false : true} />} />
             </WelcomeGroup>
             {console.log('handle popup im welcome.jsx', isOpenPopup)}
             {isOpenPopup &&
-                <Modal handlePopup={handlePopup}> 
+                <Modal handlePopup={handlePopup}>
                     <ConnectionFormContainer gameId={gameId.split('/')[4]} handlePopup={handlePopup} observer={visibleObserver} />
                 </Modal>}
         </StyledWelcome>

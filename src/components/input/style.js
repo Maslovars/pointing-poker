@@ -14,7 +14,14 @@ export const StyledInput = styled.input`
   height: 47px;
   width: ${(p) => (p.width === "big" ? "465px" : "276px")};
   width: ${(p) => p.width && /\d*px/.test(p.width) && p.width};
+  @media (max-width: 768px) {
+    font-size: 20px;
+    height: 37px;
+    width: ${(p) => (p.width === "big" ? "365px" : "216px")};
+  }
 `;
+
+
 
 export const StyledLabel = styled.label`
   font-size: 24px;
@@ -26,6 +33,9 @@ export const StyledLabel = styled.label`
     p.marginTitleR && /\d*px/.test(p.marginTitleR)
       ? p.marginTitleR
       : "0px"};
+  @media (max-width: 768px) {
+    font-size: 20px;
+  } 
 `;
 
 export const StyledInputGroup = styled.div`

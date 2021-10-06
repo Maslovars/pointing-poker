@@ -8,9 +8,9 @@ export default function Issues(props) {
   const { mode, gameIssues, additionalHandler } = props;
   let issues;
 
-  if (gameIssues) { issues = gameIssues } 
+  if (gameIssues) { issues = gameIssues }
   else { issues = useSelector((store) => store.appState.issues.issuesSet) }
-  
+
   return (
     <Wrapper id="issues" mode={mode}>
       {issues.map((issue) => (

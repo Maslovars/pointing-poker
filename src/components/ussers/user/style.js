@@ -59,6 +59,7 @@ export const ImgButton = styled.input`
   border: none;
   outline: none;
   cursor: pointer;
+  padding-right: 5px;
   opacity: 0.5;
   &:hover {
     opacity: 1;

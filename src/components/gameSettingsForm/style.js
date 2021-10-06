@@ -22,10 +22,13 @@ export const StyledPar = styled.p`
   font-size: ${(p) => (p.font === "big" ? "44px" : "24px")};
   line-height: 30px;  
   padding: 0 5px;
+  @media (max-width: 768px) {
+    font-size: 18px;
+  }
 `;
 
 export const StyledHeading = styled.h3`
-  text-align: end;
+  text-align: center;
   font-size: 24px;
   line-height: 30px;  
 `;
@@ -35,6 +38,9 @@ export const StyledInputGroup = styled.div`
   justify-content: space-between;
   align-items: center;
   width: 549px;
+  @media (max-width: 768px) {
+    width: 400px;
+  }
 `;
 
 export const StyledTimer = styled.div`
@@ -46,6 +52,7 @@ export const StyledTimer = styled.div`
 export const StyledTimerInput = styled.input`
   width: 95px;
   height: 80px;
+  margin-top: 10px;
   font-weight: bold;
   font-size: 64px;
   line-height: 80px;
@@ -56,3 +63,16 @@ export const StyledTimerInput = styled.input`
 export const StyledTimerLabel = styled.label`
 
 `;
+
+export const StyledError = styled.div`
+  padding-left: 280px;
+  font-size: 14px;
+  line-height: 18px;
+  color: ${theme.colors.red};  
+  @media (max-width: 768px) {
+    font-size: 10px;
+    padding-left: 200px;
+  } 
+`;
+
+
