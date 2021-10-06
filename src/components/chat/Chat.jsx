@@ -24,7 +24,6 @@ const Chat = ({ room, users, userId }) => {
 
     const [messages, setMessages] = useState([]);
     const [message, setMessage] = useState('');
-    console.log(users)
     const getMessages = () => {
         socket.emit(GET_CHAT_MESSAGES, room);
     }
@@ -35,6 +34,7 @@ const Chat = ({ room, users, userId }) => {
 
     const addSocketListeners = () => {
         socket.on(CHAT_MESSAGES, (messages) => {
+            console.log('MESSAGES>>>', messages);
             setMessages(messages);
         })
     }
@@ -66,7 +66,7 @@ const Chat = ({ room, users, userId }) => {
             <StyledMessage key={idx}>
                 <StyledText>{message.message}</StyledText>
                 <StyledText>
-                    <User
+                    {currentUser && <User
                         key={currentUser.userId}
                         id={currentUser.userId}
                         name={currentUser.firstName}
@@ -77,7 +77,7 @@ const Chat = ({ room, users, userId }) => {
                         room={room}
                         width="small"
                         height="small"
-                    />
+                    />}
                 </StyledText>
 
             </StyledMessage>
