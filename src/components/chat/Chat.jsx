@@ -2,7 +2,15 @@ import React, { useState, useEffect } from 'react';
 import { socket } from "../../common/utils/socket/socket";
 import { PropTypes } from 'prop-types';
 import User from '../ussers/user/User';
-import { StyledButton, StyledChat, StyledChatField, StyledChatForm, StyledInput } from './style';
+import {
+    StyledButton,
+    StyledChat,
+    StyledChatField,
+    StyledChatForm,
+    StyledInput,
+    StyledMessage,
+    StyledText
+} from './style';
 
 import {
     GET_CHAT_MESSAGES,
@@ -54,27 +62,32 @@ const Chat = ({ room, users, userId }) => {
 
     const userList = messages.map((message, idx) => {
         const currentUser = users.find(user => user.userId === message.userId);
-        return (<div key={idx}><span>{message.message}</span>
-            { currentUser && <User
-                key={currentUser.userId}
-                id={currentUser.userId}
-                name={currentUser.firstName}
-                surname={currentUser.lastName}
-                position={currentUser.position}
-                ava={currentUser.ava}
-                master={currentUser.isMaster}
-                room={room}
-                width="small"
-                height="small"
-            />}
-        </div>
+        return (
+            <StyledMessage key={idx}>
+                <StyledText>{message.message}</StyledText>
+                <StyledText>
+                    {currentUser && <User
+                        key={currentUser.userId}
+                        id={currentUser.userId}
+                        name={currentUser.firstName}
+                        surname={currentUser.lastName}
+                        position={currentUser.position}
+                        ava={currentUser.ava}
+                        master={true}
+                        room={room}
+                        width="small"
+                        height="small"
+                    />}
+                </StyledText>
+
+            </StyledMessage>
         )
     })
 
     return (<StyledChat>
         <StyledChatField>{userList}
         </StyledChatField>
-        <StyledChatForm onSubmit={handleSendMessage}><StyledInput type="text" value={message} onChange={handleChangeMessage}></StyledInput><StyledButton disabled={!message.length > 0} type="submit">Send</StyledButton></StyledChatForm>
+        <StyledChatForm onSubmit={handleSendMessage}><StyledInput type="text" value={message} maxLength="50" onChange={handleChangeMessage}></StyledInput><StyledButton disabled={!message.length > 0} type="submit">Send</StyledButton></StyledChatForm>
 
     </StyledChat>
     )

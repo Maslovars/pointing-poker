@@ -3,13 +3,12 @@ import { theme } from "../../common/theme";
 
 export const Wrapper = styled.div`
   margin: 0;
-  width: 60vw;
+  width: 50vw;
   min-width: 500px;
   min-height: 90%;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: top;
+  align-items: center;  
 `;
 
 export const UsersContainer = styled.div`

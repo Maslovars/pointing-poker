@@ -8,7 +8,7 @@ export const StyledChat = styled.div`
   flex-direction: column;
   align-items: flex-end;
   padding: 0;
-  width: 440px;
+  width: 460px;
   border: 1px solid ${theme.colors.dimgray};
   margin: 20px 0;
 `;
@@ -19,9 +19,24 @@ export const StyledChatField = styled.div`
   flex-direction: column-reverse;
   align-items: flex-end;
   justify-content: flex-start;
-  overflow: auto;
+  overflow-y: auto;
   min-height: 400px;
+  max-height: 600px;
   background-color: whitesmoke;
+`;
+
+export const StyledMessage = styled.div`
+  display: flex;
+  width: 420px;      
+  justify-content: space-between;
+  align-items: center;    
+  padding: 10px;  
+`;
+
+export const StyledText = styled.div`
+  display: flex;    
+  max-width: 210px;
+  word-break: break-word;  
 `;
 
 export const StyledChatForm = styled.form`

@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { theme } from "../../common/theme";
 
 export const LobbyWrapper = styled.div`
   width: 100%;
@@ -22,7 +23,7 @@ export const Dashboard = styled.div`
   display: flex;  
   align-items: center;
   justify-content: space-between;   
-  position: relative;
+  ${'' /* position: relative; */}
   @media (max-width: 1024px) {
     flex-wrap: wrap;
     justify-content: center;  
@@ -33,6 +34,17 @@ export const StyledDiv = styled.div`
   align-self: flex-start;
   ${'' /* width: 30%; */}
 `;
+
+export const StyledImg = styled.img`  
+  position: absolute;
+  top: 30px;
+  right: 50px;
+  transition: ${theme.transition};
+  &:hover {
+    cursor:pointer;
+    transform: scale(1.2);
+  }
+`
 
 
 export const plug = "plug";
