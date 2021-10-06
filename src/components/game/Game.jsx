@@ -27,7 +27,6 @@ import Button from '../button/Button';
 import { CardsContainer } from "../cards/styles";
 import { Dashboard, StyledDiv } from "../lobby/style";
 
-
 const Game = () => {
   const [gameData, setGameData] = useState(null);
   const [results, setResults] = useState(null);
@@ -36,7 +35,8 @@ const Game = () => {
   let isRedirect = false;
   const id = socket.id;
   let name = 'Can not find the selected issue.';
-
+  let resultStr = 'Issue, Card value, % \n'
+  
   if (gameData) {
     const selectedIssue = gameData.issues.find(issue => issue.selected);
     if (selectedIssue) { name = selectedIssue.name }
@@ -61,6 +61,15 @@ const Game = () => {
 
   function resultsHandler(data) {
     setResults(data);
+  }
+
+  function saveHandler() {
+    const link = document.createElement('a');
+    const blob = new Blob([resultStr], {type: 'text/txt, charset=utf-8'});
+    link.download = 'results.csv';
+    link.href = URL.createObjectURL(blob);
+    link.click();
+    URL.revokeObjectURL(blob);  
   }
 
   function addSocketListeners() {
@@ -98,29 +107,29 @@ const Game = () => {
     if (!gameData) { getData(gameId); }
     return () => removeSocketListeners();
   }, []);
-
-  if (!results) {
+  
+  if (!results) { 
     return (
       <Dashboard>
-        <GameWrapper>
-          {isRedirect && <Redirect to='/' />}
-          {gameData && <UsersWrapper>
-            <Users gameMode={true} gameData={gameData} leaveHandlerFunc={leaveHandler} />
-          </UsersWrapper>}
-          {gameData && <MainContainer>
-            {gameData.gameSettings.isTimer && <Timer maxTime={gameData.gameSettings.minutes * 60 + gameData.gameSettings.seconds} />}
-            <Issues mode={modeTypes.player} gameIssues={gameData.issues} />
-            <StyledTitle>Please choose difficulty for:</StyledTitle>
-            <StyledIssue>{name}</StyledIssue>
-            <Cards mode={CardsMode.player} gameCards={gameData.cards} additionalHandler={cardsAddHandler} />
-          </MainContainer>}
-          {!gameData && <Message><p>Please wait...</p></Message>}
-        </GameWrapper>
-        <StyledDiv>
-          {gameData && <Chat room={gameId} users={gameData.users} userId={userId} />}
-        </StyledDiv>
-      </Dashboard>
-    )
+      <GameWrapper>
+       {isRedirect && <Redirect to='/' />}
+       {gameData && <UsersWrapper>
+          <Users gameMode={true} gameData={gameData} leaveHandlerFunc={leaveHandler} />
+        </UsersWrapper>}
+        {gameData && <MainContainer>
+          {gameData.gameSettings.isTimer && <Timer maxTime={gameData.gameSettings.minutes * 60 + gameData.gameSettings.seconds} />}
+          <Issues mode={modeTypes.player} gameIssues={gameData.issues} />
+          <StyledTitle>Please choose difficulty for:</StyledTitle>
+          <StyledIssue>{name}</StyledIssue>
+          <Cards mode={CardsMode.player} gameCards={gameData.cards} additionalHandler={cardsAddHandler} />
+        </MainContainer>}
+        {!gameData && <Message><p>Please wait...</p></Message>}
+      </GameWrapper>
+      <StyledDiv>
+        {gameData && <Chat room={gameId} users={gameData.users} userId={userId} />}
+      </StyledDiv>
+      </Dashboard> 
+    ) 
   }
   if (results) {
     return (
@@ -129,24 +138,26 @@ const Game = () => {
         {results.map((res, index) => {
           const title = gameData.issues[index].name;
           const cardsList = Object.keys(res);
-          return <ResultContainer key={gameData.issues[index].id}>
+          resultStr += `${title},`;
+          return <ResultContainer key={ gameData.issues[index].id }>
             <StyledIssue>{title}</StyledIssue>
             <CardsContainer>
-              {cardsList.map(key => {
-                return <CardContainer>
-                  <Cards mode={CardsMode.player} gameCards={[gameData.cards[key]]} additionalHandler={cardsAddHandler} />
-                  <StyledPercent>{res[key]}</StyledPercent>
-                </CardContainer>
-              })
+              {cardsList.map((key, index) => { 
+                index === 0 ? resultStr += `${gameData.cards[key].value}, ${res[key]} \n` : resultStr += ` , ${gameData.cards[key].value}, ${res[key]} \n`
+                return <CardContainer key={gameData.cards[key].toString()}>
+                <Cards mode={CardsMode.player} gameCards={[gameData.cards[key]]} additionalHandler={cardsAddHandler}/>
+                <StyledPercent>{res[key]}</StyledPercent>  
+              </CardContainer>} ) 
               }
             </CardsContainer>
           </ResultContainer>
         })}
         <ButtonWrapper>
           <Button text="Leave game" width="big" height="big" onClick={leaveHandler} />
+          <Button text="Save game" onClick={saveHandler} />
         </ButtonWrapper>
       </GameWrapper>
-    )
+  )
   }
 
 };
