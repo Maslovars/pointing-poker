@@ -20,12 +20,12 @@ import {
   StyledPercent,
   ButtonWrapper,
   StyledIssue,
-  StyledTitle,
-  Dashboard
+  StyledTitle
 } from './style';
 import { SET_GAME_DATA, GAME_DATA, LEAVE_GAME, PLAY_GAME_DATA, GET_PLAY_GAME_DATA, RESULTS_DATA } from "../../common/utils/socket/constants";
 import Button from '../button/Button';
 import { CardsContainer } from "../cards/styles";
+import { Dashboard } from "../lobby/style";
 
 
 const Game = () => {
