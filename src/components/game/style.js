@@ -100,5 +100,9 @@ export const StyledPercent = styled.div`
 
 export const ButtonWrapper = styled.div`
   margin: 30px 0;
-`
+  width: 480px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+`;
 

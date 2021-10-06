@@ -9,7 +9,7 @@ import { socket } from '../../common/utils/socket/socket';
 import { modeTypes } from "../issues/constants";
 import Cards from '../cards/Cards';
 import { CardsMode } from '../cards/constants';
-import { 
+import {   
   GameWrapper,
   MainContainer,
   Message,
@@ -23,7 +23,6 @@ import { SET_GAME_DATA, GAME_DATA, LEAVE_GAME, PLAY_GAME_DATA, GET_PLAY_GAME_DAT
 import Button from '../button/Button';
 import { CardsContainer } from "../cards/styles";
 
-
 const Game = () => {
   const [gameData, setGameData] = useState(null);
   const [results, setResults] = useState(null);
@@ -32,6 +31,7 @@ const Game = () => {
   let isRedirect = false;
   const id = socket.id;
   let name = 'Can not find the selected issue.';
+  let resultStr = 'Issue, Card value, % \n'
   
   if (gameData) {
     const selectedIssue = gameData.issues.find(issue => issue.selected);
@@ -57,6 +57,15 @@ const Game = () => {
 
   function resultsHandler(data) {
     setResults(data);
+  }
+
+  function saveHandler() {
+    const link = document.createElement('a');
+    const blob = new Blob([resultStr], {type: 'text/txt, charset=utf-8'});
+    link.download = 'results.csv';
+    link.href = URL.createObjectURL(blob);
+    link.click();
+    URL.revokeObjectURL(blob);  
   }
 
   function addSocketListeners() {
@@ -117,10 +126,13 @@ const Game = () => {
       { results.map((res, index) => {
         const title = gameData.issues[index].name;
         const cardsList = Object.keys(res);
+        resultStr += `${title},`;
         return <ResultContainer key={ gameData.issues[index].id }>
           <h2>{title}</h2>
           <CardsContainer>
-            { cardsList.map(key => { return <CardContainer>
+            { cardsList.map((key, index) => { 
+              index === 0 ? resultStr += `${gameData.cards[key].value}, ${res[key]} \n` : resultStr += ` , ${gameData.cards[key].value}, ${res[key]} \n`
+              return <CardContainer key={gameData.cards[key].toString()}>
               <Cards mode={CardsMode.player} gameCards={[gameData.cards[key]]} additionalHandler={cardsAddHandler}/>
               <StyledPercent>{res[key]}</StyledPercent>  
             </CardContainer>  } ) 
@@ -130,6 +142,7 @@ const Game = () => {
       }) }
       <ButtonWrapper>
         <Button text='LEAVE GAME' onClick={leaveHandler}/>
+        <Button text='SAVE GAME' onClick={saveHandler}/>
       </ButtonWrapper>
     </GameWrapper>
   )

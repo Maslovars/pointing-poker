@@ -9,6 +9,7 @@
     "@testing-library/user-event": "^12.1.10",
     "cloudinary-react": "^1.7.0",
     "formik": "^2.2.9",
+    "fs": "^0.0.1-security",
     "prettier": "2.4.0",
     "prop-types": "^15.7.2",
     "random-words": "^1.1.1",
