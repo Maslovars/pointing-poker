@@ -20,8 +20,19 @@ export const StyledButton = styled.button`
   height: ${(p) => (p.height === "big" ? "60px" : "47px")};
   width: ${(p) => (p.width === "big" ? "241px" : "189px")};
   transition: ${theme.transition};
+  margin: ${p => p.margin};
   &:hover {
     cursor: pointer;
     background: ${theme.colors.green};
+  }
+  &:disabled {
+    cursor: auto;
+    opacity: 0.5;
+    background: ${theme.colors.dark_blue};
+  }
+  @media (max-width: 768px) {
+    font-size: 20px;
+    height: ${(p) => (p.height === "big" ? "50px" : "37px")};
+    width: ${(p) => (p.width === "big" ? "175px" : "139px")};
   }
 `;

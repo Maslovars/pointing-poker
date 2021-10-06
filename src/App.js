@@ -17,7 +17,7 @@ import { useHistory } from 'react-router-dom'
 function App() {
   const [blocked, setBlock] = useState("false");
   let history = useHistory();
-  
+
   function blockHandler({ isBlock, message }) {
     if (isBlock === true || isBlock === false) {
       setBlock(isBlock);
@@ -51,7 +51,7 @@ function App() {
   return (
     <Provider store={store}>
       <div className="app">
-        <Header text="Your text could be here..." />
+        <Header />
         <div className="container">
           <Switch>
             <Route exact path="/" render={() => <Welcome />}></Route>

@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { modeTypes } from "./constants";
 
 export const Wrapper = styled.div`
-  width: 90%;
+  width: 70%;
   margin: 20px 60px;
 
   height: auto;

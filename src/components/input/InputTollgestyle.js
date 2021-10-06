@@ -23,6 +23,15 @@ export const CheckBoxLabel = styled.label`
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     transition: ${theme.transition};
   }
+  @media (max-width: 768px) {
+    width: 45px;
+    height: 23px;
+    &::after {
+      width: 17px;
+      height: 17px;
+      margin: 3px
+    }
+  }
 `;
 export const CheckBox = styled.input`
   display: none;
@@ -42,6 +51,15 @@ export const CheckBox = styled.input`
       margin-left: 30px;
       box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
       transition: ${theme.transition};
+      @media (max-width: 768px) {
+        width: 17px;
+        height: 17px;
+        margin-left: 25px;
+      }
     }
+  }
+  @media (max-width: 768px) {
+    width: 45px;
+    height: 23px;
   }
 `;

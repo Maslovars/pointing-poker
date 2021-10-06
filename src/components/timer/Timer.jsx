@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
-import { StyledTimer } from "./style";
+import { StyledBtnGroup, StyledTimer } from "./style";
+import Button from "../button/Button";
 
 
 const formatTime = (value) => {
   return value < 10 ? `0${value}` : value;
 };
 
-const Timer = ({maxTime, onTimerStart, onTimerEnd}) => {
+const Timer = ({ maxTime, onTimerStart, onTimerEnd }) => {
   const [time, setTime] = useState(maxTime);
   const [isActiveTimer, setIsActiveTimer] = useState(false);
 
@@ -32,14 +33,14 @@ const Timer = ({maxTime, onTimerStart, onTimerEnd}) => {
   useEffect(() => {
     let timer = null;
     if (isActiveTimer) {
-      
+
       timer = setInterval(updateSeconds, 1000);
     } else if (!isActiveTimer && time !== 0) {
       clearInterval(timer);
-    } 
+    }
     if (time === 0) {
-        onTimerEnd();
-        clearInterval(timer);
+      onTimerEnd();
+      clearInterval(timer);
     }
     return () => {
       clearInterval(timer);
@@ -51,30 +52,26 @@ const Timer = ({maxTime, onTimerStart, onTimerEnd}) => {
 
   return (
 
-      <StyledTimer>
-        {minutesView}:{secondsView}
-        <div>
-      <button disabled={!time} onClick={handleStart}>
-        {isActiveTimer ? "Pause" : "Start"}
-      </button>
-      <button onClick={handleRestart}>
-        Restart
-      </button>
-      </div>
+    <StyledTimer>
+      {minutesView}:{secondsView}
+      <StyledBtnGroup>
+        <Button disabled={!time} text={isActiveTimer ? "Pause" : "Start"} onClick={handleStart} />
+        <Button text="Restart" onClick={handleRestart} />
+      </StyledBtnGroup>
     </StyledTimer>
   );
 };
 
 Timer.propTypes = {
-    onTimerStart: PropTypes.func,
-    onTimerEnd: PropTypes.func,
-    maxTime: PropTypes.number
-  };
-  
-  Timer.defaultProps = {
-    maxTime: 0,
-    onTimerStart: () => console.warn('Timer start function is not defined.'),
-    onTimerEnd: () => console.warn('Timer end function is not defined.'),
-  };
+  onTimerStart: PropTypes.func,
+  onTimerEnd: PropTypes.func,
+  maxTime: PropTypes.number
+};
+
+Timer.defaultProps = {
+  maxTime: 0,
+  onTimerStart: () => console.warn('Timer start function is not defined.'),
+  onTimerEnd: () => console.warn('Timer end function is not defined.'),
+};
 
 export default Timer;

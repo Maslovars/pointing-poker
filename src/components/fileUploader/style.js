@@ -36,6 +36,12 @@ export const StyledDiv = styled.div`
   height: 47px;
   width: 276px;
   overflow: hidden;
+  @media (max-width: 768px) {
+    font-size: 20px;
+    height: 37px;
+    width: ${(p) => (p.width === "big" ? "365px" : "216px")};
+    line-height: 35px;
+  }
 `;
 
 export const StyledAva = styled.div`
@@ -50,6 +56,10 @@ export const StyledAva = styled.div`
   border: 2px solid ${theme.colors.green};
   overflow: hidden;
   background-color: ${theme.colors.green};
+  @media (max-width: 768px) {
+    width: 63px;
+    height: 63px;
+  }
 `;
 
 export const StyledInitials = styled.span`
@@ -61,4 +71,7 @@ export const StyledInitials = styled.span`
   font-weight: bold;
   text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.5);
   margin: auto;
+  @media (max-width: 768px) {
+    font-size: 30px;
+  }
 `;

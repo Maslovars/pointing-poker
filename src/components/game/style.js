@@ -8,10 +8,9 @@ export const GameWrapper = styled.div`
   align-items: top;
   flex-wrap: wrap;
   justify-content: left;
-  ${
-    props => {
-      if (props.res) {
-        return `
+  ${props => {
+    if (props.res) {
+      return `
           {
             display: flex;
             flex-direction: column;
@@ -19,8 +18,8 @@ export const GameWrapper = styled.div`
             justify-content: flex-start;
           }
         `
-      }
     }
+  }
   }
   & h1, h2 {
     font-size: 48px;
@@ -36,11 +35,11 @@ export const Message = styled.div`
   text-align: center;
   font-size: 32px;
   font-weight: bold;
-  ${ props => {
+  ${props => {
     if (props.type === 'alert') { return `border: 6px solid ${theme.colors.red};` }
     if (props.type === 'warn') { return `border: 6px solid ${theme.colors.dark_orange};` }
     return `border: 6px solid ${theme.colors.dark_blue};`
-  } }
+  }}
   border-radius: 10px;
   & p {
     margin: 10px 20px;
@@ -94,11 +93,31 @@ export const CardContainer = styled.div`
 export const StyledPercent = styled.div`
   margin: 0;
   font-weight: bold;
-  font-size: 32px;
+  font-size: 28px;
   margin-bottom: 30px;
+  @media (max-width: 768px) {
+    font-size: 24px;
+  }
 `;
 
 export const ButtonWrapper = styled.div`
   margin: 30px 0;
 `
 
+export const StyledIssue = styled.div`
+  font-style: italic;
+  font-weight: bold;
+  font-size: 28px;
+  @media (max-width: 768px) {
+    font-size: 24px;
+  }
+`
+
+export const StyledTitle = styled.div`  
+  font-weight: bold;
+  font-size: 40px;
+  padding-bottom: 10px;
+  @media (max-width: 768px) {
+    font-size: 30px;
+  }
+`

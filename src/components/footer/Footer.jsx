@@ -16,7 +16,7 @@ import logo from "../../assets/rs_school_js.svg";
 const Footer = () => (
   <StyledFooter>
     <StyledContainer>
-      <StyledContainerTitle>created by</StyledContainerTitle>
+      <StyledContainerTitle>Created by</StyledContainerTitle>
       <StyledLink
         href="https://github.com/armonlis"
         target="_blank"
@@ -42,7 +42,7 @@ const Footer = () => (
         Artur Zaleuski
       </StyledLink>
       <MentorContainer>
-        <MentorText>mentor</MentorText>
+        <MentorText>Mentor</MentorText>
         <MentorLink
           href="https://github.com/tatsmaki"
           target="_blank"

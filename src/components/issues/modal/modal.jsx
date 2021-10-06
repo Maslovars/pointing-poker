@@ -5,6 +5,7 @@ import {
   StyledSelect,
   SelectContainer,
   ButtonsContainer,
+  StyledPar,
 } from "./style";
 import PropTypes from "prop-types";
 import Input from "../../input/Input";
@@ -68,7 +69,7 @@ export default function Modal({
         onChange={(event) => setState({ ...state, link: event.target.value })}
       />
       <SelectContainer>
-        <p>Priority:</p>
+        <StyledPar>Priority:</StyledPar>
         <StyledSelect
           defaultValue={priority}
           onChange={(event) =>
@@ -90,16 +91,14 @@ export default function Modal({
         {mode === creatorMode.edit ? (
           <Button
             text="Ok"
-            color="white"
             onClick={() => {
-              dispatch(replaceIssue(state)); 
+              dispatch(replaceIssue(state));
               closeHandler();
             }}
           />
         ) : (
           <Button
             text="Ok"
-            color="white"
             onClick={() => {
               dispatch(addNewIssue(state));
               closeHandler();

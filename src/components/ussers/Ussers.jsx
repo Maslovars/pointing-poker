@@ -2,13 +2,10 @@ import React from "react";
 import {
   UsersContainer,
   UserWrapper,
-  LeaveButton,
   Wrapper,
   UserContainer,
   StyledLinkContainer,
-  StyledInput,
   InputsContainer,
-  StartButton,
 } from "./style";
 import { PropTypes } from 'prop-types';
 
@@ -17,6 +14,8 @@ import { useSelector } from "react-redux";
 import { socket } from "../../common/utils/socket/socket";
 import { LEAVE_GAME } from "../../common/utils/socket/constants";
 import { useLocation, Redirect } from "react-router-dom";
+import { StyledInput } from "../input/style";
+import Button from "../button/Button";
 
 export default function Ussers(props) {
   const { startGameHandler, gameData, leaveHandlerFunc, gameMode } = props;
@@ -32,10 +31,10 @@ export default function Ussers(props) {
     gameId = useLocation().pathname.replace(/\/\w*\//, "");
     leaveHandler = leaveHandlerFunc;
   } else {
-  users = useSelector((state) => state.appState.users);
-  userData = users.find((user) => user.userId === userId);
-  gameId = useLocation().pathname.replace(/\/\w*\//, "");
-  leaveHandler = () => { socket.emit(LEAVE_GAME, { gameId, userId }) };
+    users = useSelector((state) => state.appState.users);
+    userData = users.find((user) => user.userId === userId);
+    gameId = useLocation().pathname.replace(/\/\w*\//, "");
+    leaveHandler = () => { socket.emit(LEAVE_GAME, { gameId, userId }) };
   }
 
   const copyHandler = () => {
@@ -62,38 +61,45 @@ export default function Ussers(props) {
           )}
           {!!userData && !gameData && userData.isMaster && (
             <StyledLinkContainer>
-              <p>link to lobby:</p>
+              <p>Link to lobby:</p>
               <InputsContainer>
                 <StyledInput
                   id="link"
-                  width="350px"
                   type="text"
                   readOnly={true}
                   value={url}
                 />
-                <StyledInput
-                  width="75px"
+                <Button
                   type="button"
-                  defaultValue="COPY"
+                  text="Copy"
                   onClick={copyHandler}
                 />
               </InputsContainer>
-              <StartButton type='button' defaultValue="START NEW GAME" onClick={startGameHandler} />
+              <Button
+                type='button'
+                text="Start game"
+                margin="30px 0 10px 0"
+                onClick={startGameHandler} />
             </StyledLinkContainer>
           )}
         </UserWrapper>
-        { !gameMode && <LeaveButton
+        {!gameMode && <Button
           type="button"
-          defaultValue="LEAVE LOBBY"
+          color="white"
+          text="Leave lobby"
+          margin="30px 30px 10px 10px"
           onClick={leaveHandler}
-        /> }
-        { gameMode && <LeaveButton
+        />}
+        {gameMode && <Button
           gameMode={gameMode}
           type="button"
-          defaultValue="EXIT"
+          text="Exit"
+          color="white"
+          margin="30px 30px 10px 10px"
           onClick={leaveHandler}
-        /> }
+        />}
       </UserContainer>
+      <h2>Members:</h2>
       <UsersContainer gameMode={gameMode}>
         {users.map(
           (user) =>

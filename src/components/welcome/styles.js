@@ -18,6 +18,9 @@ export const Logo = styled.img`
   max-width: 480px;
   margin: 0 auto;
   padding-bottom: 20px;
+  @media (max-width: 768px) {
+    max-width: 400px;
+  } 
 `;
 export const StyledPar = styled.p`
   padding-bottom: 10px;
@@ -25,6 +28,10 @@ export const StyledPar = styled.p`
   margin: 0;
   font-size: 24px;
   line-height: 28px;
+  @media (max-width: 768px) {
+    font-size: 20px;
+    padding-right: 85px;
+  } 
 `;
 
 export const StyledText = styled.h2`
@@ -32,4 +39,7 @@ export const StyledText = styled.h2`
   font-weight: bold;
   font-size: 48px;
   line-height: 56px;
+  @media (max-width: 768px) {
+    font-size: 40px;
+  } 
 `;

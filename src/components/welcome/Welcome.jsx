@@ -40,7 +40,8 @@ const Welcome = () => {
             </WelcomeGroup>
             <StyledText>OR:</StyledText>
             <WelcomeGroup>
-                <Input id="url" value={gameId} onChange={handleUrlChange} text={"Connect to lobby by URL:"} endBtn={<Button onClick={handleOpenConnectForm} text="Connect" width="big" />} />
+                <Input id="url" value={gameId} onChange={handleUrlChange} text={"Connect to lobby by URL:"}
+                    endBtn={<Button onClick={handleOpenConnectForm} text="Connect" width="big" disabled={gameId ? false : true} />} />
             </WelcomeGroup>
             {console.log('handle popup im welcome.jsx', isOpenPopup)}
             {isOpenPopup &&
