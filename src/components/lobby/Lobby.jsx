@@ -18,12 +18,14 @@ import Issues from '../issues/Issues';
 import { modeTypes } from '../issues/constants';
 import Cards from '../cards/Cards';
 import { useHistory, withRouter } from 'react-router-dom';
-import { LobbyWrapper, Dashboard, StyledDiv } from './style';
+import { LobbyWrapper, Dashboard, StyledDiv, StyledImg } from './style';
+import icon from "../../assets/chat.svg";
 
 const Lobby = () => {
   const history = useHistory();
   const [isOpenPopup, setIsOpenPopup] = useState(false);
   const [user, setUser] = useState(undefined);
+  const [chat, setChat] = useState(true);
   const room = history.location.pathname.replace('/lobby/', '');
   const store = useSelector((state) => state.appState);
   const cards = store.cards.cardsSet;
@@ -107,9 +109,9 @@ const Lobby = () => {
           {user && user.isMaster && <GameSettingsForm getGameSettings={getGameSettings} />}
         </LobbyWrapper>
         <StyledDiv>
-          <Chat room={room} users={users} userId={user.userId} />
+          {chat && <Chat room={room} users={users} userId={user.userId} />}
         </StyledDiv>
-
+        <StyledImg src={icon} alt="chat" onClick={() => setChat(!chat)} />
       </Dashboard>
 
     )

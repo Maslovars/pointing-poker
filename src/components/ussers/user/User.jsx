@@ -23,8 +23,8 @@ export default function UserCard(props) {
       {ava && <AvatarImage width={width} height={height}><Image cloudName={process.env.REACT_APP_CLOUDINARY_CLOUD_NAME} publicId={ava} width="50" height="50" crop="fill" /></AvatarImage>}
       <TextContainer width={width} height={height}>
         <p>{name}</p>
-        {surname && <p>{surname}</p>}
-        {position && <p>{position}</p>}
+        {width ? null : (surname && <p>{surname}</p>)}
+        {width ? null : (position && <p>{position}</p>)}
       </TextContainer>
       {!master && (
         <ImgButton

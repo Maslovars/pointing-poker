@@ -103,6 +103,7 @@ export const StyledPercent = styled.div`
 
 export const ButtonWrapper = styled.div`
   margin: 30px 0;
+  display: flex;    
 `;
 
 export const StyledIssue = styled.div`
@@ -120,5 +121,16 @@ export const StyledTitle = styled.div`
   padding-bottom: 10px;
   @media (max-width: 768px) {
     font-size: 30px;
+  }
+`
+
+export const StyledImg = styled.img`  
+  position: absolute;
+  top: 30px;
+  right: 50px;
+  transition: ${theme.transition};
+  &:hover {
+    cursor:pointer;
+    transform: scale(1.2);
   }
 `
