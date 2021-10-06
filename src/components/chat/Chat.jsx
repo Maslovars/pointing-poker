@@ -74,7 +74,7 @@ const Chat = ({ room, users, userId }) => {
     return (<StyledChat>
         <StyledChatField>{userList}
         </StyledChatField>
-        <StyledChatForm onSubmit={handleSendMessage}><StyledInput type="text" value={message} onChange={handleChangeMessage}></StyledInput><StyledButton disabled={!message.length > 0} type="submit">Send</StyledButton></StyledChatForm>
+        <StyledChatForm onSubmit={handleSendMessage}><StyledInput type="text" value={message} maxLength="20" onChange={handleChangeMessage}></StyledInput><StyledButton disabled={!message.length > 0} type="submit">Send</StyledButton></StyledChatForm>
 
     </StyledChat>
     )
