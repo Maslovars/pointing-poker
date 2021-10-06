@@ -9,6 +9,7 @@ import { socket } from '../../common/utils/socket/socket';
 import { modeTypes } from "../issues/constants";
 import Cards from '../cards/Cards';
 import { CardsMode } from '../cards/constants';
+import Chat from '../chat/Chat';
 import {
   GameWrapper,
   MainContainer,
@@ -20,6 +21,7 @@ import {
   ButtonWrapper,
   StyledIssue,
   StyledTitle,
+  Dashboard
 } from './style';
 import { SET_GAME_DATA, GAME_DATA, LEAVE_GAME, PLAY_GAME_DATA, GET_PLAY_GAME_DATA, RESULTS_DATA } from "../../common/utils/socket/constants";
 import Button from '../button/Button';
@@ -101,9 +103,13 @@ const Game = () => {
     return (
       <GameWrapper>
         {isRedirect && <Redirect to='/' />}
-        {gameData && <UsersWrapper>
-          <Users gameMode={true} gameData={gameData} leaveHandlerFunc={leaveHandler} />
-        </UsersWrapper>}
+        {gameData && <Dashboard>
+          <UsersWrapper>
+            <Users gameMode={true} gameData={gameData} leaveHandlerFunc={leaveHandler} />
+          </UsersWrapper>
+          <Chat room={gameId} users={gameData.users} userId={userId} />
+        </Dashboard>
+        }
         {gameData && <MainContainer>
           {gameData.gameSettings.isTimer && <Timer maxTime={gameData.gameSettings.minutes * 60 + gameData.gameSettings.seconds} />}
           <Issues mode={modeTypes.player} gameIssues={gameData.issues} />

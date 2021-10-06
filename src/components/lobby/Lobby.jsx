@@ -1,10 +1,7 @@
 /* eslint-disable */
-
-
 import ConnectionFormContainer from '../connectionForm/ConnectionFormContainer';
 import Modal from '../modal/Modal';
 import React, { useState, useEffect } from 'react';
-import { withRouter } from 'react-router';
 import { socket } from "../../common/utils/socket/socket";
 import {
   GAME_DATA,
@@ -13,14 +10,15 @@ import {
   GAME_STARTED,
 } from '../../common/utils/socket/constants';
 import Users from '../ussers/Ussers';
+import Chat from '../chat/Chat';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateData } from '../../redux/actions/actions';
 import GameSettingsForm from '../gameSettingsForm/GameSettingsForm';
 import Issues from '../issues/Issues';
 import { modeTypes } from '../issues/constants';
 import Cards from '../cards/Cards';
-import { useHistory } from 'react-router-dom';
-import { LobbyWrapper } from './style';
+import { useHistory, withRouter } from 'react-router-dom';
+import { LobbyWrapper, Dashboard } from './style';
 
 const Lobby = () => {
   const history = useHistory();
@@ -99,13 +97,15 @@ const Lobby = () => {
   }, [])
   if (user) {
     return (
-      <LobbyWrapper>
+      <LobbyWrapper><Dashboard>
         <Users startGameHandler={startGame} />
+        <Chat room={room} users={users} userId={user.userId} />
+      </Dashboard>
         <h2>Issues:</h2>
         <Issues mode={mode} />
-        <h2>Add card values:</h2>
         {user && user.isMaster && <Cards mode={mode} />}
         {user && user.isMaster && <GameSettingsForm getGameSettings={getGameSettings} />}
+
       </LobbyWrapper>
     )
   }
