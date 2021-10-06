@@ -18,7 +18,7 @@ import Issues from '../issues/Issues';
 import { modeTypes } from '../issues/constants';
 import Cards from '../cards/Cards';
 import { useHistory, withRouter } from 'react-router-dom';
-import { LobbyWrapper, Dashboard } from './style';
+import { LobbyWrapper, Dashboard, StyledDiv } from './style';
 
 const Lobby = () => {
   const history = useHistory();
@@ -97,16 +97,21 @@ const Lobby = () => {
   }, [])
   if (user) {
     return (
-      <LobbyWrapper><Dashboard>
-        <Users startGameHandler={startGame} />
-        <Chat room={room} users={users} userId={user.userId} />
-      </Dashboard>
-        <h2>Issues:</h2>
-        <Issues mode={mode} />
-        {user && user.isMaster && <Cards mode={mode} />}
-        {user && user.isMaster && <GameSettingsForm getGameSettings={getGameSettings} />}
+      <Dashboard>
+        <LobbyWrapper>
+          <Users startGameHandler={startGame} />
+          {user.isMaster && <h2>Issues:</h2>}
+          <Issues mode={mode} />
+          {user.isMaster && <h2>Add card values:</h2>}
+          {user && user.isMaster && <Cards mode={mode} />}
+          {user && user.isMaster && <GameSettingsForm getGameSettings={getGameSettings} />}
+        </LobbyWrapper>
+        <StyledDiv>
+          <Chat room={room} users={users} userId={user.userId} />
+        </StyledDiv>
 
-      </LobbyWrapper>
+      </Dashboard>
+
     )
   }
   if (!user && !isOpenPopup) { return <div><h1>Please, wait</h1></div> }

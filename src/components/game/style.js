@@ -1,9 +1,8 @@
 import styled from "styled-components";
 import { theme } from "../../common/theme";
 
-export const GameWrapper = styled.div`
-  width: 90%;
-  min-width: 480px;
+export const GameWrapper = styled.div`  
+  min-width: 500px;
   display: flex;
   align-items: top;
   flex-wrap: wrap;
@@ -29,6 +28,9 @@ export const GameWrapper = styled.div`
     margin: 0;
     font-size: 28px;
   }
+  @media (max-width: 1024px) {    
+    justify-content: center;  
+  }  
 `;
 
 export const Message = styled.div`
