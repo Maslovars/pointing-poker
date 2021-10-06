@@ -3,7 +3,7 @@
 import { StyledButton } from "./style";
 
 
-const Button = ({ onClick, color, height, width, text, type }) => {
+const Button = ({ onClick, color, height, width, text, type, disabled, gameMode, margin }) => {
     return (
         <StyledButton
             onClick={onClick}
@@ -11,6 +11,9 @@ const Button = ({ onClick, color, height, width, text, type }) => {
             width={width}
             height={height}
             type={type}
+            disabled={disabled}
+            gameMode={gameMode}
+            margin={margin}
         >
             {text}
         </StyledButton>

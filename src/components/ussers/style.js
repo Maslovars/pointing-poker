@@ -3,8 +3,8 @@ import { theme } from "../../common/theme";
 
 export const Wrapper = styled.div`
   margin: 0;
-  width: 90vw;
-  min-width: 480px;
+  width: 60vw;
+  min-width: 500px;
   min-height: 90%;
   display: flex;
   flex-direction: column;
@@ -14,18 +14,18 @@ export const Wrapper = styled.div`
 
 export const UsersContainer = styled.div`
   margin: 0;
-  min-width: 480px;
+  min-width: 500px;
   display: flex;
   justify-content: space-around;
   flex-wrap: wrap;
-  ${ props => {
+  ${props => {
     if (props.gameMode === true) {
       return `{flex-direction: column;
               align-items: center;
               justify-content: flex-start;}
               `
-    } 
-  } }
+    }
+  }}
 `;
 export const UserContainer = styled.div`
   margin: 0;
@@ -37,7 +37,7 @@ export const UserContainer = styled.div`
   justify-content: space-between;
   flex-wrap: wrap;
   margin-bottom: 20px;
-  ${ props => {
+  ${props => {
     if (props.gameMode === true) {
       return `{width: 260px;
               min-width: 260px;
@@ -46,8 +46,8 @@ export const UserContainer = styled.div`
               justify-content: flex-start;
               min-height: 100px;}
               `
-    } 
-  } }
+    }
+  }}
 `;
 export const UserWrapper = styled.div`
   align-self: top;
@@ -61,16 +61,21 @@ export const StyledLinkContainer = styled.div`
   display: flex;
   min-width: 480px;
   flex-direction: column;
-  align-items: center;
-  justify-content: top;
+  ${'' /* align-items: center;
+  justify-content: top; */}
   font-size: 16px;
   line-height: 24px;
   font-weight: bold;
-  text-transform: uppercase;
+  ${'' /* text-transform: uppercase; */}
   margin-left: 10px;
   margin-top: 20px;
   & p {
     margin: 0;
+    padding: 5px 0;
+    font-style: italic;
+    font-weight: normal;
+    font-size: 24px;
+    line-height: 28px;
   }
 `;
 export const StyledInput = styled.input`
@@ -109,14 +114,14 @@ export const LeaveButton = styled.input`
   font-size: 24px;
   font-weight: bold;
   opacity: 0.3;
-  ${ props => {
+  ${props => {
     if (props.gameMode === true) {
       return `{align-self: center;
               margin-top: 30px;
               margin-right: 0;}
               `
-    } 
-  } }
+    }
+  }}
   cursor: pointer;
   &:hover {
     opacity: 1;

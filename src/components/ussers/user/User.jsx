@@ -6,7 +6,7 @@ import { Image } from "cloudinary-react";
 import { socket } from "../../../common/utils/socket/socket";
 import { KICK_PLAYER } from "../../../common/utils/socket/constants";
 export default function UserCard(props) {
-  const { name, surname, ava, position, master, id, room } = props;
+  const { name, surname, ava, position, master, id, room, width, height } = props;
   let avaText;
   const secondLetter = surname ? surname[0] : "";
   if (!ava) {
@@ -18,10 +18,10 @@ export default function UserCard(props) {
   };
 
   return (
-    <User>
-      {!ava && <Avatar>{avaText}</Avatar>}
-      { ava && <AvatarImage><Image cloudName={process.env.REACT_APP_CLOUDINARY_CLOUD_NAME} publicId={ava} width="50" height="50" crop="fill"/></AvatarImage>}
-      <TextContainer>
+    <User width={width} height={height} >
+      {!ava && <Avatar width={width} height={height}>{avaText}</Avatar>}
+      {ava && <AvatarImage width={width} height={height}><Image cloudName={process.env.REACT_APP_CLOUDINARY_CLOUD_NAME} publicId={ava} width="50" height="50" crop="fill" /></AvatarImage>}
+      <TextContainer width={width} height={height}>
         <p>{name}</p>
         {surname && <p>{surname}</p>}
         {position && <p>{position}</p>}
@@ -31,6 +31,8 @@ export default function UserCard(props) {
           id={id}
           type="image"
           src={del}
+          width={width}
+          height={height}
           onClick={(event) => clickHandler(event.target.id)}
         />
       )}
@@ -46,6 +48,8 @@ UserCard.propTypes = {
   master: PropTypes.bool.isRequired,
   id: PropTypes.string.isRequired,
   room: PropTypes.string.isRequired,
+  width: PropTypes.string.isRequired,
+  height: PropTypes.string.isRequired,
 };
 
 UserCard.defaultProps = {

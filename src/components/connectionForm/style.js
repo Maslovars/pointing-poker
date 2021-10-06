@@ -21,6 +21,9 @@ export const StyledHeading = styled.h2`
   font-size: 64px;
   line-height: 75px;
   margin-bottom: 0;
+  @media (max-width: 768px) {
+    font-size: 44px;
+  } 
 `;
 
 export const StyledFormSwitch = styled.div`
@@ -30,6 +33,9 @@ export const StyledFormSwitch = styled.div`
   display: flex;
   justify-content: flex-end;
   align-items: center;
+  @media (max-width: 818px) {
+    position: static;
+  } 
 `;
 
 export const StyledPar = styled.p`
@@ -37,6 +43,9 @@ export const StyledPar = styled.p`
   font-size: 24px;
   line-height: 28px;
   padding-right: 30px;
+  @media (max-width: 768px) {
+    font-size: 20px;
+  } 
 `;
 
 export const StyledError = styled.div`  
@@ -45,6 +54,11 @@ export const StyledError = styled.div`
   font-size: 14px;
   line-height: 18px;
   color: ${theme.colors.red};  
+  @media (max-width: 768px) {
+    font-size: 10px;
+    padding-top: 40px;
+    padding-left: 10px;
+  } 
 `;
 
 export const StyledFormControl = styled.div`  
