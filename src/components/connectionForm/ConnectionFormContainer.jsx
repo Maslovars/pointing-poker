@@ -64,7 +64,7 @@ const ConnectionFormContainer = ({ gameId, handlePopup, match, observer }) => {
 
     const addSocketListeners = () => {
         socket.on(LOBBY_CONNECTED, handleLobbyRedirect);
-        socket.on(GAMES_LIST, handleLobbyRedirect);
+        // socket.on(GAMES_LIST, handleLobbyRedirect);
         // socket.on(GAMES_LIST, (data) => {
         //     history.push({ pathname: `/lobby`, state: data })
         //     })
