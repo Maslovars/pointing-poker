@@ -1,9 +1,8 @@
-import styled from 'styled-components';
-import { theme } from '../../common/theme';
+import styled from "styled-components";
+import { theme } from "../../common/theme";
 
-export const GameWrapper = styled.div`
-  width: 90%;
-  min-width: 480px;
+export const GameWrapper = styled.div`  
+  min-width: 500px;
   display: flex;
   align-items: top;
   flex-wrap: wrap;
@@ -29,6 +28,9 @@ export const GameWrapper = styled.div`
     margin: 0;
     font-size: 28px;
   }
+  @media (max-width: 1024px) {    
+    justify-content: center;  
+  }  
 `;
 
 export const Message = styled.div`
@@ -43,7 +45,7 @@ export const Message = styled.div`
   border-radius: 10px;
   & p {
     margin: 10px 20px;
-  } 
+  }
 `;
 
 export const UsersWrapper = styled.div`
@@ -61,7 +63,6 @@ export const MainContainer = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-
 `;
 
 export const ResultContainer = styled.div`
@@ -102,7 +103,7 @@ export const StyledPercent = styled.div`
 
 export const ButtonWrapper = styled.div`
   margin: 30px 0;
-`
+`;
 
 export const StyledIssue = styled.div`
   font-style: italic;

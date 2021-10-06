@@ -9,6 +9,7 @@ import { socket } from '../../common/utils/socket/socket';
 import { modeTypes } from "../issues/constants";
 import Cards from '../cards/Cards';
 import { CardsMode } from '../cards/constants';
+import Chat from '../chat/Chat';
 import {
   GameWrapper,
   MainContainer,
@@ -19,11 +20,12 @@ import {
   StyledPercent,
   ButtonWrapper,
   StyledIssue,
-  StyledTitle,
+  StyledTitle
 } from './style';
 import { SET_GAME_DATA, GAME_DATA, LEAVE_GAME, PLAY_GAME_DATA, GET_PLAY_GAME_DATA, RESULTS_DATA } from "../../common/utils/socket/constants";
 import Button from '../button/Button';
 import { CardsContainer } from "../cards/styles";
+import { Dashboard, StyledDiv } from "../lobby/style";
 
 
 const Game = () => {
@@ -99,20 +101,25 @@ const Game = () => {
 
   if (!results) {
     return (
-      <GameWrapper>
-        {isRedirect && <Redirect to='/' />}
-        {gameData && <UsersWrapper>
-          <Users gameMode={true} gameData={gameData} leaveHandlerFunc={leaveHandler} />
-        </UsersWrapper>}
-        {gameData && <MainContainer>
-          {gameData.gameSettings.isTimer && <Timer maxTime={gameData.gameSettings.minutes * 60 + gameData.gameSettings.seconds} />}
-          <Issues mode={modeTypes.player} gameIssues={gameData.issues} />
-          <h2>Please choose difficulty for:</h2>
-          <h3>{name}</h3>
-          <Cards mode={CardsMode.player} gameCards={gameData.cards} additionalHandler={cardsAddHandler} />
-        </MainContainer>}
-        {!gameData && <Message><p>Please wait...</p></Message>}
-      </GameWrapper>
+      <Dashboard>
+        <GameWrapper>
+          {isRedirect && <Redirect to='/' />}
+          {gameData && <UsersWrapper>
+            <Users gameMode={true} gameData={gameData} leaveHandlerFunc={leaveHandler} />
+          </UsersWrapper>}
+          {gameData && <MainContainer>
+            {gameData.gameSettings.isTimer && <Timer maxTime={gameData.gameSettings.minutes * 60 + gameData.gameSettings.seconds} />}
+            <Issues mode={modeTypes.player} gameIssues={gameData.issues} />
+            <StyledTitle>Please choose difficulty for:</StyledTitle>
+            <StyledIssue>{name}</StyledIssue>
+            <Cards mode={CardsMode.player} gameCards={gameData.cards} additionalHandler={cardsAddHandler} />
+          </MainContainer>}
+          {!gameData && <Message><p>Please wait...</p></Message>}
+        </GameWrapper>
+        <StyledDiv>
+          {gameData && <Chat room={gameId} users={gameData.users} userId={userId} />}
+        </StyledDiv>
+      </Dashboard>
     )
   }
   if (results) {

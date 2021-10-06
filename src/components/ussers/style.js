@@ -3,7 +3,7 @@ import { theme } from "../../common/theme";
 
 export const Wrapper = styled.div`
   margin: 0;
-  width: 90vw;
+  width: 60vw;
   min-width: 500px;
   min-height: 90%;
   display: flex;
