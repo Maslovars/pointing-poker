@@ -1,0 +1,12 @@
+export const EDIT_CARD = 'EDIT_CARD';
+export const EDIT_CARD_CANCEL = 'EDIT_CARD_CANCEL';
+export const EDIT_CARD_ACCEPT = 'EDIT_CARD_ACCEPT';
+export const DELETE_CARD = 'DELETE_CARD';
+export const SET_SETTINGS_MODE = 'SET_SETTINGS_MODE';
+export const ADD_NEW_CARDS = 'ADD_NEW_CARDS';
+export const SELECT_CARD = 'SELECT_CARD';
+export const ADD_NEW_ISSUE = 'ADD_NEW_ISSUE';
+export const DELETE_ISSUE = 'DELETE_ISSUE';
+export const REPLACE_ISSUE = 'REPLACE_ISSUE';
+export const SELECT_ISSUE = 'SELECT_ISSUE';
+export const UPDATE_DATA = 'UPDATE_DATA';
